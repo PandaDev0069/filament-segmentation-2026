@@ -16,6 +16,7 @@ Some of the key features that make Yolo popular are:
 1. YOLO is extremely fast because it does not deal with complex pipelines. It can process images at **45 Frames Per Second (FPS)**. In addition, YOLO reaches more than twice the mean Average Precision (mAP) compared to other real-time systems, which makes it a great candidate for real-time processing. 
 
 From the graphic below, we observe that YOLO is far beyond the other object detectors with 91 FPS.
+
 ![1791953326942](image/Yolo/1791953326942.png)
 
 ## Yolo Architecture

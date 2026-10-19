@@ -1,0 +1,22 @@
+{
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "explicit",
+            "source.organizeImports.ruff": "explicit"
+        }
+    },
+    "black-formatter.args": [
+        "--line-length",
+        "88"
+    ],
+    "black-formatter.importStrategy": "fromEnvironment",
+    "notebook.codeActionsOnSave": {
+        "source.fixAll.ruff": "explicit",
+        "source.organizeImports.ruff": "explicit"
+    },
+    "notebook.formatOnSave.enabled": true,
+    "ruff.lint.run": "onSave",
+    "ruff.nativeServer": "on"
+}

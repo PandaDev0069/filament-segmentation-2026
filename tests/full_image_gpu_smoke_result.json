@@ -1,0 +1,52 @@
+{
+  "device": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+  "native_image_size": 2048,
+  "base_channels": 16,
+  "depth": 7,
+  "max_channels": 256,
+  "training_images": 2,
+  "validation_images": 1,
+  "loader_workers": 4,
+  "epochs": 1,
+  "probe_reports": [
+    {
+      "rank": 0,
+      "trials": [
+        {
+          "batch_size": 1,
+          "fits": true,
+          "out_of_memory": false,
+          "peak_allocated_bytes": 4126413312,
+          "peak_reserved_bytes": 4584374272,
+          "free_after_bytes": 2832203776,
+          "total_bytes": 8589410304,
+          "available_headroom_bytes": 2832203776,
+          "ddp_margin_bytes": 402653184,
+          "step_seconds": 0.6830643000000691,
+          "images_per_second": 1.4639910181221574,
+          "optimizer_state_allocated": true
+        }
+      ]
+    }
+  ],
+  "epoch_memory": [
+    {
+      "epoch": 1,
+      "per_rank": [
+        {
+          "rank": 0,
+          "peak_allocated_gib": 3.7960762977600098,
+          "peak_reserved_gib": 4.263671875,
+          "free_gib": 2.6435546875,
+          "total_gib": 7.99951171875
+        }
+      ]
+    }
+  ],
+  "single_forward_output_shape": [
+    2048,
+    2048
+  ],
+  "elapsed_seconds": 8.546832799999947,
+  "limitations": "Smoke test only: no quality claim, no dual-GPU CUDA measurement."
+}
