@@ -1,0 +1,30 @@
+{
+  "notebook_sha256": "454449e1ccb6b85cd4f4b421d3e07d9ef6510537c65d468566d43550ecb66b58",
+  "scope": "CPU-only checks; no model training, CUDA execution, Kaggle or dual-T4 test performed",
+  "passed": [
+    "notebook_schema_syntax_clean_outputs_and_kaggle_defaults",
+    "native_masks_annotation_formats_pq_and_rle_contracts",
+    "four_worker_total_budget",
+    "bounded_four_thread_order_and_error_propagation",
+    "gpu_visibility_mapping_and_thread_caps",
+    "notebook_runtime_bundle_imports_in_fresh_cpu_interpreter",
+    "native_cpu_loader_reuses_sampler_for_train_and_validation",
+    "yolo_worker_budget_no_extra_val_pool_and_amp_probe_restoration",
+    "requested_yolo_train_arguments_with_mock_model_only",
+    "inference_sharding_resume_and_byte_identical_cache_deduplication",
+    "threaded_native_prefetch_and_atomic_cache_writes_with_mock_models_only",
+    "post_training_metric_tables_and_sparse_grouped_plot_gallery",
+    "fresh_subprocess_overlap_worker_allocation_and_peer_cleanup_using_cpu_mock_jobs"
+  ],
+  "kaggle_dual_t4_execution": "not_run",
+  "gpu_throughput": "unmeasured",
+  "linux_multiworker_loader_execution": "not_run_on_this_Windows_host",
+  "requested_resources": {
+    "gpu_ids": [
+      0,
+      1
+    ],
+    "cpu_workers_total": 4,
+    "vram_budget_gib_per_gpu": 13.0
+  }
+}

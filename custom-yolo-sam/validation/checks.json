@@ -1,0 +1,63 @@
+{
+  "notebook_sha256": "656e4445e998782a6f90cf75f598326cd4d0389fc06ff234a1dd9a7c858a6d38",
+  "notebook_schema": "passed",
+  "code_syntax": "passed",
+  "contract_checks": "passed",
+  "organizer_randomized_parity_cases": 50,
+  "journal_resume_without_inference": "passed",
+  "mismatched_provenance_rejection": "passed",
+  "native_two_prompt_forward_backward": "passed",
+  "native_two_prompt_logits_shape": [
+    2,
+    512,
+    512
+  ],
+  "native_two_prompt_loss": 0.3918720781803131,
+  "edge_box_jitter": "passed",
+  "full_smoke_notebook_execution": "passed",
+  "submission_manifest": {
+    "mode": "smoke",
+    "submission_key": "2e9f7c552750acb2e3a7e7fcec97c12e5ae3cc7f8801ea3d8ee77efaa30e78ef",
+    "provenance": {
+      "run": "c4e7153a4b4dbe83e0818c5981764f0c24ccced95bf8bd9e8f61fe0a88d4e0d9",
+      "mode": "smoke",
+      "native_size": 2048,
+      "yolo_sha256": "74d4089b608be0c18b6d3155641abd55be09b4577123c409d166021855c54e1a",
+      "sam_sha256": "318e0d342980329dd2ec20b73ec40bc6a8973a96dc17dc422b30b82aea3dd713",
+      "sam_base_sha256": "3c1e81ca9b037dd39d70a014ddb9a813d6c4c4e12555420db7eaff31689bd4e3",
+      "predict": {
+        "proposal_conf": 0.05,
+        "box_iou": 0.7,
+        "max_det": 100
+      },
+      "box_pad": 8
+    },
+    "parameters": {
+      "det_conf": 0.05,
+      "mask_threshold": 0.4,
+      "mask_nms_iou": 0.8,
+      "min_area": 1
+    },
+    "csv_sha256": "51987c6bf9a01299ec3f50041fff64205206baf26bd937232821d605c0de3e92",
+    "sources": 2,
+    "instances": 155,
+    "zero_prediction_sources": [],
+    "instances_per_source": {
+      "20110120105534Ch.jpeg": 99,
+      "20110130110334Ch.jpeg": 56
+    }
+  },
+  "environment": {
+    "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+    "packages": {
+      "torch": "2.14.1+cu132",
+      "torchvision": "0.29.1+cu132",
+      "ultralytics": "8.4.198",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "pycocotools": "2.0.11"
+    },
+    "device": "cuda:0",
+    "gpu": "NVIDIA GeForce RTX 3070 Ti Laptop GPU"
+  }
+}
