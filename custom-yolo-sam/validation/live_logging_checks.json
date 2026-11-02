@@ -1,0 +1,13 @@
+{
+  "notebook_sha256": "65b7047fa5448c33b865ccb57981925698e037ef65b0a00b367ba13993c37d37",
+  "scope": "Targeted CPU-only live-log checks; no CUDA training or dual-T4 execution",
+  "passed": [
+    "incremental_utf8_progress_ansi_and_final_line",
+    "two_real_cpu_subprocess_logs_visible_before_exit_and_preserved_on_disk",
+    "failure_traceback_streaming_and_peer_termination",
+    "streaming_toggle_preserves_log_files",
+    "sam_in_epoch_train_and_validation_progress_using_cpu_scalar_model",
+    "clean_notebook_syntax_and_logging_excluded_from_training_identity"
+  ],
+  "kaggle_dual_t4_execution": "not_run"
+}

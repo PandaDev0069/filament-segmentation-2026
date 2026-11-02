@@ -99,8 +99,12 @@ All hyperparameters are in `CFG`, grouped by `split`, `merge`, `yolo`, `sam`,
 `predict` and `search`. Change `run_name` for a new experiment. Settings incompatible
 with existing training artifacts are rejected. Stage flags reuse checkpoints;
 per-model `resume` settings recover interrupted training. Per-job logs appear in
-`logs/`; notebook-derived runtime bundles appear in `runtime/`. The notebook prints
-periodic job status and stops peer jobs when a GPU worker fails.
+`logs/`; notebook-derived runtime bundles appear in `runtime/`. Worker stdout and
+stderr stream into the running cell with `[train_yolo]` and `[train_sam]` labels.
+SAM logs image counts, running loss, learning rate and elapsed time during training,
+plus validation progress. `resources.stream_logs`, `resources.log_poll_seconds`
+and `sam.log_every_images` control the display. Complete log files are retained.
+The notebook also prints periodic job status and stops peers when a worker fails.
 
 Outputs include the split and data audit, merged-mask preview, detector and SAM
 checkpoints, epoch histories, native SAM probe, validation PQ and foreground

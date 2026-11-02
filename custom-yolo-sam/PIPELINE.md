@@ -231,7 +231,18 @@ JSON runtime bundles; separate Python modules and custom-trainer pickles are not
 needed. Linux CPU loader workers use `fork` and never create CUDA objects.
 
 The notebook process keeps metrics/preparation on CPU and releases GPU worker
-processes between stages. Per-job logs and periodic status make failures visible;
+processes between stages. Per-job stdout/stderr are streamed into the running notebook cell, prefixed by
+worker name, while complete raw logs remain on disk. Incremental readers handle
+UTF-8 split across writes, terminal escape codes, carriage-return progress updates
+and the final output without a newline. Readers are polled by the coordinator;
+they add no CPU worker threads. The display keeps the latest overwritten progress
+row per poll, preserving ordinary log lines. `resources.stream_logs` can disable
+mirroring, and `resources.log_poll_seconds` sets its cadence (default 0.5 seconds).
+SAM reports progress every `sam.log_every_images` images (default 16) and at the
+end of each phase, including running loss, learning rate and elapsed time.
+Display-only settings do not change checkpoint or cache identities.
+
+Per-job logs and periodic status make failures visible;
 failed stages leave usable caches/checkpoints for recovery. The CPU and loader
 thread counts are bounded, although Python coordinators and CUDA housekeeping
 threads also exist and are not counted as loader workers.

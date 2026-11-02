@@ -8,9 +8,17 @@ here**. No CUDA model execution or new training run was performed for this updat
 Linux multiworker loader execution and the 13 GiB per-GPU allocator budget remain
 unverified on Kaggle.
 
-On **2026-11-02**, 13 CPU check groups passed against the delivered notebook.
+The live-log update passed six targeted CPU checks on **2026-11-02**.
+[validation/live_logging_checks.json](validation/live_logging_checks.json) records
+the current notebook SHA-256 and results: incremental UTF-8/progress parsing,
+logs observed before two real CPU subprocesses exited, failure tracebacks and peer
+termination, disabling mirroring while retaining log files, SAM train/validation
+progress with a CPU scalar model, and clean notebook/checkpoint-identity checks.
+These tests do not execute YOLO/SAM models on GPUs.
+
+Before the logging update, 13 CPU check groups passed against the Kaggle revision.
 [validation/kaggle_cpu_checks.json](validation/kaggle_cpu_checks.json) records its
-current SHA-256, scope and results:
+then-current SHA-256, scope and results:
 
 - Notebook schema, Python syntax, clean outputs and resource defaults.
 - Existing annotation-format, union-mask, native-size, PQ and RLE contracts.
