@@ -41,7 +41,7 @@ scores as an exact replication of the old validation run.
 | Stage | GPU scheduling | CPU work |
 |---|---|---|
 | Source audit and native target preparation | CPU | Four bounded threads |
-| Training each variant | Both GPUs with DDP; one image per GPU | Two loader workers per rank; validation loaders have zero workers |
+| Training each variant | Both GPUs with DDP; two images per GPU (global batch 4) | Two loader workers per rank; validation loaders have zero workers |
 | Validation and test prediction | One replica per GPU, disjoint source shards | Two threads per GPU for prefetch and RLE encoding |
 | Threshold selection and submission | Cached native masks on CPU | Four bounded threads and one ordered CSV writer |
 
@@ -52,12 +52,23 @@ disabled, and variants share exact target files rather than materialized image
 copies. Lower batch size, model size or loader workers if required by a different
 hardware profile.
 
-For two-source smoke runs the SDK disables additional loader workers because each
-rank has only one batch; `Using 0 dataloader workers` is expected. This refers to
-CPU loading, not GPU use. Full mode requests two workers per rank. Weights are
+The default smoke split now has eight sources per partition, giving each GPU two
+full batches of two images. The earlier two-source smoke used only one image per
+rank and could not measure batch-two memory. For such tiny splits the SDK disables
+extra loader workers; `Using 0 dataloader workers` refers to CPU loading, not GPU use.
+The configured training loader budget remains two workers per rank. Weights are
 resolved/downloaded in the coordinator before DDP starts, preventing two ranks
 from writing the same download. Inference uses `quantize=16` for FP16, and unused
 Ray Tune integration is disabled.
+
+Each rank writes `native_memory_rank*.json` with actual batch sizes and peak
+allocated/reserved training memory. Two images per GPU is the new starting setting,
+based on the supplied one-image T4 log reporting 5.26 GiB; the larger batch has not
+yet been measured on T4s. Check both ranks' reports before trying three images per
+GPU. Native validation and prediction keep one image per GPU at a time.
+Peak reports use [PyTorch's peak memory counters](https://docs.pytorch.org/docs/stable/generated/torch.cuda.memory.max_memory_allocated.html),
+reset for each training epoch. The default run name is now
+`yolo26s_native_union_b2`, keeping these results separate from batch-one runs.
 
 Each variant writes checkpoints, histories, logs, native tensor evidence,
 per-annotator/source validation metrics and threshold trials. The highest

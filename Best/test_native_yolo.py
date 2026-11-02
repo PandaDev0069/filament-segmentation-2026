@@ -92,6 +92,55 @@ def test_native_loss_sees_single_pixel_and_has_finite_gradients():
     assert torch.equal(labels, original)
 
 
+def test_two_image_native_loss_preserves_each_images_target_and_gradients():
+    from types import SimpleNamespace
+    loss_fn = native.NativeMaskLoss.__new__(native.NativeMaskLoss)
+    loss_fn.hyp = SimpleNamespace(box=1.0)
+    loss_fn.loss_names = ("box", "seg", "cls", "dfl", "sem")
+    fg = torch.ones((2, 1), dtype=torch.bool)
+    indices = torch.zeros((2, 1), dtype=torch.long)
+    boxes = torch.tensor([[[0., 0., 1., 1.]], [[2047., 2047., 2048., 2048.]]])
+    loss_fn.get_assigned_targets_and_loss = lambda preds, batch: ((fg, indices, boxes, None, None), torch.zeros(3), {})
+    proto = torch.zeros((2, 2, 8, 8), requires_grad=True)
+    coefficient = torch.ones((2, 2, 1), requires_grad=True)
+    masks = torch.zeros((2, 2048, 2048), dtype=torch.int32)
+    masks[0, 0, 0] = 1
+    masks[1, 2047, 2047] = 1
+    original = masks.clone()
+    loss, metrics = loss_fn.loss({"proto": proto, "mask_coefficient": coefficient}, {"masks": masks})
+    assert loss[1].item() == pytest.approx(2 * np.log(2), rel=1e-5)
+    loss.sum().backward()
+    assert torch.isfinite(proto.grad).all()
+    assert all(proto.grad[i].sum() < 0 for i in range(2))
+    assert torch.equal(masks, original)
+
+
+def test_training_default_uses_four_global_images_on_two_gpus(tmp_path, monkeypatch):
+    from types import SimpleNamespace
+    cfg = notebook_config()
+    cfg["mode"] = "smoke"
+    assert cfg["batch_per_gpu"] == 2 and cfg["smoke_sources"] >= 4 * len(cfg["gpu_ids"])
+    job_path = tmp_path / "job.json"
+    native.save_json(job_path, {"cfg": cfg, "run": str(tmp_path)})
+    captured = {}
+
+    class CaptureTrainer:
+        def __init__(self, overrides):
+            captured.update(overrides)
+
+        def train(self):
+            captured["called"] = True
+
+    monkeypatch.setattr(native, "NativeTrainer", CaptureTrainer)
+    monkeypatch.setattr(torch.cuda, "set_device", lambda device: None)
+    monkeypatch.setattr(torch.cuda, "set_per_process_memory_fraction", lambda fraction, device: None)
+    monkeypatch.setattr(torch.cuda, "get_device_properties", lambda device: SimpleNamespace(total_memory=15 * 2**30))
+    native.train_job(job_path)
+    assert captured["batch"] == 4 and captured["device"] == "0,1"
+    assert captured["imgsz"] == 2048 and captured["mask_ratio"] == 1
+    assert captured["workers"] == 2 and captured["nbs"] == 64 and captured["called"]
+
+
 def test_pq_strict_threshold_overlapping_gt_and_empty():
     a = np.zeros((2048, 2048), bool)
     a[0, 0:4] = True

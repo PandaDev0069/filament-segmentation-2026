@@ -393,7 +393,40 @@ class NativeValidator(SegmentationValidator):
         return result
 
 
+def reset_native_train_memory(trainer):
+    if trainer.device.type == "cuda":
+        torch.cuda.reset_peak_memory_stats(trainer.device)
+    trainer._native_batch_sizes = set()
+
+
+def record_native_train_memory(trainer):
+    if trainer.device.type != "cuda":
+        return
+    torch.cuda.synchronize(trainer.device)
+    report = {"rank": max(RANK, 0), "epoch": trainer.epoch + 1, "device": str(trainer.device),
+              "requested_batch_per_gpu": trainer.native_cfg["batch_per_gpu"],
+              "observed_batch_sizes": sorted(trainer._native_batch_sizes),
+              "peak_train_allocated_gib": torch.cuda.max_memory_allocated(trainer.device) / 2**30,
+              "peak_train_reserved_gib": torch.cuda.max_memory_reserved(trainer.device) / 2**30,
+              "device_total_gib": torch.cuda.get_device_properties(trainer.device).total_memory / 2**30}
+    report["allocator_budget_gib"] = min(trainer.native_cfg["vram_budget_gib"], 0.9 * report["device_total_gib"])
+    path = trainer.save_dir / f"native_memory_rank{max(RANK, 0)}.json"
+    previous = load_json(path) if path.exists() else {}
+    for name in ("allocated", "reserved"):
+        key = f"max_train_{name}_gib"
+        report[key] = max(previous.get(key, 0), report[f"peak_train_{name}_gib"])
+    save_json(path, report)
+    print(f"[rank {max(RANK, 0)}] native training batches {report['observed_batch_sizes']}; "
+          f"peak allocated {report['peak_train_allocated_gib']:.2f} GiB, "
+          f"peak reserved {report['peak_train_reserved_gib']:.2f} GiB", flush=True)
+
+
 class NativeTrainer(SegmentationTrainer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.add_callback("on_train_epoch_start", reset_native_train_memory)
+        self.add_callback("on_train_epoch_end", record_native_train_memory)
+
     def get_dataset(self):
         self.job = load_json(self.args.data)
         self.native_cfg = self.job["cfg"]
@@ -420,6 +453,7 @@ class NativeTrainer(SegmentationTrainer):
         assert_native(batch["img"])
         assert_native(batch["masks"])
         batch = super().preprocess_batch(batch)
+        self._native_batch_sizes.add(int(batch["img"].shape[0]))
         rank = max(RANK, 0)
         audit = self.save_dir / f"native_tensor_rank{rank}.json"
         if not audit.exists():

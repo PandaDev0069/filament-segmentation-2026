@@ -5,7 +5,7 @@ Ultralytics 8.4.198 and one NVIDIA GeForce RTX 3070 Ti Laptop GPU with 8 GiB VRA
 The default notebook targets Kaggle T4 ×2. Direct local verification used one GPU;
 the user also supplied a successful raw two-T4 smoke log, described below.
 
-`python -m pytest Best/test_native_yolo.py -q` passed **10 tests**. They check:
+`python -m pytest Best/test_native_yolo.py -q` passed **12 tests**. They check:
 
 - Notebook schema, Python compilation and equality of embedded/runtime source.
 - Native union across masks, one-pixel/thin-component preservation and exact RLE round trips.
@@ -21,6 +21,10 @@ the user also supplied a successful raw two-T4 smoke log, described below.
 - Weight resolution completes before launch, downloads only once, and supplies an
   absolute checkpoint path plus SHA-256 to the workers.
 - Ray Tune tracking is disabled and the current `quantize` configuration accepts FP16/FP32.
+- Two-image native mask loss preserves independent target maps and supplies finite
+  gradients for both images, including opposite-corner one-pixel instances.
+- The new defaults request global batch 4 across two GPUs, two loader workers per
+  rank, native 2048 inputs, and mask ratio 1.
 
 The full notebook executed all **9 code cells** with local overrides `gpu_ids=[0]`,
 absolute dataset/weight paths, and a separate validation output directory.
@@ -68,3 +72,18 @@ The training algorithm and native-grid policy are unchanged by this cleanup.
 Full-data training, a complete four-variant dual-T4 workflow, throughput and new
 competition quality remain unmeasured. Let all smoke stages finish before full
 mode, and inspect both `native_tensor_rank0.json` and `native_tensor_rank1.json`.
+
+The current notebook increases training to two images per GPU and eight smoke
+sources per split, with a fresh `yolo26s_native_union_b2` run name. This avoids
+silently reusing batch-one checkpoints and makes the smoke actually exercise
+two full batches per rank. Validation and prediction retain one image per GPU.
+Per-rank epoch memory reports record allocated/reserved training peaks and actual
+batch sizes, using PyTorch peak counters reset at the start of each training epoch.
+The current batch-two T4 capacity is a proposed setting based on the supplied
+5.26 GiB batch-one log; batch-two training on T4s has not been measured here.
+
+A fresh local single-GPU control epoch with the updated callbacks completed at
+batch one and native 2048 resolution. Its memory report recorded 4.41 GiB peak
+allocated and 5.25 GiB peak reserved, with observed batch sizes `[1]`. This verifies
+the new counters and callback lifecycle, not batch-two T4 capacity. The control
+artifacts are in [batch2_revision_single_gpu_control](validation/batch2_revision_single_gpu_control/).

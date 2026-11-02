@@ -47,11 +47,11 @@ code('''
 from pathlib import Path
 import os
 
-MODE = "smoke"                 # "smoke": 2 sources per partition, 1 epoch; "full": entire split
+MODE = "smoke"                 # "smoke": 8 sources per partition, 1 epoch; "full": entire split
 CFG = {
     "data_root": "",           # folder containing train/ and test/; empty = local/Kaggle discovery
     "output_root": "/kaggle/working" if Path("/kaggle").exists() else "./native_outputs",
-    "run_name": "yolo26s_native_union_v1",  # change when experiment settings change
+    "run_name": "yolo26s_native_union_b2",  # fresh directory for the larger per-GPU batch
     "gpu_ids": [0, 1],          # two T4s; explicitly set [0] for a single-GPU smoke check
     "cpu_workers": 4,          # TOTAL CPU pool workers or training loader workers across GPUs
     "vram_budget_gib": 13.0,   # per GPU; memory is separate on each GPU
@@ -60,7 +60,7 @@ CFG = {
     "weights": "yolo26s-seg.pt",  # alternatively the absolute saved-baseline best.pt path
     "epochs": 150,
     "patience": 20,
-    "batch_per_gpu": 1,        # global batch 2 on 2 GPUs; no automatic image-size reduction
+    "batch_per_gpu": 2,        # global batch 4 on 2 GPUs; no automatic image-size reduction
     "nominal_batch": 64,       # Ultralytics gradient accumulation target
     "lr0": 0.001,
     "amp": True,
@@ -75,7 +75,7 @@ CFG = {
     },
     "confidences": [0.15, 0.25, 0.35, 0.45, 0.55],
     "max_det": 100,
-    "smoke_sources": 2,
+    "smoke_sources": 8,         # 4 sources/rank: exercises two real batches of 2 on each GPU
     "plots": True,
     "resume": False,          # recover an interrupted run using its last.pt
 }
@@ -97,11 +97,19 @@ GPU for prefetch/encoding. Numerical library threads are capped at one. Checkpoi
 per-anchor mask loss trades computation for bounded native-mask activation memory.
 GPU VRAM is **not pooled**; each GPU must fit its own full image and model.
 
-The two-source smoke dataset has one batch per GPU, so the SDK may print
-`Using 0 dataloader workers`. This does not disable either GPU. Full mode requests
-two loader workers per rank. Pretrained weights are resolved once in the notebook
-coordinator before DDP starts; both ranks receive the same absolute checkpoint path.
+Training defaults to two images per GPU, four total. The eight-source smoke split
+has two full batches per rank, so it exercises the actual batch size and loader
+workers. If you reduce smoke sources to two, each rank only receives one image and
+the SDK may print `Using 0 dataloader workers`; that does not measure batch-two memory.
+Training requests two loader workers per rank. Pretrained weights are resolved once
+in the notebook coordinator before DDP starts; both ranks receive the same absolute checkpoint path.
 Optional Ray Tune tracking is disabled, and prediction uses `quantize=16` for FP16.
+
+`native_memory_rank*.json` records peak allocated/reserved training memory and actual
+batch sizes for each GPU. The allocator budget remains 13 GiB per T4, leaving room
+for CUDA and distributed communication. The earlier one-image smoke log reported
+5.26 GiB, suggesting room for two; fitting two or more on dense images still requires
+the Kaggle smoke check. Validation and prediction process one image per GPU at a time.
 ''')
 code('''
 import importlib.util
@@ -294,6 +302,11 @@ for variant in VARIANTS:
     audits = [native.load_json(p) for p in sorted(run_dir.glob("native_tensor_rank*.json"))]
     assert len(audits) == len(CFG["gpu_ids"]), f"Missing GPU rank evidence for {variant}"
     display(audits)
+    memory = [native.load_json(p) for p in sorted(run_dir.glob("native_memory_rank*.json"))]
+    assert len(memory) == len(CFG["gpu_ids"]), f"Missing peak-memory evidence for {variant}"
+    display(pd.DataFrame(memory))
+    for audit in audits:
+        assert audit["image_tensor"][0] == CFG["batch_per_gpu"], "Smoke split did not exercise the requested batch size."
 
 groups = {
     "Performance": ["results.png"],
@@ -368,6 +381,7 @@ md('''
 - `preprocessing_preview.png`, `preprocessing_comparison.csv`: image transforms and validation comparison.
 - `<variant>/weights/{best,last}.pt`, `results.csv`, `logs/`: training artifacts and recovery logs.
 - `<variant>/native_tensor_rank*.json`: actual native tensor shapes and GPU ranks.
+- `<variant>/native_memory_rank*.json`: per-rank peak training memory and observed batch sizes.
 - `<variant>/validation_per_annotator.csv`, `validation_per_source.csv`, `threshold_metrics.csv`: scoring evidence.
 - `<winner>/submission.csv` and its manifest: full-run submission and source coverage.
 
