@@ -1,0 +1,62 @@
+{
+  "model": "yolo11s-seg.pt",
+  "checkpoint": "/kaggle/working/preprocessing_solar_union_v3_3c70ef0d51/yolo_runs/yolo11s_full_resolution/weights/best.pt",
+  "weights_sha256": "22aacac325c88412e78297f610c9b2f5083eda2144ae087934a1d70fd777b40b",
+  "postprocessing": {
+    "confidence": 0.2,
+    "clip_to_disk": false,
+    "mode": "hysteresis",
+    "t_lo": 0.5,
+    "t_hi": 0.9,
+    "min_meanp": 0.75,
+    "min_area": 200
+  },
+  "inference": {
+    "tta_views": 8,
+    "confidences": [
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ],
+    "decoder": "native_sigmoid_chunked_v1",
+    "image_size": 2048,
+    "preprocessing_method": "solar",
+    "preprocessing": {
+      "clahe_clip": 1.2,
+      "clahe_grid": [
+        16,
+        16
+      ],
+      "clahe_strength": 0.25,
+      "radial_strength": 0.65,
+      "radial_gain_limits": [
+        0.8,
+        1.25
+      ],
+      "percentiles": [
+        0.5,
+        99.5
+      ],
+      "gamma": 0.9,
+      "disk_margin": 1.02,
+      "disk_stats_radius": 0.95,
+      "normalized_mean": 128.0,
+      "normalized_std": 32.0,
+      "morphology_strength": 0.25,
+      "salience_size": 1024,
+      "blackhat_kernels": [
+        9,
+        19,
+        33
+      ]
+    },
+    "predict_nms_iou": 0.7,
+    "max_det": 300
+  },
+  "mask_postprocessing_version": "solar_d4_hysteresis_nonoverlap_v3",
+  "calibration_PQ": 0.42038546823738143,
+  "run_fingerprint": "3c70ef0d515df09d22556509ce6e4d034d7429aea2bb2404e9f3ca672c67fdfe"
+}

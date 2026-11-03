@@ -1,0 +1,12 @@
+{
+  "policy": "bounded",
+  "budget_gib": 19.502090454101562,
+  "dataset_growth_gib": 2.728515625,
+  "checkpoint_growth_gib": 2.0,
+  "prediction_peak_gib": 4.61083984375,
+  "peak_cached_images": 152,
+  "reserve_gib": 6.0,
+  "required_gib": 15.33935546875,
+  "image_cache_growth_gib": 9.3017578125,
+  "yolo_cache": false
+}

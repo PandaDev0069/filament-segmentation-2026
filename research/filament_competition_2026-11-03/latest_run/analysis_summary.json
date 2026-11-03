@@ -1,0 +1,155 @@
+{
+  "archive": "Best/results.zip",
+  "run": "preprocessing_solar_union_v3_3c70ef0d51",
+  "model": "yolo11s-seg.pt",
+  "report": {
+    "PQ": 0.42341357992502393,
+    "SQ": 0.6651084352733463,
+    "RQ": 0.6366083445491252,
+    "TP": 473,
+    "FP": 211,
+    "FN": 329,
+    "images": 72,
+    "views": 122
+  },
+  "calibration": {
+    "PQ": 0.42038546823738143,
+    "SQ": 0.6705407715588849,
+    "RQ": 0.6269349845201239,
+    "TP": 405,
+    "FP": 167,
+    "FN": 315,
+    "images": 74,
+    "views": 112
+  },
+  "public_pq_user_reported": 0.33,
+  "report_public_gap": 0.09341357992502392,
+  "report_precision": 0.6915204678362573,
+  "report_recall": 0.5897755610972568,
+  "report_date_bootstrap_95ci": [
+    0.3944361946839734,
+    0.45064532937602036
+  ],
+  "requested_epochs": 100,
+  "completed_epochs": 41,
+  "best_mask_map_epoch": 36,
+  "final_learning_rate": 0.000657963,
+  "evaluated_checkpoints": [
+    "/kaggle/working/preprocessing_solar_union_v3_3c70ef0d51/yolo_runs/yolo11s_full_resolution/weights/best.pt"
+  ],
+  "selected_postprocessing": {
+    "confidence": 0.2,
+    "clip_to_disk": false,
+    "mode": "hysteresis",
+    "t_lo": 0.5,
+    "t_hi": 0.9,
+    "min_meanp": 0.75,
+    "min_area": 200
+  },
+  "calibration_mode_best": [
+    {
+      "mode": "hysteresis",
+      "PQ": 0.4203854682373814,
+      "TP": 405,
+      "FP": 167,
+      "FN": 315
+    },
+    {
+      "mode": "hysteresis_morph",
+      "PQ": 0.3781578834334282,
+      "TP": 401,
+      "FP": 248,
+      "FN": 319
+    },
+    {
+      "mode": "union_cc",
+      "PQ": 0.3558426267456175,
+      "TP": 331,
+      "FP": 182,
+      "FN": 389
+    }
+  ],
+  "report_zero_prediction_images": 9,
+  "report_gt_on_zero_prediction_images": 30,
+  "report_predictions_per_physical_image": 5.694444444444445,
+  "test_zero_prediction_images": 16,
+  "test_predictions_per_image": 5.583333333333333,
+  "submission_checksum_matches_audit": true,
+  "independently_verified_all_rles": true,
+  "disk_fit_cache_status_disagreements": [],
+  "disk_fit_by_partition": [
+    {
+      "partition": "calibration",
+      "size": 74,
+      "sum": 69,
+      "failed": 5
+    },
+    {
+      "partition": "report",
+      "size": 72,
+      "sum": 67,
+      "failed": 5
+    },
+    {
+      "partition": "test",
+      "size": 180,
+      "sum": 160,
+      "failed": 20
+    },
+    {
+      "partition": "train",
+      "size": 561,
+      "sum": 513,
+      "failed": 48
+    }
+  ],
+  "calibration_fn_categories": {
+    "little_matching_component_support": 125,
+    "partial_shape_or_grouping_mismatch": 113,
+    "matching_component_filtered": 77
+  },
+  "calibration_recall_by_area": [
+    {
+      "area_group": "<500",
+      "instances": 94,
+      "matched": 22,
+      "recall": 0.23404255319148937
+    },
+    {
+      "area_group": "500-999",
+      "instances": 198,
+      "matched": 97,
+      "recall": 0.4898989898989899
+    },
+    {
+      "area_group": "1000-2499",
+      "instances": 274,
+      "matched": 179,
+      "recall": 0.6532846715328468
+    },
+    {
+      "area_group": ">=2500",
+      "instances": 154,
+      "matched": 107,
+      "recall": 0.6948051948051948
+    }
+  ],
+  "checkpoint_sha256": {
+    "best.pt": "22aacac325c88412e78297f610c9b2f5083eda2144ae087934a1d70fd777b40b",
+    "last.pt": "f333c90dc54bac90fba7aaca9902fecd78b9ba05b844090013a4ddd4b4833f71"
+  },
+  "test_counts_by_disk_fit": [
+    {
+      "fit_success": false,
+      "images": 20,
+      "zero_predictions": 13,
+      "predictions": 12
+    },
+    {
+      "fit_success": true,
+      "images": 160,
+      "zero_predictions": 3,
+      "predictions": 993
+    }
+  ]
+}

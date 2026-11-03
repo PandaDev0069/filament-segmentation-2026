@@ -1,0 +1,5 @@
+partition,size,sum,failed
+calibration,74,69,5
+report,72,67,5
+test,180,160,20
+train,561,513,48

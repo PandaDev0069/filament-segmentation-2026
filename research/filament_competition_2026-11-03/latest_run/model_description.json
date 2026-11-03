@@ -1,0 +1,6 @@
+{
+  "pretrained": "yolo11s-seg.pt",
+  "task": "segment",
+  "head": "Segment",
+  "parameters": 10113248
+}

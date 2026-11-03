@@ -1,0 +1,16 @@
+{
+  "example_file": "20151122172614Mh.jpeg",
+  "view_ids": [
+    "010102-20151122172614Mh",
+    "010103-20151122172614Mh",
+    "010101-20151122172614Mh"
+  ],
+  "union_mean_dice": 0.7079577181646678,
+  "crop_xywh": [
+    889,
+    228,
+    512,
+    512
+  ],
+  "selection": "three views, >=10 annotations, nearest to 25th percentile of union agreement"
+}
