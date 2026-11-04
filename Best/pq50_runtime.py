@@ -40,18 +40,19 @@ from torch.utils.data import DataLoader, Dataset, DistributedSampler
 cv2.setNumThreads(1)
 torch.set_num_threads(1)
 SIZE = 2048
-VERSION = "pq50-native-hybrid-v1"
+VERSION = "pq50-native-hybrid-v2-fp32"
 
 
 def default_config():
-    return dict(mode="full", data_root="", output_root="pq50_outputs", run_name="native_hybrid_v1",
-        gpu_ids=[0, 1], cpu_workers=4, seed=20261103, refit_full=True,
+    return dict(mode="full", data_root="", output_root="pq50_outputs", run_name="native_hybrid_v2_fp32",
+        gpu_ids=[0, 1], cpu_workers=4, seed=20261103, refit_full=False,
         calibration_fraction=.12, report_fraction=.12, minimum_free_gib=2.,
         dense_models=[dict(encoder="resnet34", crop=512),
                       dict(encoder="tu-tf_efficientnetv2_s", crop=768)],
         pretrained=True, dense_epochs=32, dense_steps=288, dense_batch_per_gpu=2,
-        dense_lr=3e-4, weight_decay=1e-4, accumulation=3, ema_decay=.995,
-        pq_every=4, tile_size=1024, tile_overlap=256, inference_batch=2,
+        dense_lr=3e-4, encoder_lr_scale=.1, weight_decay=1e-4, accumulation=3, ema_decay=.995,
+        dense_precision="float32", minimum_report_pq=.10, training_plots=True,
+        pq_every=2, tile_size=1024, tile_overlap=256, inference_batch=2,
         tta=4, detector_weights="yolo11m.pt", detector_size=2048,
         detector_epochs=45, detector_batch_per_gpu=1, detector_lr=.001,
         detector_conf=.07, max_det=100, max_dense_candidates=512, quality_folds=5,
@@ -80,6 +81,46 @@ def file_sha(path):
         for chunk in iter(lambda: f.read(1024 * 1024), b""):
             h.update(chunk)
     return h.hexdigest()
+
+
+def require_finite(tensor, context, synchronize=False):
+    """All training ranks stop together BEFORE backward/step on a bad value."""
+    bad = (~torch.isfinite(tensor.detach()).all()).to(dtype=torch.int32)
+    if synchronize and dist.is_initialized():
+        dist.all_reduce(bad, op=dist.ReduceOp.MAX)
+    if bad.item():
+        raise FloatingPointError(f"{context}: NaN/Inf detected. No invalid checkpoint or probability cache is accepted.")
+
+
+def require_finite_state(value, context="checkpoint"):
+    if torch.is_tensor(value):
+        if value.is_floating_point() or value.is_complex():
+            require_finite(value, context)
+    elif isinstance(value, dict):
+        for key, item in value.items():
+            require_finite_state(item, f"{context}.{key}")
+    elif isinstance(value, (list, tuple)):
+        for index, item in enumerate(value):
+            require_finite_state(item, f"{context}[{index}]")
+    elif isinstance(value, (float, np.floating)) and not math.isfinite(float(value)):
+        raise FloatingPointError(f"{context}: non-finite metadata")
+
+
+def quantize_probabilities(probability):
+    probability = np.asarray(probability)
+    if not np.isfinite(probability).all():
+        raise FloatingPointError("NaN/Inf mask probabilities; refusing the uint8 conversion that erased masks in v1.")
+    if probability.min() < -1e-6 or probability.max() > 1 + 1e-6:
+        raise ValueError("Mask probabilities must lie in [0, 1]")
+    return np.rint(np.clip(probability, 0, 1) * 255).astype(np.uint8)
+
+
+def load_dense_checkpoint(path):
+    value = torch.load(path, map_location="cpu", weights_only=False)
+    require_finite_state(value, str(path))
+    if "state" not in value or "spec" not in value:
+        raise ValueError(f"Missing dense checkpoint state/spec: {path}")
+    return value
 
 
 def bounded_map(fn, items, workers=4):
@@ -444,7 +485,10 @@ class CropDataset(Dataset):
         return torch.from_numpy(np.ascontiguousarray(x.transpose(2, 0, 1))), torch.from_numpy(np.ascontiguousarray(y.transpose(2, 0, 1)))
 
 
-def dense_loss(logits, targets):
+def dense_loss(logits, targets, check=True):
+    if check:
+        require_finite(logits, "mask loss logits")
+        require_finite(targets, "mask loss targets")
     with torch.autocast(device_type=logits.device.type, enabled=False):
         logits, targets = logits.float(), targets.float()
         p = logits.sigmoid()
@@ -465,6 +509,29 @@ def update_ema(ema, model, decay):
             dst.lerp_(src.detach(), 1 - decay)
         for dst, src in zip(ema.buffers(), model.buffers()):
             dst.copy_(src.detach())
+
+
+def dense_optimizer(model, cfg):
+    encoder = list(model.encoder.parameters())
+    encoder_ids = {id(p) for p in encoder}
+    decoder = [p for p in model.parameters() if id(p) not in encoder_ids]
+    return torch.optim.AdamW([
+        dict(params=encoder, lr_scale=cfg.get("encoder_lr_scale", .1)),
+        dict(params=decoder, lr_scale=1.),
+    ], lr=cfg["dense_lr"], weight_decay=cfg["weight_decay"])
+
+
+def dense_step(model, optimizer, ema, updates, decay, synchronize=False):
+    # Finite gradients and a finite global norm are required before the optimizer.
+    norm = nn.utils.clip_grad_norm_(model.parameters(), 1., error_if_nonfinite=False)
+    require_finite(norm, "mask gradient norm before optimizer", synchronize)
+    optimizer.step()
+    norms = torch.stack(torch._foreach_norm([p.detach() for p in model.parameters()]))
+    require_finite(norms, "mask parameters after optimizer", synchronize)
+    updates += 1
+    update_ema(ema, model, min(decay, (1 + updates) / (10 + updates)))
+    optimizer.zero_grad(set_to_none=True)
+    return updates
 
 
 def tile_starts(size, tile, overlap):
@@ -493,8 +560,12 @@ def dense_predict(model, image, device, tile=1024, overlap=256, batch=2, tta=4):
             dims = [] if t % 4 == 0 else [-1] if t % 4 == 1 else [-2] if t % 4 == 2 else [-2, -1]
             z = inp.transpose(-1, -2) if t >= 4 else inp
             z = z.flip(dims) if dims else z
-            with torch.autocast(device_type=device.type, enabled=device.type == "cuda"):
-                p = model(z).float().sigmoid()
+            # T4 FP16 activations produced NaNs in the failed run. Use float32
+            # for the complete mask forward, not merely the loss or sigmoid.
+            with torch.autocast(device_type=device.type, enabled=False):
+                logits = model(z.float())
+                require_finite(logits, "native mask inference logits")
+                p = logits.float().sigmoid()
             p = p.flip(dims) if dims else p
             p = p.transpose(-1, -2) if t >= 4 else p
             probabilities.add_(p, alpha=1 / tta)
@@ -502,7 +573,10 @@ def dense_predict(model, image, device, tile=1024, overlap=256, batch=2, tta=4):
         for (y, x), p in zip(pos, arrays):
             total[:, y:y + tile, x:x + tile] += p * hann
             weight[y:y + tile, x:x + tile] += hann
-    return total / np.maximum(weight, 1e-6)
+    result = total / np.maximum(weight, 1e-6)
+    if not np.isfinite(result).all():
+        raise FloatingPointError("Non-finite blended mask prediction")
+    return result
 
 
 def metric_counts(gt, predicted):
@@ -567,6 +641,7 @@ def full_rle(box, mask, shape=None):
 
 
 def checkpoint_save(path, value):
+    require_finite_state(value, str(path))
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_suffix(".tmp")
@@ -576,6 +651,8 @@ def checkpoint_save(path, value):
 
 def train_dense(config_path, member, full=False):
     cfg = load_json(config_path)
+    if cfg.get("dense_precision", "float32") != "float32":
+        raise ValueError("Corrected mask training requires dense_precision='float32'. YOLO retains its own AMP.")
     manifest = load_json(Path(cfg["run"]) / "manifest.json")
     device, rank, world = device_setup(cfg, distributed=True)
     seed_all(cfg["seed"] + member * 101)
@@ -584,6 +661,7 @@ def train_dense(config_path, member, full=False):
     out.mkdir(parents=True, exist_ok=True)
     done = out / "complete.json"
     if done.is_file():
+        load_dense_checkpoint(out / "best.pt")
         print(f"Already complete: {out}", flush=True)
         if dist.is_initialized(): dist.destroy_process_group()
         return
@@ -608,18 +686,17 @@ def train_dense(config_path, member, full=False):
         model = build_dense(spec, cfg["pretrained"])
     model = model.to(device)
     ema = copy.deepcopy(model).eval().requires_grad_(False)
-    optimizer = torch.optim.AdamW(model.parameters(), lr=cfg["dense_lr"], weight_decay=cfg["weight_decay"])
-    scaler = torch.amp.GradScaler("cuda")
+    optimizer = dense_optimizer(model, cfg)
     begin, best, best_epoch, updates = 0, -1., epochs, 0
     last = out / "last_training.pt"
     if last.is_file():
         state = torch.load(last, map_location="cpu", weights_only=False)
+        require_finite_state(state, str(last))
         if state["fingerprint"] != cfg["fingerprint"]:
             raise RuntimeError("Checkpoint configuration mismatch")
         model.load_state_dict(state["model"])
         ema.load_state_dict(state["ema"])
         optimizer.load_state_dict(state["optimizer"])
-        scaler.load_state_dict(state["scaler"])
         begin, best, best_epoch, updates = state["epoch"], state["best"], state["best_epoch"], state["updates"]
     wrapped = DDP(model, device_ids=[device.index], broadcast_buffers=False) if world > 1 else model
     if begin == 0:
@@ -639,28 +716,25 @@ def train_dense(config_path, member, full=False):
             fraction = (epoch + step / len(loader)) / max(epochs, 1)
             warm = min(1., (epoch * len(loader) + step + 1) / max(len(loader), 1))
             lr = cfg["dense_lr"] * warm * (.05 + .95 * (1 + math.cos(math.pi * fraction)) / 2)
-            for group in optimizer.param_groups: group["lr"] = lr
+            for group in optimizer.param_groups: group["lr"] = lr * group["lr_scale"]
             x, y = x.to(device, non_blocking=True), y.to(device, non_blocking=True)
+            require_finite(x, f"mask training input epoch {epoch+1} batch {step+1}", world > 1)
+            require_finite(y, f"mask training target epoch {epoch+1} batch {step+1}", world > 1)
             accumulation = cfg["accumulation"]
             last_group = step // accumulation == (len(loader) - 1) // accumulation
             group_size = len(loader) % accumulation if last_group and len(loader) % accumulation else accumulation
             update = (step + 1) % accumulation == 0 or step + 1 == len(loader)
             context = wrapped.no_sync() if world > 1 and not update else nullcontext()
             with context:
-                with torch.autocast("cuda"):
-                    loss = dense_loss(wrapped(x), y)
-                scaler.scale(loss / group_size).backward()
+                with torch.autocast("cuda", enabled=False):
+                    logits = wrapped(x.float())
+                    require_finite(logits, f"mask training logits epoch {epoch+1} batch {step+1}", world > 1)
+                    loss = dense_loss(logits, y, check=False)
+                require_finite(loss, f"mask loss epoch {epoch+1} batch {step+1}", world > 1)
+                (loss / group_size).backward()
             total += loss.detach().item()
             if update:
-                scaler.unscale_(optimizer)
-                nn.utils.clip_grad_norm_(model.parameters(), 1.)
-                previous_scale = scaler.get_scale()
-                scaler.step(optimizer)
-                scaler.update()
-                optimizer.zero_grad(set_to_none=True)
-                if scaler.get_scale() >= previous_scale:
-                    updates += 1
-                    update_ema(ema, model, min(cfg["ema_decay"], (1 + updates) / (10 + updates)))
+                updates = dense_step(model, optimizer, ema, updates, cfg["ema_decay"], world > 1)
             if step == 0:
                 audit = dict(rank=rank, world_size=world, gpu=str(device), gpu_name=torch.cuda.get_device_name(device),
                     observed_batch=int(x.shape[0]), native_crop=list(x.shape[-2:]),
@@ -671,7 +745,7 @@ def train_dense(config_path, member, full=False):
                 print(f"Dense {member} rank {rank}: epoch {epoch+1}/{epochs}, step {step+1}/{len(loader)}, "
                       f"loss {total/(step+1):.4f}, lr {lr:.6f}", flush=True)
         counts = np.zeros(4, np.float64)
-        evaluate = not full and ((epoch + 1) % cfg["pq_every"] == 0 or epoch + 1 == epochs)
+        evaluate = not full and (epoch == 0 or (epoch + 1) % cfg["pq_every"] == 0 or epoch + 1 == epochs)
         if evaluate:
             for image_index, source in enumerate(manifest["splits"]["calibration"][rank::world]):
                 image = cv2.imread(source["cache"])
@@ -689,19 +763,19 @@ def train_dense(config_path, member, full=False):
             best, best_epoch = pq, epoch + 1
             if rank == 0:
                 checkpoint_save(out / "best.pt", dict(state=ema.state_dict(), spec=spec, epoch=best_epoch,
-                    fingerprint=cfg["fingerprint"], checkpoint_PQ=best))
+                    fingerprint=cfg["fingerprint"], checkpoint_PQ=best, precision="float32", numerics_version=2))
         if rank == 0:
             checkpoint_save(out / "last.pt", dict(state=ema.state_dict(), spec=spec, epoch=epoch + 1,
-                fingerprint=cfg["fingerprint"]))
+                fingerprint=cfg["fingerprint"], precision="float32", numerics_version=2))
             checkpoint_save(last, dict(model=model.state_dict(), ema=ema.state_dict(), optimizer=optimizer.state_dict(),
-                scaler=scaler.state_dict(), epoch=epoch + 1, best=best, best_epoch=best_epoch,
+                epoch=epoch + 1, best=best, best_epoch=best_epoch,
                 updates=updates, fingerprint=cfg["fingerprint"]))
             log = dict(epoch=epoch + 1, loss=float(values[0] / world), fixed_rule_calibration_PQ=pq,
                 lr=lr, updates=updates, seconds=round(time.time() - started, 2),
                 peak_vram_gib=round(torch.cuda.max_memory_allocated(device) / 2**30, 3))
             with (out / "history.jsonl").open("a", encoding="utf8") as f:
-                f.write(json.dumps(log) + "\n")
-            print(json.dumps(log), flush=True)
+                f.write(json.dumps(log, allow_nan=False) + "\n")
+            print(json.dumps(log, allow_nan=False), flush=True)
     if rank == 0:
         if full:
             shutil.copy2(out / "last.pt", out / "best.pt")
@@ -752,7 +826,7 @@ def train_detector(config_path, full=False):
         lrf=.05, cos_lr=True, warmup_epochs=1., nbs=16, weight_decay=cfg["weight_decay"],
         mosaic=0., mixup=0., copy_paste=0., degrees=0., translate=0., scale=0., shear=0.,
         perspective=0., fliplr=.5, flipud=.5, hsv_h=0., hsv_s=0., hsv_v=.12,
-        cache=False, rect=False, multi_scale=False, amp=True, plots=False,
+        cache=False, rect=False, multi_scale=False, amp=True, plots=cfg.get("training_plots", True),
         max_det=cfg["max_det"], seed=cfg["seed"], save_period=-1,
         project=str(out.parent), name=out.name, exist_ok=True, resume=resume, verbose=False)
     if rank == 0:
@@ -782,6 +856,8 @@ def command(config_path, task, *args, distributed=False):
 
 
 def train_all(cfg, full=False):
+    if full:
+        require_report_ready(cfg)
     path = Path(cfg["run"]) / "config.json"
     flags = ["--full"] if full else []
     selected = Path(cfg["run"]) / "selected_pipeline.json"
@@ -794,11 +870,26 @@ def train_all(cfg, full=False):
         command(path, "detector", *flags, distributed=True)
     else:
         print("Semantic-only recipe won: skipping the unused detector's full-data retraining.", flush=True)
-    for member in range(len(cfg["dense_models"])):
+    members = selected_dense_ids(cfg) if full else range(len(cfg["dense_models"]))
+    for member in members:
         command(path, "dense", "--member", member, *flags, distributed=True)
 
 
-def model_paths(cfg, full=False):
+def selected_dense_ids(cfg, all_members=False):
+    ids = list(range(len(cfg["dense_models"])))
+    selection = Path(cfg["run"]) / "dense_selection.json"
+    if all_members or not selection.is_file():
+        return ids
+    chosen = load_json(selection)
+    if chosen["fingerprint"] != cfg["fingerprint"]:
+        raise ValueError("Dense model selection belongs to a different run")
+    result = chosen["member_ids"]
+    if not result or any(i not in ids for i in result):
+        raise ValueError("Invalid selected dense members")
+    return result
+
+
+def model_paths(cfg, full=False, all_members=False):
     root = Path(cfg["run"]) / ("full_models" if full else "selection_models")
     detector_info = root / "detector" / "complete.json"
     if full and not detector_info.is_file():
@@ -807,7 +898,7 @@ def model_paths(cfg, full=False):
             raise RuntimeError("Hybrid inference requires a completed full-data detector refit.")
         detector_info = Path(cfg["run"]) / "selection_models" / "detector" / "complete.json"
     detector = load_json(detector_info)["checkpoint"]
-    dense = [str(root / f"dense_{i}" / "best.pt") for i in range(len(cfg["dense_models"]))]
+    dense = [str(root / f"dense_{i}" / "best.pt") for i in selected_dense_ids(cfg, all_members)]
     return dict(detector=detector, dense=dense)
 
 
@@ -878,13 +969,13 @@ def predict_worker(config_path, part, gpu_slot=0, full=False):
     manifest = load_json(Path(cfg["run"]) / "manifest.json")
     device = torch.device(f"cuda:{cfg['gpu_ids'][gpu_slot]}")
     torch.cuda.set_device(device)
-    paths = model_paths(cfg, full)
+    paths = model_paths(cfg, full, all_members=part == "calibration")
     key = prediction_key(cfg, paths)
     folder = Path(cfg["run"]) / "predictions" / key / part
     folder.mkdir(parents=True, exist_ok=True)
     models = []
     for path in paths["dense"]:
-        checkpoint = torch.load(path, map_location="cpu", weights_only=False)
+        checkpoint = load_dense_checkpoint(path)
         model = build_dense(checkpoint["spec"])
         model.load_state_dict(checkpoint["state"])
         models.append(model.to(device).eval())
@@ -894,25 +985,32 @@ def predict_worker(config_path, part, gpu_slot=0, full=False):
         target = folder / (source["stem"] + ".npz")
         if target.is_file():
             with np.load(target) as check:
-                if check["prob"].shape != (2, SIZE, SIZE) or not np.isfinite(check["boxes"]).all():
+                if (int(check.get("schema", 0)) != 2 or check["prob"].shape != (2, SIZE, SIZE) or
+                        check["prob"].dtype != np.uint8 or not np.isfinite(check["boxes"]).all()):
                     raise ValueError(f"Corrupt prediction cache: {target}")
             continue
         image = cv2.imread(source["cache"])
         probability = np.zeros((2, SIZE, SIZE), np.float32)
+        individual = []
         for model in models:
-            probability += dense_predict(model, image, device, cfg["tile_size"], cfg["tile_overlap"],
-                cfg["inference_batch"], cfg["tta"]) / len(models)
+            prediction = dense_predict(model, image, device, cfg["tile_size"], cfg["tile_overlap"],
+                cfg["inference_batch"], cfg["tta"])
+            probability += prediction / len(models)
+            if part == "calibration":
+                individual.append(quantize_probabilities(prediction))
         boxes = detector_predict(detector, image, device, cfg)
         temp = target.with_suffix(".tmp")
         with temp.open("wb") as f:
-            np.savez_compressed(f, prob=np.rint(np.clip(probability, 0, 1) * 255).astype(np.uint8), boxes=boxes)
+            np.savez_compressed(f, prob=quantize_probabilities(probability), boxes=boxes, schema=np.array(2),
+                member_ids=np.array(selected_dense_ids(cfg, all_members=part == "calibration")),
+                member_prob=np.stack(individual) if individual else np.empty(0, np.uint8))
         os.replace(temp, target)
         print(f"Prediction GPU {device.index}: {part} {i+1}/{len(sources)} {source['stem']}, "
               f"{len(boxes)} proposals", flush=True)
 
 
 def predict_part(cfg, part, full=False):
-    paths = model_paths(cfg, full)
+    paths = model_paths(cfg, full, all_members=part == "calibration")
     key = prediction_key(cfg, paths)
     folder = Path(cfg["run"]) / "predictions" / key / part
     flags = ["--full"] if full else []
@@ -935,6 +1033,48 @@ def predict_part(cfg, part, full=False):
     assert {p.name for p in folder.glob("*.npz")} == expected
     save_json(folder / "provenance.json", dict(key=key, models=paths, physical_images=len(expected), full_data_refit=full))
     return folder
+
+
+def select_dense_members(cfg, prediction_folder):
+    """Compare each network with the mean using permitted calibration labels only."""
+    manifest = load_json(Path(cfg["run"]) / "manifest.json")
+    available = list(range(len(cfg["dense_models"])))
+    variants = [[i] for i in available] + ([available] if len(available) > 1 else [])
+    rules = [(t, area) for t in cfg["pixel_thresholds"] for area in (50, 150)]
+    def score(source):
+        with np.load(Path(prediction_folder) / (source["stem"] + ".npz")) as cache:
+            if int(cache.get("schema", 0)) != 2:
+                raise ValueError("Old probability cache schema. Regenerate masks with the corrected worker.")
+            individual = cache["member_prob"][:, 0].astype(np.float32) / 255
+            mean = cache["prob"][0].astype(np.float32) / 255
+        counts = np.zeros((len(variants), len(rules), 4), np.float64)
+        for vi, ids in enumerate(variants):
+            prob = individual[ids[0]] if len(ids) == 1 else mean
+            for threshold in cfg["pixel_thresholds"]:
+                values = []
+                for box, mask in components(prob, threshold, 50, cfg["max_dense_candidates"]):
+                    p = prob[box[1]:box[3], box[0]:box[2]][mask]
+                    if p.max() >= .75 and p.mean() >= .5:
+                        values.append((int(mask.sum()), full_rle(box, mask)))
+                for ri, (t, area) in enumerate(rules):
+                    if t != threshold:
+                        continue
+                    pred = [rle for size, rle in values if size >= area]
+                    for view in source["views"]:
+                        counts[vi, ri] += metric_counts(view["rles"], pred)
+        return counts
+    totals = np.zeros((len(variants), len(rules), 4), np.float64)
+    for values in bounded_map(score, manifest["splits"]["calibration"], cfg["cpu_workers"]):
+        totals += values
+    rows = [dict(member_ids=ids, pixel_threshold=rule[0], min_area=rule[1], **summarize(counts))
+            for ids, scores in zip(variants, totals) for rule, counts in zip(rules, scores)]
+    rows.sort(key=lambda x: (-x["PQ"], len(x["member_ids"])))
+    chosen = dict(fingerprint=cfg["fingerprint"], member_ids=rows[0]["member_ids"],
+                  calibration_selection=rows[0], comparisons=rows,
+                  note="Calibration selection, not an independent score. Unselected models are excluded at report/test.")
+    save_json(Path(cfg["run"]) / "dense_selection.json", chosen)
+    print("Selected native mask member(s):", json.dumps(rows[0]), flush=True)
+    return chosen
 
 
 FEATURES = ["log_area", "mean_probability", "max_probability", "q90_probability", "probability_std",
@@ -968,9 +1108,13 @@ def make_candidate(box, mask, prob, edge, image, confidence=0., support=0., dete
         features=mask_features(box, mask, prob, edge, image, confidence, support, detection))
 
 
-def candidate_sets(source, prediction_path, thresholds, maximum=512):
+def candidate_sets(source, prediction_path, thresholds, maximum=512, member=None):
     with np.load(prediction_path) as loaded:
-        prob, edge = loaded["prob"].astype(np.float32) / 255
+        array = loaded["prob"]
+        if member is not None:
+            ids = list(map(int, loaded["member_ids"]))
+            array = loaded["member_prob"][ids.index(member)]
+        prob, edge = array.astype(np.float32) / 255
         boxes = loaded["boxes"]
     image = cv2.imread(source["cache"])
     result = {}
@@ -1013,13 +1157,17 @@ def candidate_targets(source, candidates):
 
 def build_candidate_cache(cfg, part, folder, refresh=False):
     manifest = load_json(Path(cfg["run"]) / "manifest.json")
-    out = Path(folder) / "candidates"
+    ids = selected_dense_ids(cfg)
+    profile = digest(dict(members=ids, thresholds=cfg["pixel_thresholds"], maximum=cfg["max_dense_candidates"]))[:10]
+    out = Path(folder) / ("candidates_" + profile)
     out.mkdir(exist_ok=True)
     def process(source):
         path = out / (source["stem"] + ".json")
         if path.is_file() and not refresh:
             return path
-        sets = candidate_sets(source, Path(folder) / (source["stem"] + ".npz"), cfg["pixel_thresholds"], cfg.get("max_dense_candidates", 512))
+        member = ids[0] if part == "calibration" and len(ids) == 1 else None
+        sets = candidate_sets(source, Path(folder) / (source["stem"] + ".npz"), cfg["pixel_thresholds"],
+                              cfg.get("max_dense_candidates", 512), member)
         if part == "calibration":
             for values in sets.values():
                 for c, y in zip(values, candidate_targets(source, values)):
@@ -1199,15 +1347,34 @@ def evaluate_report(cfg, candidate_folder, recipe):
         rows.append(dict(stem=source["stem"], date=source["date"], geometry_ok=source["photometry"]["geometry_ok"],
             annotators=len(source["views"]), predictions=len(pred), **summarize(count)))
     metrics = dict(**summarize(totals), physical_images=len(rows),
+        fingerprint=cfg["fingerprint"], recipe=recipe, selected_dense_members=selected_dense_ids(cfg),
         cohorts={k: summarize(v) for k, v in cohorts.items()},
         note="Independent report; frozen recipe and calibration-fitted quality model. Before all-data refit.")
     save_json(Path(cfg["run"]) / "report_metrics.json", metrics)
     save_json(Path(cfg["run"]) / "report_by_image.json", rows)
     print("Held-out report:", json.dumps(metrics, indent=2), flush=True)
+    require_report_ready(cfg)
     return metrics
 
 
+def require_report_ready(cfg):
+    if cfg["mode"] == "smoke":
+        return
+    path = Path(cfg["run"]) / "report_metrics.json"
+    if not path.is_file():
+        raise RuntimeError("Evaluate the frozen report pipeline before full-data refitting or CSV export.")
+    report = load_json(path)
+    require_finite_state(report, "report")
+    if report.get("fingerprint") != cfg["fingerprint"]:
+        raise ValueError("Report belongs to a different run")
+    threshold = cfg.get("minimum_report_pq", .1)
+    if report["PQ"] < threshold:
+        raise RuntimeError(f"Report PQ {report['PQ']:.4f} is below the collapse guard {threshold:.2f}. "
+                           "Stopped before refitting/export. Inspect finite training losses and native mask previews.")
+
+
 def export_submission(cfg, candidate_folder, recipe):
+    require_report_ready(cfg)
     import joblib
     model = joblib.load(Path(cfg["run"]) / "quality_model.joblib")
     manifest = load_json(Path(cfg["run"]) / "manifest.json")
@@ -1289,9 +1456,13 @@ def main():
     p.add_argument("--part", default="test")
     p.add_argument("--gpu-slot", type=int, default=0)
     args = p.parse_args()
-    if args.task == "dense": train_dense(args.config, args.member, args.full)
-    elif args.task == "detector": train_detector(args.config, args.full)
-    else: predict_worker(args.config, args.part, args.gpu_slot, args.full)
+    try:
+        if args.task == "dense": train_dense(args.config, args.member, args.full)
+        elif args.task == "detector": train_detector(args.config, args.full)
+        else: predict_worker(args.config, args.part, args.gpu_slot, args.full)
+    finally:
+        if dist.is_initialized():
+            dist.destroy_process_group()
 
 
 if __name__ == "__main__":

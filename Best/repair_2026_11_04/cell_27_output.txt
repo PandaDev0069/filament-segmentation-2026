@@ -1,0 +1,5 @@
+GPUs: [(0, 'Tesla T4'), (1, 'Tesla T4')]
+CPU loader workers total: 4
+Mode: full | Full-data refit: True
+Detector initializer: yolo11m.pt
+Mask encoders: ['resnet34', 'tu-tf_efficientnetv2_s']

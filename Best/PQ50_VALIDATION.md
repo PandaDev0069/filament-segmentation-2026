@@ -1,5 +1,10 @@
 # Native hybrid notebook validation
 
+**Historical November 3 checks.** The subsequent full Kaggle run exposed a
+NaN-loss failure these short tests missed. Use the corrected
+[Kaggle notebook](solar-filament-kaggle-fixed.ipynb) and read the
+[November 4 diagnosis and validation](repair_2026_11_04/REPAIR_REPORT.md).
+
 Validated on 3 November 2026 in `D:\filament-segmentation-2026`.
 
 **The new notebook is implemented and mechanically tested. A >0.50 score is not

@@ -1,0 +1,54 @@
+{
+  "original_files": {
+    "log.txt": {
+      "bytes": 1705462,
+      "sha256": "e101e14dc413f61b3370eee659d9331bd5fe9ae09353e7650108d6a8debb5a59"
+    },
+    "solar-filament-notebook.log": {
+      "bytes": 1705462,
+      "sha256": "e101e14dc413f61b3370eee659d9331bd5fe9ae09353e7650108d6a8debb5a59"
+    },
+    "solar-filament-notebook.ipynb": {
+      "bytes": 2845988,
+      "sha256": "c416fab40a15ba9a3800d29c23706c0cded84308b88d4b52fa85ca454031c13e"
+    }
+  },
+  "stages": [
+    {
+      "cell": 32,
+      "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+      "epochs": 32,
+      "first_nan_epoch": 3,
+      "nan_epochs": 30
+    },
+    {
+      "cell": 32,
+      "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+      "epochs": 32,
+      "first_nan_epoch": 2,
+      "nan_epochs": 31
+    },
+    {
+      "cell": 39,
+      "stage": "Dense member 0, rank 0/2: cuda:0, 707 sources, native 512 crops, 383 microbatches/epoch, 2 loader workers",
+      "epochs": 4,
+      "first_nan_epoch": null,
+      "nan_epochs": 0
+    },
+    {
+      "cell": 39,
+      "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+      "epochs": 12,
+      "first_nan_epoch": 2,
+      "nan_epochs": 11
+    }
+  ],
+  "calibration_pq": 0.01117156762235393,
+  "report_pq": 0.0034510882912068327,
+  "report_tp": 3,
+  "report_fp": 17,
+  "report_fn": 1076,
+  "test_images": 180,
+  "test_masks": 6,
+  "diagnosis": "Non-finite mask training and inference were allowed through to uint8 probability encoding and CSV export."
+}

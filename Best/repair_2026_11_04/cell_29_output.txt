@@ -1,0 +1,10 @@
+Disk free 19.5 GiB; estimated new cache 6.2, models/maps 3.5, reserve 2.0. No Ultralytics disk cache or duplicated images.
+Prepared train: 532 physical images, 867 annotator records
+Prepared calibration: 82 physical images, 134 annotator records
+Prepared report: 93 physical images, 153 annotator records
+Prepared test: 180 physical images, 0 annotator records
+Run directory: /kaggle/working/kaggle_native_hybrid_v1_8d27489d35
+train images= 532 annotator records= 867 geometry fallbacks= 24
+calibration images= 82 annotator records= 134 geometry fallbacks= 3
+report images= 93 annotator records= 153 geometry fallbacks= 6
+test images= 180 annotator records= 0 geometry fallbacks= 14

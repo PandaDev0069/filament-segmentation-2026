@@ -1,0 +1,1756 @@
+Creating new Ultralytics Settings v0.0.8 file ✅ 
+View Ultralytics Settings with 'yolo settings' or at '/root/.config/Ultralytics/settings.json'
+Update Settings with 'yolo settings key=value', i.e. 'yolo settings runs_dir=path/to/dir'. For help see https://docs.ultralytics.com/usage/settings
+[KDownloading https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo11m.pt to 'yolo11m.pt': 100% ━━━━━━━━━━━━ 38.8MB 70.5MB/s 0.6s
+Launching: /usr/bin/python3 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=2 /kaggle/working/filament_gpu_worker.py --config /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/config.json --task detector
+New https://pypi.org/project/ultralytics/8.4.200 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics 8.4.198 🚀 Python-3.13.16 torch-2.11.0+cu130 CUDA:0 (Tesla T4, 14912MiB)
+                                                        CUDA:1 (Tesla T4, 14912MiB)
+[KDownloading https://ultralytics.com/assets/Arial.ttf to '/root/.config/Ultralytics/Arial.ttf': 100% ━━━━━━━━━━━━ 755.1KB 10.9MB/s 0.1s
+[KDownloading https://ultralytics.com/assets/Arial.ttf to '/root/.config/Ultralytics/Arial.ttf': 100% ━━━━━━━━━━━━ 755.1KB 9.4MB/s 0.1s
+Overriding model.yaml nc=80 with nc=1
+Transferred 643/649 items from pretrained weights
+Freezing layer 'model.23.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mFast image access ✅ (ping: 0.0±0.0 ms, read: 2941.9±1753.9 MB/s, size: 4440.0 KB)
+[K[34m[1mtrain: [0mScanning /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/detector_data/labels/train... 867 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 867/867 28.2it/s 30.8s
+[34m[1mtrain: [0mNew cache created: /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/detector_data/labels/train.cache
+[34m[1malbumentations: [0mBlur(p=0.01, blur_limit=(3, 7)), MedianBlur(p=0.01, blur_limit=(3, 7)), ToGray(p=0.01, method='weighted_average', num_output_channels=3), CLAHE(p=0.01, clip_limit=(1.0, 4.0), tile_grid_size=(8, 8))
+[34m[1mval: [0mFast image access ✅ (ping: 0.0±0.0 ms, read: 2458.7±1327.5 MB/s, size: 4418.8 KB)
+[K[34m[1mval: [0mScanning /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/detector_data/labels/calibration... 134 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 134/134 27.9it/s 4.8s
+[34m[1mval: [0mNew cache created: /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/detector_data/labels/calibration.cache
+[34m[1moptimizer:[0m AdamW(lr=0.001, momentum=0.937) with parameter groups 106 weight(decay=0.0), 113 weight(decay=0.0001), 112 bias(decay=0.0)
+Using 867 train, 134 val images for fraction=1.0 at imgsz=2048
+Using 4 dataloader workers
+Logging results to [1m/kaggle/working/kaggle_native_hybrid_v1_8d27489d35/selection_models/detector[0m
+Starting training for 45 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       1/45      5.95G      2.091      2.537      1.846          9       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.4it/s 19.6s
+                   all        134        999      0.138      0.136     0.0584     0.0202
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       2/45      6.22G      2.046      2.168      1.844          9       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:20
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.7it/s 18.3s
+                   all        134        999      0.395      0.328      0.237     0.0811
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       3/45      6.22G      1.883       2.01      1.736         12       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.7it/s 18.3s
+                   all        134        999      0.458       0.46      0.379      0.163
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       4/45      6.22G      1.802      1.878      1.701          8       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.7it/s 18.2s
+                   all        134        999       0.45      0.446      0.366       0.16
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       5/45      6.22G      1.763      1.753      1.674          4       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.7it/s 18.3s
+                   all        134        999      0.503      0.448      0.402      0.176
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       6/45      6.22G      1.691      1.719      1.604          6       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.4s
+                   all        134        999      0.491      0.479      0.436      0.205
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       7/45      6.22G      1.638      1.646      1.593         10       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.5s
+                   all        134        999      0.491      0.488      0.425      0.198
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       8/45      6.22G      1.639      1.641      1.592          7       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.7it/s 18.2s
+                   all        134        999      0.501      0.448      0.442      0.212
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       9/45      6.22G      1.574       1.57      1.543          2       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.7it/s 18.3s
+                   all        134        999      0.501      0.501      0.433       0.21
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      10/45      6.22G       1.58      1.527       1.55         12       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.4s
+                   all        134        999      0.534      0.512      0.489      0.239
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      11/45      6.22G      1.566       1.56      1.548          5       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.7it/s 18.3s
+                   all        134        999      0.531      0.511      0.488      0.244
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      12/45      6.22G      1.511      1.497      1.495         12       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.4s
+                   all        134        999      0.555      0.522      0.503      0.244
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      13/45      6.22G      1.523       1.46        1.5          8       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.7it/s 18.3s
+                   all        134        999      0.548       0.51      0.496      0.246
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      14/45      6.22G      1.469      1.448      1.485          3       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.7it/s 18.3s
+                   all        134        999      0.527      0.553      0.516      0.259
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      15/45      6.22G      1.455       1.42      1.465         12       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.7it/s 18.3s
+                   all        134        999      0.553      0.527      0.509      0.261
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      16/45      6.22G      1.425      1.392      1.442          8       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.4s
+                   all        134        999      0.535      0.561      0.529      0.268
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      17/45      6.22G      1.391      1.359      1.424         10       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.5s
+                   all        134        999      0.543      0.519      0.513      0.265
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      18/45      6.22G      1.375      1.336      1.408         12       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.4s
+                   all        134        999      0.582      0.535      0.549      0.282
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      19/45      6.22G       1.33       1.31      1.383          4       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.5s
+                   all        134        999       0.58      0.533      0.534      0.261
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      20/45      6.22G      1.368      1.315      1.396          6       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.6s
+                   all        134        999       0.58      0.558      0.554      0.285
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      21/45      6.22G      1.341      1.296      1.387         11       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.5s
+                   all        134        999      0.591      0.547      0.554       0.29
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      22/45      6.22G      1.294      1.223      1.343          5       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.7it/s 18.3s
+                   all        134        999      0.567      0.567      0.537      0.281
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      23/45      6.22G      1.313       1.25      1.354         17       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:18
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.4s
+                   all        134        999      0.528      0.584      0.531      0.276
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      24/45      6.22G      1.261      1.215      1.334         12       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.4s
+                   all        134        999       0.59      0.573      0.559      0.292
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      25/45      6.22G      1.271      1.191      1.341          5       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.6s
+                   all        134        999      0.579      0.555      0.556      0.297
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      26/45      6.22G      1.226      1.166      1.312         10       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.7s
+                   all        134        999      0.547      0.586      0.536      0.282
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      27/45      6.22G      1.178      1.143      1.275         16       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.5s
+                   all        134        999      0.569      0.586      0.546      0.295
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      28/45      6.22G      1.181      1.124      1.273          5       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.4s
+                   all        134        999      0.584      0.603      0.561      0.295
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      29/45      6.22G      1.151      1.094      1.266         11       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.4s
+                   all        134        999      0.567      0.574      0.564      0.298
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      30/45      6.22G      1.136       1.07      1.249          4       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.7s
+                   all        134        999      0.578      0.589      0.562      0.299
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      31/45      6.22G      1.137       1.05      1.254          3       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.6s
+                   all        134        999      0.596      0.558      0.561      0.299
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      32/45      6.22G      1.122      1.042      1.248          9       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.7s
+                   all        134        999      0.549      0.594      0.559      0.295
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      33/45      6.22G      1.086      1.016      1.222         15       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.5s
+                   all        134        999      0.566      0.583      0.579      0.311
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      34/45      6.22G      1.087      1.009      1.223         18       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.7s
+                   all        134        999      0.547      0.592      0.553      0.298
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      35/45      6.22G      1.054     0.9747      1.201         10       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.6s
+                   all        134        999      0.592      0.578      0.562      0.302
+Closing dataloader mosaic
+[34m[1malbumentations: [0mBlur(p=0.01, blur_limit=(3, 7)), MedianBlur(p=0.01, blur_limit=(3, 7)), ToGray(p=0.01, method='weighted_average', num_output_channels=3), CLAHE(p=0.01, clip_limit=(1.0, 4.0), tile_grid_size=(8, 8))
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      36/45      6.22G      1.055     0.9504      1.198          5       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:20
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.6s
+                   all        134        999      0.567      0.598      0.565      0.303
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      37/45      6.22G      1.042     0.9637      1.195          5       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.6s
+                   all        134        999      0.567      0.588      0.573      0.309
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      38/45      6.22G      1.002     0.9229      1.172          2       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.6s
+                   all        134        999      0.597      0.563      0.573      0.309
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      39/45      6.22G      1.012     0.9188      1.199         12       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.7s
+                   all        134        999      0.608      0.556      0.569      0.308
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      40/45      6.22G     0.9826     0.8954      1.161          6       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.5s
+                   all        134        999      0.608       0.55      0.572      0.311
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      41/45      6.22G     0.9735     0.8832       1.16          8       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:20
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.7s
+                   all        134        999      0.566      0.584      0.573      0.308
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      42/45      6.22G     0.9724     0.8823      1.166          9       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:20
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.8s
+                   all        134        999      0.564      0.584      0.575      0.309
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      43/45      6.22G     0.9448     0.8713      1.155          9       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:20
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.7s
+                   all        134        999      0.624       0.54      0.573      0.308
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      44/45      6.22G     0.9268     0.8595      1.138         10       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:20
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.7s
+                   all        134        999      0.629      0.539      0.567      0.305
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      45/45      6.22G     0.9231     0.8543      1.139         22       2048: 100% ━━━━━━━━━━━━ 434/434 3.1it/s 2:19
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 3.6it/s 18.8s
+                   all        134        999      0.582      0.565       0.57      0.306
+
+45 epochs completed in 1.980 hours.
+Optimizer stripped from /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/selection_models/detector/weights/last.pt, 41.0MB
+Optimizer stripped from /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/selection_models/detector/weights/best.pt, 41.0MB
+
+Validating /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/selection_models/detector/weights/best.pt...
+YOLO11m summary (fused): 125 layers, 20,030,803 parameters, 0 gradients, 67.8 GFLOPs
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 67/67 4.1it/s 16.2s
+                   all        134        999      0.606      0.552      0.572       0.31
+Speed: 0.9ms preprocess, 53.8ms inference, 0.0ms loss, 0.8ms postprocess per image
+Launching: /usr/bin/python3 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=2 /kaggle/working/filament_gpu_worker.py --config /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/config.json --task dense --member 0
+
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/usr/local/lib/python3.13/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+
+Dense member 0, rank 1/2: cuda:1, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers
+Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 0: epoch 1/32, step 32/288, loss 0.7381, lr 0.000033
+Dense 0 rank 1: epoch 1/32, step 32/288, loss 0.7395, lr 0.000033
+Dense 0 rank 0: epoch 1/32, step 64/288, loss 0.7190, lr 0.000067
+Dense 0 rank 1: epoch 1/32, step 64/288, loss 0.7207, lr 0.000067
+Dense 0 rank 1: epoch 1/32, step 96/288, loss 0.7023, lr 0.000100
+Dense 0 rank 0: epoch 1/32, step 96/288, loss 0.7020, lr 0.000100
+Dense 0 rank 1: epoch 1/32, step 128/288, loss 0.6852, lr 0.000133
+Dense 0 rank 0: epoch 1/32, step 128/288, loss 0.6848, lr 0.000133
+Dense 0 rank 1: epoch 1/32, step 160/288, loss 0.6682, lr 0.000167
+Dense 0 rank 0: epoch 1/32, step 160/288, loss 0.6674, lr 0.000167
+Dense 0 rank 1: epoch 1/32, step 192/288, loss 0.6505, lr 0.000200
+Dense 0 rank 0: epoch 1/32, step 192/288, loss 0.6500, lr 0.000200
+Dense 0 rank 1: epoch 1/32, step 224/288, loss 0.6341, lr 0.000233
+Dense 0 rank 0: epoch 1/32, step 224/288, loss 0.6337, lr 0.000233
+Dense 0 rank 1: epoch 1/32, step 256/288, loss 0.6182, lr 0.000266
+Dense 0 rank 0: epoch 1/32, step 256/288, loss 0.6193, lr 0.000266
+Dense 0 rank 0: epoch 1/32, step 288/288, loss 0.6054, lr 0.000299
+Dense 0 rank 1: epoch 1/32, step 288/288, loss 0.6028, lr 0.000299
+{"epoch": 1, "loss": 0.6040772574746774, "fixed_rule_calibration_PQ": null, "lr": 0.0002993185765974694, "updates": 96, "seconds": 83.76, "peak_vram_gib": 1.245}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 0: epoch 2/32, step 32/288, loss 0.4596, lr 0.000299
+Dense 0 rank 1: epoch 2/32, step 32/288, loss 0.4566, lr 0.000299
+Dense 0 rank 0: epoch 2/32, step 64/288, loss 0.4527, lr 0.000299
+Dense 0 rank 1: epoch 2/32, step 64/288, loss 0.4479, lr 0.000299
+Dense 0 rank 0: epoch 2/32, step 96/288, loss 0.4421, lr 0.000299
+Dense 0 rank 1: epoch 2/32, step 96/288, loss 0.4403, lr 0.000299
+Dense 0 rank 0: epoch 2/32, step 128/288, loss 0.4301, lr 0.000299
+Dense 0 rank 1: epoch 2/32, step 128/288, loss 0.4351, lr 0.000299
+Dense 0 rank 0: epoch 2/32, step 160/288, loss 0.4230, lr 0.000298
+Dense 0 rank 1: epoch 2/32, step 160/288, loss 0.4245, lr 0.000298
+Dense 0 rank 1: epoch 2/32, step 192/288, loss 0.4161, lr 0.000298
+Dense 0 rank 0: epoch 2/32, step 192/288, loss 0.4126, lr 0.000298
+Dense 0 rank 1: epoch 2/32, step 224/288, loss 0.4072, lr 0.000298
+Dense 0 rank 0: epoch 2/32, step 224/288, loss 0.4021, lr 0.000298
+Dense 0 rank 1: epoch 2/32, step 256/288, loss 0.3992, lr 0.000298
+Dense 0 rank 0: epoch 2/32, step 256/288, loss 0.3922, lr 0.000298
+Dense 0 rank 1: epoch 2/32, step 288/288, loss 0.3937, lr 0.000297
+Dense 0 rank 0: epoch 2/32, step 288/288, loss 0.3861, lr 0.000297
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 2, "loss": 0.38988616076918936, "fixed_rule_calibration_PQ": null, "lr": 0.0002972713710558006, "updates": 192, "seconds": 85.06, "peak_vram_gib": 1.245}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 3/32, step 32/288, loss 0.3200, lr 0.000297
+Dense 0 rank 0: epoch 3/32, step 32/288, loss 0.3277, lr 0.000297
+Dense 0 rank 1: epoch 3/32, step 64/288, loss 0.3143, lr 0.000297
+Dense 0 rank 0: epoch 3/32, step 64/288, loss 0.3136, lr 0.000297
+Dense 0 rank 1: epoch 3/32, step 96/288, loss nan, lr 0.000296
+Dense 0 rank 0: epoch 3/32, step 96/288, loss nan, lr 0.000296
+Dense 0 rank 0: epoch 3/32, step 128/288, loss nan, lr 0.000296
+Dense 0 rank 1: epoch 3/32, step 128/288, loss nan, lr 0.000296
+Dense 0 rank 0: epoch 3/32, step 160/288, loss nan, lr 0.000296
+Dense 0 rank 1: epoch 3/32, step 160/288, loss nan, lr 0.000296
+Dense 0 rank 0: epoch 3/32, step 192/288, loss nan, lr 0.000295
+Dense 0 rank 1: epoch 3/32, step 192/288, loss nan, lr 0.000295
+Dense 0 rank 0: epoch 3/32, step 224/288, loss nan, lr 0.000295
+Dense 0 rank 1: epoch 3/32, step 224/288, loss nan, lr 0.000295
+Dense 0 rank 0: epoch 3/32, step 256/288, loss nan, lr 0.000294
+Dense 0 rank 1: epoch 3/32, step 256/288, loss nan, lr 0.000294
+Dense 0 rank 0: epoch 3/32, step 288/288, loss nan, lr 0.000294
+Dense 0 rank 1: epoch 3/32, step 288/288, loss nan, lr 0.000294
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 3, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.000293878090804061, "updates": 227, "seconds": 82.52, "peak_vram_gib": 1.245}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 4/32, step 32/288, loss nan, lr 0.000293
+Dense 0 rank 0: epoch 4/32, step 32/288, loss nan, lr 0.000293
+Dense 0 rank 0: epoch 4/32, step 64/288, loss nan, lr 0.000293
+Dense 0 rank 1: epoch 4/32, step 64/288, loss nan, lr 0.000293
+Dense 0 rank 0: epoch 4/32, step 96/288, loss nan, lr 0.000292
+Dense 0 rank 1: epoch 4/32, step 96/288, loss nan, lr 0.000292
+Dense 0 rank 1: epoch 4/32, step 128/288, loss nan, lr 0.000292
+Dense 0 rank 0: epoch 4/32, step 128/288, loss nan, lr 0.000292
+Dense 0 rank 1: epoch 4/32, step 160/288, loss nan, lr 0.000291
+Dense 0 rank 0: epoch 4/32, step 160/288, loss nan, lr 0.000291
+Dense 0 rank 1: epoch 4/32, step 192/288, loss nan, lr 0.000291
+Dense 0 rank 0: epoch 4/32, step 192/288, loss nan, lr 0.000291
+Dense 0 rank 1: epoch 4/32, step 224/288, loss nan, lr 0.000290
+Dense 0 rank 0: epoch 4/32, step 224/288, loss nan, lr 0.000290
+Dense 0 rank 1: epoch 4/32, step 256/288, loss nan, lr 0.000290
+Dense 0 rank 0: epoch 4/32, step 256/288, loss nan, lr 0.000290
+Dense 0 rank 1: epoch 4/32, step 288/288, loss nan, lr 0.000289
+Dense 0 rank 0: epoch 4/32, step 288/288, loss nan, lr 0.000289
+Dense 0 rank 1: fixed-rule PQ check, 10 images
+Dense 0 rank 0: fixed-rule PQ check, 10 images
+Dense 0 rank 1: fixed-rule PQ check, 20 images
+Dense 0 rank 0: fixed-rule PQ check, 20 images
+Dense 0 rank 1: fixed-rule PQ check, 30 images
+Dense 0 rank 0: fixed-rule PQ check, 30 images
+Dense 0 rank 1: fixed-rule PQ check, 40 images
+Dense 0 rank 0: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 4, "loss": NaN, "fixed_rule_calibration_PQ": 0.14815007638998187, "lr": 0.0002891714149860303, "updates": 227, "seconds": 133.99, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 5/32, step 32/288, loss nan, lr 0.000289
+Dense 0 rank 0: epoch 5/32, step 32/288, loss nan, lr 0.000289
+Dense 0 rank 0: epoch 5/32, step 64/288, loss nan, lr 0.000288
+Dense 0 rank 1: epoch 5/32, step 64/288, loss nan, lr 0.000288
+Dense 0 rank 1: epoch 5/32, step 96/288, loss nan, lr 0.000287
+Dense 0 rank 0: epoch 5/32, step 96/288, loss nan, lr 0.000287
+Dense 0 rank 1: epoch 5/32, step 128/288, loss nan, lr 0.000287
+Dense 0 rank 0: epoch 5/32, step 128/288, loss nan, lr 0.000287
+Dense 0 rank 0: epoch 5/32, step 160/288, loss nan, lr 0.000286
+Dense 0 rank 1: epoch 5/32, step 160/288, loss nan, lr 0.000286
+Dense 0 rank 0: epoch 5/32, step 192/288, loss nan, lr 0.000285
+Dense 0 rank 1: epoch 5/32, step 192/288, loss nan, lr 0.000285
+Dense 0 rank 0: epoch 5/32, step 224/288, loss nan, lr 0.000285
+Dense 0 rank 1: epoch 5/32, step 224/288, loss nan, lr 0.000285
+Dense 0 rank 0: epoch 5/32, step 256/288, loss nan, lr 0.000284
+Dense 0 rank 1: epoch 5/32, step 256/288, loss nan, lr 0.000284
+Dense 0 rank 1: epoch 5/32, step 288/288, loss nan, lr 0.000283
+Dense 0 rank 0: epoch 5/32, step 288/288, loss nan, lr 0.000283
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 5, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.000283196671462767, "updates": 314, "seconds": 79.23, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 6/32, step 32/288, loss nan, lr 0.000282
+Dense 0 rank 0: epoch 6/32, step 32/288, loss nan, lr 0.000282
+Dense 0 rank 1: epoch 6/32, step 64/288, loss nan, lr 0.000282
+Dense 0 rank 0: epoch 6/32, step 64/288, loss nan, lr 0.000282
+Dense 0 rank 1: epoch 6/32, step 96/288, loss nan, lr 0.000281
+Dense 0 rank 0: epoch 6/32, step 96/288, loss nan, lr 0.000281
+Dense 0 rank 1: epoch 6/32, step 128/288, loss nan, lr 0.000280
+Dense 0 rank 0: epoch 6/32, step 128/288, loss nan, lr 0.000280
+Dense 0 rank 1: epoch 6/32, step 160/288, loss nan, lr 0.000279
+Dense 0 rank 0: epoch 6/32, step 160/288, loss nan, lr 0.000279
+Dense 0 rank 1: epoch 6/32, step 192/288, loss nan, lr 0.000279
+Dense 0 rank 0: epoch 6/32, step 192/288, loss nan, lr 0.000279
+Dense 0 rank 1: epoch 6/32, step 224/288, loss nan, lr 0.000278
+Dense 0 rank 0: epoch 6/32, step 224/288, loss nan, lr 0.000278
+Dense 0 rank 1: epoch 6/32, step 256/288, loss nan, lr 0.000277
+Dense 0 rank 0: epoch 6/32, step 256/288, loss nan, lr 0.000277
+Dense 0 rank 1: epoch 6/32, step 288/288, loss nan, lr 0.000276
+Dense 0 rank 0: epoch 6/32, step 288/288, loss nan, lr 0.000276
+{"epoch": 6, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0002760114002805271, "updates": 410, "seconds": 80.88, "peak_vram_gib": 1.336}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 7/32, step 32/288, loss nan, lr 0.000275
+Dense 0 rank 0: epoch 7/32, step 32/288, loss nan, lr 0.000275
+Dense 0 rank 0: epoch 7/32, step 64/288, loss nan, lr 0.000274
+Dense 0 rank 1: epoch 7/32, step 64/288, loss nan, lr 0.000274
+Dense 0 rank 0: epoch 7/32, step 96/288, loss nan, lr 0.000273
+Dense 0 rank 1: epoch 7/32, step 96/288, loss nan, lr 0.000273
+Dense 0 rank 0: epoch 7/32, step 128/288, loss nan, lr 0.000272
+Dense 0 rank 1: epoch 7/32, step 128/288, loss nan, lr 0.000272
+Dense 0 rank 0: epoch 7/32, step 160/288, loss nan, lr 0.000272
+Dense 0 rank 1: epoch 7/32, step 160/288, loss nan, lr 0.000272
+Dense 0 rank 0: epoch 7/32, step 192/288, loss nan, lr 0.000271Dense 0 rank 1: epoch 7/32, step 192/288, loss nan, lr 0.000271
+
+Dense 0 rank 1: epoch 7/32, step 224/288, loss nan, lr 0.000270
+Dense 0 rank 0: epoch 7/32, step 224/288, loss nan, lr 0.000270
+Dense 0 rank 1: epoch 7/32, step 256/288, loss nan, lr 0.000269
+Dense 0 rank 0: epoch 7/32, step 256/288, loss nan, lr 0.000269
+Dense 0 rank 1: epoch 7/32, step 288/288, loss nan, lr 0.000268
+Dense 0 rank 0: epoch 7/32, step 288/288, loss nan, lr 0.000268
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 7, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0002676847995286644, "updates": 506, "seconds": 80.02, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 8/32, step 32/288, loss nan, lr 0.000267
+Dense 0 rank 0: epoch 8/32, step 32/288, loss nan, lr 0.000267
+Dense 0 rank 1: epoch 8/32, step 64/288, loss nan, lr 0.000266
+Dense 0 rank 0: epoch 8/32, step 64/288, loss nan, lr 0.000266
+Dense 0 rank 1: epoch 8/32, step 96/288, loss nan, lr 0.000265
+Dense 0 rank 0: epoch 8/32, step 96/288, loss nan, lr 0.000265
+Dense 0 rank 0: epoch 8/32, step 128/288, loss nan, lr 0.000264
+Dense 0 rank 1: epoch 8/32, step 128/288, loss nan, lr 0.000264
+Dense 0 rank 1: epoch 8/32, step 160/288, loss nan, lr 0.000263
+Dense 0 rank 0: epoch 8/32, step 160/288, loss nan, lr 0.000263
+Dense 0 rank 1: epoch 8/32, step 192/288, loss nan, lr 0.000262
+Dense 0 rank 0: epoch 8/32, step 192/288, loss nan, lr 0.000262
+Dense 0 rank 0: epoch 8/32, step 224/288, loss nan, lr 0.000260
+Dense 0 rank 1: epoch 8/32, step 224/288, loss nan, lr 0.000260
+Dense 0 rank 1: epoch 8/32, step 256/288, loss nan, lr 0.000259
+Dense 0 rank 0: epoch 8/32, step 256/288, loss nan, lr 0.000259
+Dense 0 rank 0: epoch 8/32, step 288/288, loss nan, lr 0.000258
+Dense 0 rank 1: epoch 8/32, step 288/288, loss nan, lr 0.000258
+Dense 0 rank 1: fixed-rule PQ check, 10 images
+Dense 0 rank 0: fixed-rule PQ check, 10 images
+Dense 0 rank 1: fixed-rule PQ check, 20 images
+Dense 0 rank 0: fixed-rule PQ check, 20 images
+Dense 0 rank 1: fixed-rule PQ check, 30 images
+Dense 0 rank 0: fixed-rule PQ check, 30 images
+Dense 0 rank 1: fixed-rule PQ check, 40 images
+Dense 0 rank 0: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 8, "loss": NaN, "fixed_rule_calibration_PQ": 0.034442982361394314, "lr": 0.0002582970589242022, "updates": 602, "seconds": 133.66, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 9/32, step 32/288, loss nan, lr 0.000257
+Dense 0 rank 0: epoch 9/32, step 32/288, loss nan, lr 0.000257
+Dense 0 rank 1: epoch 9/32, step 64/288, loss nan, lr 0.000256
+Dense 0 rank 0: epoch 9/32, step 64/288, loss nan, lr 0.000256
+Dense 0 rank 1: epoch 9/32, step 96/288, loss nan, lr 0.000255
+Dense 0 rank 0: epoch 9/32, step 96/288, loss nan, lr 0.000255
+Dense 0 rank 1: epoch 9/32, step 128/288, loss nan, lr 0.000254
+Dense 0 rank 0: epoch 9/32, step 128/288, loss nan, lr 0.000254
+Dense 0 rank 0: epoch 9/32, step 160/288, loss nan, lr 0.000253
+Dense 0 rank 1: epoch 9/32, step 160/288, loss nan, lr 0.000253
+Dense 0 rank 1: epoch 9/32, step 192/288, loss nan, lr 0.000251
+Dense 0 rank 0: epoch 9/32, step 192/288, loss nan, lr 0.000251
+Dense 0 rank 0: epoch 9/32, step 224/288, loss nan, lr 0.000250
+Dense 0 rank 1: epoch 9/32, step 224/288, loss nan, lr 0.000250
+Dense 0 rank 0: epoch 9/32, step 256/288, loss nan, lr 0.000249
+Dense 0 rank 1: epoch 9/32, step 256/288, loss nan, lr 0.000249
+Dense 0 rank 0: epoch 9/32, step 288/288, loss nan, lr 0.000248
+Dense 0 rank 1: epoch 9/32, step 288/288, loss nan, lr 0.000248
+{"epoch": 9, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0002479385875410226, "updates": 698, "seconds": 81.74, "peak_vram_gib": 1.336}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 10/32, step 32/288, loss nan, lr 0.000247
+Dense 0 rank 0: epoch 10/32, step 32/288, loss nan, lr 0.000247
+Dense 0 rank 1: epoch 10/32, step 64/288, loss nan, lr 0.000246
+Dense 0 rank 0: epoch 10/32, step 64/288, loss nan, lr 0.000246
+Dense 0 rank 1: epoch 10/32, step 96/288, loss nan, lr 0.000244
+Dense 0 rank 0: epoch 10/32, step 96/288, loss nan, lr 0.000244
+Dense 0 rank 1: epoch 10/32, step 128/288, loss nan, lr 0.000243
+Dense 0 rank 0: epoch 10/32, step 128/288, loss nan, lr 0.000243
+Dense 0 rank 0: epoch 10/32, step 160/288, loss nan, lr 0.000242
+Dense 0 rank 1: epoch 10/32, step 160/288, loss nan, lr 0.000242
+Dense 0 rank 0: epoch 10/32, step 192/288, loss nan, lr 0.000241Dense 0 rank 1: epoch 10/32, step 192/288, loss nan, lr 0.000241
+
+Dense 0 rank 0: epoch 10/32, step 224/288, loss nan, lr 0.000239
+Dense 0 rank 1: epoch 10/32, step 224/288, loss nan, lr 0.000239
+Dense 0 rank 1: epoch 10/32, step 256/288, loss nan, lr 0.000238
+Dense 0 rank 0: epoch 10/32, step 256/288, loss nan, lr 0.000238
+Dense 0 rank 0: epoch 10/32, step 288/288, loss nan, lr 0.000237
+Dense 0 rank 1: epoch 10/32, step 288/288, loss nan, lr 0.000237
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 10, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00023670914312106208, "updates": 794, "seconds": 80.25, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 11/32, step 32/288, loss nan, lr 0.000235
+Dense 0 rank 0: epoch 11/32, step 32/288, loss nan, lr 0.000235
+Dense 0 rank 0: epoch 11/32, step 64/288, loss nan, lr 0.000234
+Dense 0 rank 1: epoch 11/32, step 64/288, loss nan, lr 0.000234
+Dense 0 rank 1: epoch 11/32, step 96/288, loss nan, lr 0.000233
+Dense 0 rank 0: epoch 11/32, step 96/288, loss nan, lr 0.000233
+Dense 0 rank 0: epoch 11/32, step 128/288, loss nan, lr 0.000231
+Dense 0 rank 1: epoch 11/32, step 128/288, loss nan, lr 0.000231
+Dense 0 rank 1: epoch 11/32, step 160/288, loss nan, lr 0.000230
+Dense 0 rank 0: epoch 11/32, step 160/288, loss nan, lr 0.000230
+Dense 0 rank 0: epoch 11/32, step 192/288, loss nan, lr 0.000229
+Dense 0 rank 1: epoch 11/32, step 192/288, loss nan, lr 0.000229
+Dense 0 rank 0: epoch 11/32, step 224/288, loss nan, lr 0.000227
+Dense 0 rank 1: epoch 11/32, step 224/288, loss nan, lr 0.000227
+Dense 0 rank 1: epoch 11/32, step 256/288, loss nan, lr 0.000226
+Dense 0 rank 0: epoch 11/32, step 256/288, loss nan, lr 0.000226
+Dense 0 rank 1: epoch 11/32, step 288/288, loss nan, lr 0.000225
+Dense 0 rank 0: epoch 11/32, step 288/288, loss nan, lr 0.000225
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 11, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00022471687135272353, "updates": 890, "seconds": 80.97, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 12/32, step 32/288, loss nan, lr 0.000223
+Dense 0 rank 0: epoch 12/32, step 32/288, loss nan, lr 0.000223
+Dense 0 rank 1: epoch 12/32, step 64/288, loss nan, lr 0.000222
+Dense 0 rank 0: epoch 12/32, step 64/288, loss nan, lr 0.000222
+Dense 0 rank 0: epoch 12/32, step 96/288, loss nan, lr 0.000221Dense 0 rank 1: epoch 12/32, step 96/288, loss nan, lr 0.000221
+
+Dense 0 rank 1: epoch 12/32, step 128/288, loss nan, lr 0.000219
+Dense 0 rank 0: epoch 12/32, step 128/288, loss nan, lr 0.000219
+Dense 0 rank 0: epoch 12/32, step 160/288, loss nan, lr 0.000218
+Dense 0 rank 1: epoch 12/32, step 160/288, loss nan, lr 0.000218
+Dense 0 rank 0: epoch 12/32, step 192/288, loss nan, lr 0.000216
+Dense 0 rank 1: epoch 12/32, step 192/288, loss nan, lr 0.000216
+Dense 0 rank 0: epoch 12/32, step 224/288, loss nan, lr 0.000215
+Dense 0 rank 1: epoch 12/32, step 224/288, loss nan, lr 0.000215
+Dense 0 rank 1: epoch 12/32, step 256/288, loss nan, lr 0.000214
+Dense 0 rank 0: epoch 12/32, step 256/288, loss nan, lr 0.000214
+Dense 0 rank 0: epoch 12/32, step 288/288, loss nan, lr 0.000212
+Dense 0 rank 1: epoch 12/32, step 288/288, loss nan, lr 0.000212
+Dense 0 rank 1: fixed-rule PQ check, 10 images
+Dense 0 rank 0: fixed-rule PQ check, 10 images
+Dense 0 rank 1: fixed-rule PQ check, 20 images
+Dense 0 rank 0: fixed-rule PQ check, 20 images
+Dense 0 rank 1: fixed-rule PQ check, 30 images
+Dense 0 rank 0: fixed-rule PQ check, 30 images
+Dense 0 rank 1: fixed-rule PQ check, 40 images
+Dense 0 rank 0: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 12, "loss": NaN, "fixed_rule_calibration_PQ": 0.0, "lr": 0.00021207726436877876, "updates": 986, "seconds": 134.66, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 13/32, step 32/288, loss nan, lr 0.000211
+Dense 0 rank 0: epoch 13/32, step 32/288, loss nan, lr 0.000211
+Dense 0 rank 0: epoch 13/32, step 64/288, loss nan, lr 0.000209
+Dense 0 rank 1: epoch 13/32, step 64/288, loss nan, lr 0.000209
+Dense 0 rank 1: epoch 13/32, step 96/288, loss nan, lr 0.000208
+Dense 0 rank 0: epoch 13/32, step 96/288, loss nan, lr 0.000208
+Dense 0 rank 1: epoch 13/32, step 128/288, loss nan, lr 0.000206
+Dense 0 rank 0: epoch 13/32, step 128/288, loss nan, lr 0.000206
+Dense 0 rank 1: epoch 13/32, step 160/288, loss nan, lr 0.000205
+Dense 0 rank 0: epoch 13/32, step 160/288, loss nan, lr 0.000205
+Dense 0 rank 0: epoch 13/32, step 192/288, loss nan, lr 0.000203Dense 0 rank 1: epoch 13/32, step 192/288, loss nan, lr 0.000203
+
+Dense 0 rank 0: epoch 13/32, step 224/288, loss nan, lr 0.000202
+Dense 0 rank 1: epoch 13/32, step 224/288, loss nan, lr 0.000202
+Dense 0 rank 0: epoch 13/32, step 256/288, loss nan, lr 0.000200
+Dense 0 rank 1: epoch 13/32, step 256/288, loss nan, lr 0.000200
+Dense 0 rank 1: epoch 13/32, step 288/288, loss nan, lr 0.000199
+Dense 0 rank 0: epoch 13/32, step 288/288, loss nan, lr 0.000199
+{"epoch": 13, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00019891204849399507, "updates": 1082, "seconds": 81.76, "peak_vram_gib": 1.336}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 14/32, step 32/288, loss nan, lr 0.000197
+Dense 0 rank 0: epoch 14/32, step 32/288, loss nan, lr 0.000197
+Dense 0 rank 1: epoch 14/32, step 64/288, loss nan, lr 0.000196
+Dense 0 rank 0: epoch 14/32, step 64/288, loss nan, lr 0.000196
+Dense 0 rank 0: epoch 14/32, step 96/288, loss nan, lr 0.000194
+Dense 0 rank 1: epoch 14/32, step 96/288, loss nan, lr 0.000194
+Dense 0 rank 0: epoch 14/32, step 128/288, loss nan, lr 0.000193
+Dense 0 rank 1: epoch 14/32, step 128/288, loss nan, lr 0.000193
+Dense 0 rank 1: epoch 14/32, step 160/288, loss nan, lr 0.000191
+Dense 0 rank 0: epoch 14/32, step 160/288, loss nan, lr 0.000191
+Dense 0 rank 0: epoch 14/32, step 192/288, loss nan, lr 0.000190Dense 0 rank 1: epoch 14/32, step 192/288, loss nan, lr 0.000190
+
+Dense 0 rank 1: epoch 14/32, step 224/288, loss nan, lr 0.000188
+Dense 0 rank 0: epoch 14/32, step 224/288, loss nan, lr 0.000188
+Dense 0 rank 1: epoch 14/32, step 256/288, loss nan, lr 0.000187
+Dense 0 rank 0: epoch 14/32, step 256/288, loss nan, lr 0.000187
+Dense 0 rank 1: epoch 14/32, step 288/288, loss nan, lr 0.000185
+Dense 0 rank 0: epoch 14/32, step 288/288, loss nan, lr 0.000185
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 14, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00018534801195408575, "updates": 1178, "seconds": 82.9, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 15/32, step 32/288, loss nan, lr 0.000184
+Dense 0 rank 0: epoch 15/32, step 32/288, loss nan, lr 0.000184
+Dense 0 rank 1: epoch 15/32, step 64/288, loss nan, lr 0.000182
+Dense 0 rank 0: epoch 15/32, step 64/288, loss nan, lr 0.000182
+Dense 0 rank 1: epoch 15/32, step 96/288, loss nan, lr 0.000181
+Dense 0 rank 0: epoch 15/32, step 96/288, loss nan, lr 0.000181
+Dense 0 rank 0: epoch 15/32, step 128/288, loss nan, lr 0.000179
+Dense 0 rank 1: epoch 15/32, step 128/288, loss nan, lr 0.000179
+Dense 0 rank 0: epoch 15/32, step 160/288, loss nan, lr 0.000178
+Dense 0 rank 1: epoch 15/32, step 160/288, loss nan, lr 0.000178
+Dense 0 rank 1: epoch 15/32, step 192/288, loss nan, lr 0.000176
+Dense 0 rank 0: epoch 15/32, step 192/288, loss nan, lr 0.000176
+Dense 0 rank 1: epoch 15/32, step 224/288, loss nan, lr 0.000175
+Dense 0 rank 0: epoch 15/32, step 224/288, loss nan, lr 0.000175
+Dense 0 rank 1: epoch 15/32, step 256/288, loss nan, lr 0.000173
+Dense 0 rank 0: epoch 15/32, step 256/288, loss nan, lr 0.000173
+Dense 0 rank 1: epoch 15/32, step 288/288, loss nan, lr 0.000172
+Dense 0 rank 0: epoch 15/32, step 288/288, loss nan, lr 0.000172
+{"epoch": 15, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00017151578383578674, "updates": 1274, "seconds": 81.66, "peak_vram_gib": 1.336}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 16/32, step 32/288, loss nan, lr 0.000170
+Dense 0 rank 0: epoch 16/32, step 32/288, loss nan, lr 0.000170
+Dense 0 rank 1: epoch 16/32, step 64/288, loss nan, lr 0.000168
+Dense 0 rank 0: epoch 16/32, step 64/288, loss nan, lr 0.000168
+Dense 0 rank 1: epoch 16/32, step 96/288, loss nan, lr 0.000167
+Dense 0 rank 0: epoch 16/32, step 96/288, loss nan, lr 0.000167
+Dense 0 rank 1: epoch 16/32, step 128/288, loss nan, lr 0.000165
+Dense 0 rank 0: epoch 16/32, step 128/288, loss nan, lr 0.000165
+Dense 0 rank 0: epoch 16/32, step 160/288, loss nan, lr 0.000164
+Dense 0 rank 1: epoch 16/32, step 160/288, loss nan, lr 0.000164
+Dense 0 rank 1: epoch 16/32, step 192/288, loss nan, lr 0.000162
+Dense 0 rank 0: epoch 16/32, step 192/288, loss nan, lr 0.000162
+Dense 0 rank 1: epoch 16/32, step 224/288, loss nan, lr 0.000161
+Dense 0 rank 0: epoch 16/32, step 224/288, loss nan, lr 0.000161
+Dense 0 rank 1: epoch 16/32, step 256/288, loss nan, lr 0.000159
+Dense 0 rank 0: epoch 16/32, step 256/288, loss nan, lr 0.000159
+Dense 0 rank 1: epoch 16/32, step 288/288, loss nan, lr 0.000158
+Dense 0 rank 0: epoch 16/32, step 288/288, loss nan, lr 0.000158
+Dense 0 rank 1: fixed-rule PQ check, 10 images
+Dense 0 rank 0: fixed-rule PQ check, 10 images
+Dense 0 rank 1: fixed-rule PQ check, 20 images
+Dense 0 rank 0: fixed-rule PQ check, 20 images
+Dense 0 rank 1: fixed-rule PQ check, 30 images
+Dense 0 rank 0: fixed-rule PQ check, 30 images
+Dense 0 rank 1: fixed-rule PQ check, 40 images
+Dense 0 rank 0: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 16, "loss": NaN, "fixed_rule_calibration_PQ": 0.0, "lr": 0.00015754857605734227, "updates": 1370, "seconds": 137.34, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 17/32, step 32/288, loss nan, lr 0.000156
+Dense 0 rank 0: epoch 17/32, step 32/288, loss nan, lr 0.000156
+Dense 0 rank 1: epoch 17/32, step 64/288, loss nan, lr 0.000154
+Dense 0 rank 0: epoch 17/32, step 64/288, loss nan, lr 0.000154
+Dense 0 rank 0: epoch 17/32, step 96/288, loss nan, lr 0.000153
+Dense 0 rank 1: epoch 17/32, step 96/288, loss nan, lr 0.000153
+Dense 0 rank 1: epoch 17/32, step 128/288, loss nan, lr 0.000151
+Dense 0 rank 0: epoch 17/32, step 128/288, loss nan, lr 0.000151
+Dense 0 rank 0: epoch 17/32, step 160/288, loss nan, lr 0.000150
+Dense 0 rank 1: epoch 17/32, step 160/288, loss nan, lr 0.000150
+Dense 0 rank 0: epoch 17/32, step 192/288, loss nan, lr 0.000148Dense 0 rank 1: epoch 17/32, step 192/288, loss nan, lr 0.000148
+
+Dense 0 rank 0: epoch 17/32, step 224/288, loss nan, lr 0.000147
+Dense 0 rank 1: epoch 17/32, step 224/288, loss nan, lr 0.000147
+Dense 0 rank 0: epoch 17/32, step 256/288, loss nan, lr 0.000145
+Dense 0 rank 1: epoch 17/32, step 256/288, loss nan, lr 0.000145
+Dense 0 rank 0: epoch 17/32, step 288/288, loss nan, lr 0.000144
+Dense 0 rank 1: epoch 17/32, step 288/288, loss nan, lr 0.000144
+{"epoch": 17, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0001435809004649112, "updates": 1466, "seconds": 81.63, "peak_vram_gib": 1.336}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 18/32, step 32/288, loss nan, lr 0.000142
+Dense 0 rank 0: epoch 18/32, step 32/288, loss nan, lr 0.000142
+Dense 0 rank 1: epoch 18/32, step 64/288, loss nan, lr 0.000140
+Dense 0 rank 0: epoch 18/32, step 64/288, loss nan, lr 0.000140
+Dense 0 rank 0: epoch 18/32, step 96/288, loss nan, lr 0.000139
+Dense 0 rank 1: epoch 18/32, step 96/288, loss nan, lr 0.000139
+Dense 0 rank 0: epoch 18/32, step 128/288, loss nan, lr 0.000137
+Dense 0 rank 1: epoch 18/32, step 128/288, loss nan, lr 0.000137
+Dense 0 rank 1: epoch 18/32, step 160/288, loss nan, lr 0.000136
+Dense 0 rank 0: epoch 18/32, step 160/288, loss nan, lr 0.000136
+Dense 0 rank 1: epoch 18/32, step 192/288, loss nan, lr 0.000134
+Dense 0 rank 0: epoch 18/32, step 192/288, loss nan, lr 0.000134
+Dense 0 rank 1: epoch 18/32, step 224/288, loss nan, lr 0.000133
+Dense 0 rank 0: epoch 18/32, step 224/288, loss nan, lr 0.000133
+Dense 0 rank 1: epoch 18/32, step 256/288, loss nan, lr 0.000131
+Dense 0 rank 0: epoch 18/32, step 256/288, loss nan, lr 0.000131
+Dense 0 rank 0: epoch 18/32, step 288/288, loss nan, lr 0.000130
+Dense 0 rank 1: epoch 18/32, step 288/288, loss nan, lr 0.000130
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 18, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00012974727340995685, "updates": 1562, "seconds": 81.32, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 19/32, step 32/288, loss nan, lr 0.000128
+Dense 0 rank 0: epoch 19/32, step 32/288, loss nan, lr 0.000128
+Dense 0 rank 0: epoch 19/32, step 64/288, loss nan, lr 0.000127
+Dense 0 rank 1: epoch 19/32, step 64/288, loss nan, lr 0.000127
+Dense 0 rank 1: epoch 19/32, step 96/288, loss nan, lr 0.000125
+Dense 0 rank 0: epoch 19/32, step 96/288, loss nan, lr 0.000125
+Dense 0 rank 0: epoch 19/32, step 128/288, loss nan, lr 0.000124
+Dense 0 rank 1: epoch 19/32, step 128/288, loss nan, lr 0.000124
+Dense 0 rank 0: epoch 19/32, step 160/288, loss nan, lr 0.000122
+Dense 0 rank 1: epoch 19/32, step 160/288, loss nan, lr 0.000122
+Dense 0 rank 0: epoch 19/32, step 192/288, loss nan, lr 0.000121Dense 0 rank 1: epoch 19/32, step 192/288, loss nan, lr 0.000121
+
+Dense 0 rank 0: epoch 19/32, step 224/288, loss nan, lr 0.000119
+Dense 0 rank 1: epoch 19/32, step 224/288, loss nan, lr 0.000119
+Dense 0 rank 0: epoch 19/32, step 256/288, loss nan, lr 0.000118
+Dense 0 rank 1: epoch 19/32, step 256/288, loss nan, lr 0.000118
+Dense 0 rank 0: epoch 19/32, step 288/288, loss nan, lr 0.000116
+Dense 0 rank 1: epoch 19/32, step 288/288, loss nan, lr 0.000116
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 19, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0001161809202832482, "updates": 1658, "seconds": 82.53, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 20/32, step 32/288, loss nan, lr 0.000115
+Dense 0 rank 0: epoch 20/32, step 32/288, loss nan, lr 0.000115
+Dense 0 rank 0: epoch 20/32, step 64/288, loss nan, lr 0.000113
+Dense 0 rank 1: epoch 20/32, step 64/288, loss nan, lr 0.000113
+Dense 0 rank 1: epoch 20/32, step 96/288, loss nan, lr 0.000112
+Dense 0 rank 0: epoch 20/32, step 96/288, loss nan, lr 0.000112
+Dense 0 rank 1: epoch 20/32, step 128/288, loss nan, lr 0.000110
+Dense 0 rank 0: epoch 20/32, step 128/288, loss nan, lr 0.000110
+Dense 0 rank 1: epoch 20/32, step 160/288, loss nan, lr 0.000109
+Dense 0 rank 0: epoch 20/32, step 160/288, loss nan, lr 0.000109
+Dense 0 rank 0: epoch 20/32, step 192/288, loss nan, lr 0.000107
+Dense 0 rank 1: epoch 20/32, step 192/288, loss nan, lr 0.000107
+Dense 0 rank 1: epoch 20/32, step 224/288, loss nan, lr 0.000106
+Dense 0 rank 0: epoch 20/32, step 224/288, loss nan, lr 0.000106
+Dense 0 rank 0: epoch 20/32, step 256/288, loss nan, lr 0.000104
+Dense 0 rank 1: epoch 20/32, step 256/288, loss nan, lr 0.000104
+Dense 0 rank 1: epoch 20/32, step 288/288, loss nan, lr 0.000103
+Dense 0 rank 0: epoch 20/32, step 288/288, loss nan, lr 0.000103
+Dense 0 rank 1: fixed-rule PQ check, 10 images
+Dense 0 rank 0: fixed-rule PQ check, 10 images
+Dense 0 rank 1: fixed-rule PQ check, 20 images
+Dense 0 rank 0: fixed-rule PQ check, 20 images
+Dense 0 rank 1: fixed-rule PQ check, 30 images
+Dense 0 rank 0: fixed-rule PQ check, 30 images
+Dense 0 rank 1: fixed-rule PQ check, 40 images
+Dense 0 rank 0: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 20, "loss": NaN, "fixed_rule_calibration_PQ": 0.0, "lr": 0.00010301249248151845, "updates": 1754, "seconds": 135.97, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 21/32, step 32/288, loss nan, lr 0.000102
+Dense 0 rank 0: epoch 21/32, step 32/288, loss nan, lr 0.000102
+Dense 0 rank 0: epoch 21/32, step 64/288, loss nan, lr 0.000100
+Dense 0 rank 1: epoch 21/32, step 64/288, loss nan, lr 0.000100
+Dense 0 rank 0: epoch 21/32, step 96/288, loss nan, lr 0.000099
+Dense 0 rank 1: epoch 21/32, step 96/288, loss nan, lr 0.000099
+Dense 0 rank 0: epoch 21/32, step 128/288, loss nan, lr 0.000097
+Dense 0 rank 1: epoch 21/32, step 128/288, loss nan, lr 0.000097
+Dense 0 rank 0: epoch 21/32, step 160/288, loss nan, lr 0.000096
+Dense 0 rank 1: epoch 21/32, step 160/288, loss nan, lr 0.000096
+Dense 0 rank 1: epoch 21/32, step 192/288, loss nan, lr 0.000095Dense 0 rank 0: epoch 21/32, step 192/288, loss nan, lr 0.000095
+
+Dense 0 rank 0: epoch 21/32, step 224/288, loss nan, lr 0.000093
+Dense 0 rank 1: epoch 21/32, step 224/288, loss nan, lr 0.000093
+Dense 0 rank 1: epoch 21/32, step 256/288, loss nan, lr 0.000092
+Dense 0 rank 0: epoch 21/32, step 256/288, loss nan, lr 0.000092
+Dense 0 rank 1: epoch 21/32, step 288/288, loss nan, lr 0.000090
+Dense 0 rank 0: epoch 21/32, step 288/288, loss nan, lr 0.000090
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 21, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 9.036880916309311e-05, "updates": 1850, "seconds": 82.0, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 22/32, step 32/288, loss nan, lr 0.000089
+Dense 0 rank 0: epoch 22/32, step 32/288, loss nan, lr 0.000089
+Dense 0 rank 1: epoch 22/32, step 64/288, loss nan, lr 0.000088
+Dense 0 rank 0: epoch 22/32, step 64/288, loss nan, lr 0.000088
+Dense 0 rank 1: epoch 22/32, step 96/288, loss nan, lr 0.000086
+Dense 0 rank 0: epoch 22/32, step 96/288, loss nan, lr 0.000086
+Dense 0 rank 1: epoch 22/32, step 128/288, loss nan, lr 0.000085
+Dense 0 rank 0: epoch 22/32, step 128/288, loss nan, lr 0.000085
+Dense 0 rank 0: epoch 22/32, step 160/288, loss nan, lr 0.000084
+Dense 0 rank 1: epoch 22/32, step 160/288, loss nan, lr 0.000084
+Dense 0 rank 0: epoch 22/32, step 192/288, loss nan, lr 0.000082
+Dense 0 rank 1: epoch 22/32, step 192/288, loss nan, lr 0.000082
+Dense 0 rank 0: epoch 22/32, step 224/288, loss nan, lr 0.000081
+Dense 0 rank 1: epoch 22/32, step 224/288, loss nan, lr 0.000081
+Dense 0 rank 0: epoch 22/32, step 256/288, loss nan, lr 0.000080
+Dense 0 rank 1: epoch 22/32, step 256/288, loss nan, lr 0.000080
+Dense 0 rank 0: epoch 22/32, step 288/288, loss nan, lr 0.000078
+Dense 0 rank 1: epoch 22/32, step 288/288, loss nan, lr 0.000078
+{"epoch": 22, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 7.837163591006901e-05, "updates": 1946, "seconds": 79.86, "peak_vram_gib": 1.336}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 23/32, step 32/288, loss nan, lr 0.000077
+Dense 0 rank 0: epoch 23/32, step 32/288, loss nan, lr 0.000077
+Dense 0 rank 0: epoch 23/32, step 64/288, loss nan, lr 0.000076
+Dense 0 rank 1: epoch 23/32, step 64/288, loss nan, lr 0.000076
+Dense 0 rank 1: epoch 23/32, step 96/288, loss nan, lr 0.000075Dense 0 rank 0: epoch 23/32, step 96/288, loss nan, lr 0.000075
+
+Dense 0 rank 0: epoch 23/32, step 128/288, loss nan, lr 0.000073
+Dense 0 rank 1: epoch 23/32, step 128/288, loss nan, lr 0.000073
+Dense 0 rank 1: epoch 23/32, step 160/288, loss nan, lr 0.000072
+Dense 0 rank 0: epoch 23/32, step 160/288, loss nan, lr 0.000072
+Dense 0 rank 1: epoch 23/32, step 192/288, loss nan, lr 0.000071
+Dense 0 rank 0: epoch 23/32, step 192/288, loss nan, lr 0.000071
+Dense 0 rank 1: epoch 23/32, step 224/288, loss nan, lr 0.000070
+Dense 0 rank 0: epoch 23/32, step 224/288, loss nan, lr 0.000070
+Dense 0 rank 1: epoch 23/32, step 256/288, loss nan, lr 0.000068
+Dense 0 rank 0: epoch 23/32, step 256/288, loss nan, lr 0.000068
+Dense 0 rank 1: epoch 23/32, step 288/288, loss nan, lr 0.000067
+Dense 0 rank 0: epoch 23/32, step 288/288, loss nan, lr 0.000067
+{"epoch": 23, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 6.713651205919483e-05, "updates": 2042, "seconds": 82.44, "peak_vram_gib": 1.336}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 24/32, step 32/288, loss nan, lr 0.000066
+Dense 0 rank 0: epoch 24/32, step 32/288, loss nan, lr 0.000066
+Dense 0 rank 1: epoch 24/32, step 64/288, loss nan, lr 0.000065
+Dense 0 rank 0: epoch 24/32, step 64/288, loss nan, lr 0.000065
+Dense 0 rank 1: epoch 24/32, step 96/288, loss nan, lr 0.000064
+Dense 0 rank 0: epoch 24/32, step 96/288, loss nan, lr 0.000064
+Dense 0 rank 1: epoch 24/32, step 128/288, loss nan, lr 0.000062
+Dense 0 rank 0: epoch 24/32, step 128/288, loss nan, lr 0.000062
+Dense 0 rank 1: epoch 24/32, step 160/288, loss nan, lr 0.000061
+Dense 0 rank 0: epoch 24/32, step 160/288, loss nan, lr 0.000061
+Dense 0 rank 1: epoch 24/32, step 192/288, loss nan, lr 0.000060
+Dense 0 rank 0: epoch 24/32, step 192/288, loss nan, lr 0.000060
+Dense 0 rank 1: epoch 24/32, step 224/288, loss nan, lr 0.000059
+Dense 0 rank 0: epoch 24/32, step 224/288, loss nan, lr 0.000059
+Dense 0 rank 1: epoch 24/32, step 256/288, loss nan, lr 0.000058
+Dense 0 rank 0: epoch 24/32, step 256/288, loss nan, lr 0.000058
+Dense 0 rank 1: epoch 24/32, step 288/288, loss nan, lr 0.000057
+Dense 0 rank 0: epoch 24/32, step 288/288, loss nan, lr 0.000057
+Dense 0 rank 1: fixed-rule PQ check, 10 images
+Dense 0 rank 0: fixed-rule PQ check, 10 images
+Dense 0 rank 0: fixed-rule PQ check, 20 images
+Dense 0 rank 1: fixed-rule PQ check, 20 images
+Dense 0 rank 0: fixed-rule PQ check, 30 images
+Dense 0 rank 1: fixed-rule PQ check, 30 images
+Dense 0 rank 0: fixed-rule PQ check, 40 images
+Dense 0 rank 1: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 24, "loss": NaN, "fixed_rule_calibration_PQ": 0.0, "lr": 5.677163799489784e-05, "updates": 2138, "seconds": 136.91, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 25/32, step 32/288, loss nan, lr 0.000056
+Dense 0 rank 0: epoch 25/32, step 32/288, loss nan, lr 0.000056
+Dense 0 rank 1: epoch 25/32, step 64/288, loss nan, lr 0.000055
+Dense 0 rank 0: epoch 25/32, step 64/288, loss nan, lr 0.000055
+Dense 0 rank 1: epoch 25/32, step 96/288, loss nan, lr 0.000054
+Dense 0 rank 0: epoch 25/32, step 96/288, loss nan, lr 0.000054
+Dense 0 rank 0: epoch 25/32, step 128/288, loss nan, lr 0.000052
+Dense 0 rank 1: epoch 25/32, step 128/288, loss nan, lr 0.000052
+Dense 0 rank 1: epoch 25/32, step 160/288, loss nan, lr 0.000051
+Dense 0 rank 0: epoch 25/32, step 160/288, loss nan, lr 0.000051
+Dense 0 rank 1: epoch 25/32, step 192/288, loss nan, lr 0.000050
+Dense 0 rank 0: epoch 25/32, step 192/288, loss nan, lr 0.000050
+Dense 0 rank 1: epoch 25/32, step 224/288, loss nan, lr 0.000049
+Dense 0 rank 0: epoch 25/32, step 224/288, loss nan, lr 0.000049
+Dense 0 rank 1: epoch 25/32, step 256/288, loss nan, lr 0.000048
+Dense 0 rank 0: epoch 25/32, step 256/288, loss nan, lr 0.000048
+Dense 0 rank 1: epoch 25/32, step 288/288, loss nan, lr 0.000047
+Dense 0 rank 0: epoch 25/32, step 288/288, loss nan, lr 0.000047
+{"epoch": 25, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 4.7376833120433774e-05, "updates": 2234, "seconds": 82.03, "peak_vram_gib": 1.336}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 26/32, step 32/288, loss nan, lr 0.000046
+Dense 0 rank 0: epoch 26/32, step 32/288, loss nan, lr 0.000046
+Dense 0 rank 1: epoch 26/32, step 64/288, loss nan, lr 0.000045
+Dense 0 rank 0: epoch 26/32, step 64/288, loss nan, lr 0.000045
+Dense 0 rank 0: epoch 26/32, step 96/288, loss nan, lr 0.000044
+Dense 0 rank 1: epoch 26/32, step 96/288, loss nan, lr 0.000044
+Dense 0 rank 0: epoch 26/32, step 128/288, loss nan, lr 0.000044
+Dense 0 rank 1: epoch 26/32, step 128/288, loss nan, lr 0.000044
+Dense 0 rank 1: epoch 26/32, step 160/288, loss nan, lr 0.000043
+Dense 0 rank 0: epoch 26/32, step 160/288, loss nan, lr 0.000043
+Dense 0 rank 0: epoch 26/32, step 192/288, loss nan, lr 0.000042
+Dense 0 rank 1: epoch 26/32, step 192/288, loss nan, lr 0.000042
+Dense 0 rank 0: epoch 26/32, step 224/288, loss nan, lr 0.000041
+Dense 0 rank 1: epoch 26/32, step 224/288, loss nan, lr 0.000041
+Dense 0 rank 0: epoch 26/32, step 256/288, loss nan, lr 0.000040
+Dense 0 rank 1: epoch 26/32, step 256/288, loss nan, lr 0.000040
+Dense 0 rank 1: epoch 26/32, step 288/288, loss nan, lr 0.000039Dense 0 rank 0: epoch 26/32, step 288/288, loss nan, lr 0.000039
+
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 26, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 3.904257454246649e-05, "updates": 2330, "seconds": 83.14, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 27/32, step 32/288, loss nan, lr 0.000038
+Dense 0 rank 0: epoch 27/32, step 32/288, loss nan, lr 0.000038
+Dense 0 rank 0: epoch 27/32, step 64/288, loss nan, lr 0.000037
+Dense 0 rank 1: epoch 27/32, step 64/288, loss nan, lr 0.000037
+Dense 0 rank 1: epoch 27/32, step 96/288, loss nan, lr 0.000037
+Dense 0 rank 0: epoch 27/32, step 96/288, loss nan, lr 0.000037
+Dense 0 rank 0: epoch 27/32, step 128/288, loss nan, lr 0.000036
+Dense 0 rank 1: epoch 27/32, step 128/288, loss nan, lr 0.000036
+Dense 0 rank 0: epoch 27/32, step 160/288, loss nan, lr 0.000035
+Dense 0 rank 1: epoch 27/32, step 160/288, loss nan, lr 0.000035
+Dense 0 rank 0: epoch 27/32, step 192/288, loss nan, lr 0.000034
+Dense 0 rank 1: epoch 27/32, step 192/288, loss nan, lr 0.000034
+Dense 0 rank 1: epoch 27/32, step 224/288, loss nan, lr 0.000033
+Dense 0 rank 0: epoch 27/32, step 224/288, loss nan, lr 0.000033
+Dense 0 rank 0: epoch 27/32, step 256/288, loss nan, lr 0.000033
+Dense 0 rank 1: epoch 27/32, step 256/288, loss nan, lr 0.000033
+Dense 0 rank 0: epoch 27/32, step 288/288, loss nan, lr 0.000032
+Dense 0 rank 1: epoch 27/32, step 288/288, loss nan, lr 0.000032
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 27, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 3.1849125727071006e-05, "updates": 2426, "seconds": 80.7, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 28/32, step 32/288, loss nan, lr 0.000031
+Dense 0 rank 0: epoch 28/32, step 32/288, loss nan, lr 0.000031
+Dense 0 rank 0: epoch 28/32, step 64/288, loss nan, lr 0.000030
+Dense 0 rank 1: epoch 28/32, step 64/288, loss nan, lr 0.000030
+Dense 0 rank 1: epoch 28/32, step 96/288, loss nan, lr 0.000030
+Dense 0 rank 0: epoch 28/32, step 96/288, loss nan, lr 0.000030
+Dense 0 rank 0: epoch 28/32, step 128/288, loss nan, lr 0.000029
+Dense 0 rank 1: epoch 28/32, step 128/288, loss nan, lr 0.000029
+Dense 0 rank 0: epoch 28/32, step 160/288, loss nan, lr 0.000028
+Dense 0 rank 1: epoch 28/32, step 160/288, loss nan, lr 0.000028
+Dense 0 rank 0: epoch 28/32, step 192/288, loss nan, lr 0.000028
+Dense 0 rank 1: epoch 28/32, step 192/288, loss nan, lr 0.000028
+Dense 0 rank 1: epoch 28/32, step 224/288, loss nan, lr 0.000027
+Dense 0 rank 0: epoch 28/32, step 224/288, loss nan, lr 0.000027
+Dense 0 rank 1: epoch 28/32, step 256/288, loss nan, lr 0.000026
+Dense 0 rank 0: epoch 28/32, step 256/288, loss nan, lr 0.000026
+Dense 0 rank 1: epoch 28/32, step 288/288, loss nan, lr 0.000026
+Dense 0 rank 0: epoch 28/32, step 288/288, loss nan, lr 0.000026
+Dense 0 rank 1: fixed-rule PQ check, 10 images
+Dense 0 rank 0: fixed-rule PQ check, 10 images
+Dense 0 rank 1: fixed-rule PQ check, 20 images
+Dense 0 rank 0: fixed-rule PQ check, 20 images
+Dense 0 rank 1: fixed-rule PQ check, 30 images
+Dense 0 rank 0: fixed-rule PQ check, 30 images
+Dense 0 rank 1: fixed-rule PQ check, 40 images
+Dense 0 rank 0: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 28, "loss": NaN, "fixed_rule_calibration_PQ": 0.0, "lr": 2.5865763518678648e-05, "updates": 2522, "seconds": 134.76, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 29/32, step 32/288, loss nan, lr 0.000025
+Dense 0 rank 0: epoch 29/32, step 32/288, loss nan, lr 0.000025
+Dense 0 rank 0: epoch 29/32, step 64/288, loss nan, lr 0.000025
+Dense 0 rank 1: epoch 29/32, step 64/288, loss nan, lr 0.000025
+Dense 0 rank 1: epoch 29/32, step 96/288, loss nan, lr 0.000024
+Dense 0 rank 0: epoch 29/32, step 96/288, loss nan, lr 0.000024
+Dense 0 rank 1: epoch 29/32, step 128/288, loss nan, lr 0.000024
+Dense 0 rank 0: epoch 29/32, step 128/288, loss nan, lr 0.000024
+Dense 0 rank 1: epoch 29/32, step 160/288, loss nan, lr 0.000023
+Dense 0 rank 0: epoch 29/32, step 160/288, loss nan, lr 0.000023
+Dense 0 rank 0: epoch 29/32, step 192/288, loss nan, lr 0.000023
+Dense 0 rank 1: epoch 29/32, step 192/288, loss nan, lr 0.000023
+Dense 0 rank 1: epoch 29/32, step 224/288, loss nan, lr 0.000022
+Dense 0 rank 0: epoch 29/32, step 224/288, loss nan, lr 0.000022
+Dense 0 rank 1: epoch 29/32, step 256/288, loss nan, lr 0.000022
+Dense 0 rank 0: epoch 29/32, step 256/288, loss nan, lr 0.000022
+Dense 0 rank 0: epoch 29/32, step 288/288, loss nan, lr 0.000021
+Dense 0 rank 1: epoch 29/32, step 288/288, loss nan, lr 0.000021
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 29, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 2.1150110966194776e-05, "updates": 2618, "seconds": 82.59, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 30/32, step 32/288, loss nan, lr 0.000021
+Dense 0 rank 0: epoch 30/32, step 32/288, loss nan, lr 0.000021
+Dense 0 rank 0: epoch 30/32, step 64/288, loss nan, lr 0.000020
+Dense 0 rank 1: epoch 30/32, step 64/288, loss nan, lr 0.000020
+Dense 0 rank 0: epoch 30/32, step 96/288, loss nan, lr 0.000020
+Dense 0 rank 1: epoch 30/32, step 96/288, loss nan, lr 0.000020
+Dense 0 rank 0: epoch 30/32, step 128/288, loss nan, lr 0.000019
+Dense 0 rank 1: epoch 30/32, step 128/288, loss nan, lr 0.000019
+Dense 0 rank 1: epoch 30/32, step 160/288, loss nan, lr 0.000019
+Dense 0 rank 0: epoch 30/32, step 160/288, loss nan, lr 0.000019
+Dense 0 rank 0: epoch 30/32, step 192/288, loss nan, lr 0.000019Dense 0 rank 1: epoch 30/32, step 192/288, loss nan, lr 0.000019
+
+Dense 0 rank 1: epoch 30/32, step 224/288, loss nan, lr 0.000018
+Dense 0 rank 0: epoch 30/32, step 224/288, loss nan, lr 0.000018
+Dense 0 rank 0: epoch 30/32, step 256/288, loss nan, lr 0.000018
+Dense 0 rank 1: epoch 30/32, step 256/288, loss nan, lr 0.000018
+Dense 0 rank 0: epoch 30/32, step 288/288, loss nan, lr 0.000018
+Dense 0 rank 1: epoch 30/32, step 288/288, loss nan, lr 0.000018
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 30, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 1.7747582381537673e-05, "updates": 2714, "seconds": 82.2, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 31/32, step 32/288, loss nan, lr 0.000017
+Dense 0 rank 0: epoch 31/32, step 32/288, loss nan, lr 0.000017
+Dense 0 rank 1: epoch 31/32, step 64/288, loss nan, lr 0.000017
+Dense 0 rank 0: epoch 31/32, step 64/288, loss nan, lr 0.000017
+Dense 0 rank 0: epoch 31/32, step 96/288, loss nan, lr 0.000017
+Dense 0 rank 1: epoch 31/32, step 96/288, loss nan, lr 0.000017
+Dense 0 rank 1: epoch 31/32, step 128/288, loss nan, lr 0.000017
+Dense 0 rank 0: epoch 31/32, step 128/288, loss nan, lr 0.000017
+Dense 0 rank 0: epoch 31/32, step 160/288, loss nan, lr 0.000016
+Dense 0 rank 1: epoch 31/32, step 160/288, loss nan, lr 0.000016
+Dense 0 rank 0: epoch 31/32, step 192/288, loss nan, lr 0.000016
+Dense 0 rank 1: epoch 31/32, step 192/288, loss nan, lr 0.000016
+Dense 0 rank 1: epoch 31/32, step 224/288, loss nan, lr 0.000016
+Dense 0 rank 0: epoch 31/32, step 224/288, loss nan, lr 0.000016
+Dense 0 rank 0: epoch 31/32, step 256/288, loss nan, lr 0.000016
+Dense 0 rank 1: epoch 31/32, step 256/288, loss nan, lr 0.000016
+Dense 0 rank 0: epoch 31/32, step 288/288, loss nan, lr 0.000016
+Dense 0 rank 1: epoch 31/32, step 288/288, loss nan, lr 0.000016
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 31, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 1.569094597498897e-05, "updates": 2810, "seconds": 82.57, "peak_vram_gib": 1.336}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 32/32, step 32/288, loss nan, lr 0.000016
+Dense 0 rank 0: epoch 32/32, step 32/288, loss nan, lr 0.000016
+Dense 0 rank 1: epoch 32/32, step 64/288, loss nan, lr 0.000015
+Dense 0 rank 0: epoch 32/32, step 64/288, loss nan, lr 0.000015
+Dense 0 rank 0: epoch 32/32, step 96/288, loss nan, lr 0.000015
+Dense 0 rank 1: epoch 32/32, step 96/288, loss nan, lr 0.000015
+Dense 0 rank 0: epoch 32/32, step 128/288, loss nan, lr 0.000015
+Dense 0 rank 1: epoch 32/32, step 128/288, loss nan, lr 0.000015
+Dense 0 rank 0: epoch 32/32, step 160/288, loss nan, lr 0.000015
+Dense 0 rank 1: epoch 32/32, step 160/288, loss nan, lr 0.000015
+Dense 0 rank 1: epoch 32/32, step 192/288, loss nan, lr 0.000015
+Dense 0 rank 0: epoch 32/32, step 192/288, loss nan, lr 0.000015
+Dense 0 rank 1: epoch 32/32, step 224/288, loss nan, lr 0.000015
+Dense 0 rank 0: epoch 32/32, step 224/288, loss nan, lr 0.000015
+Dense 0 rank 1: epoch 32/32, step 256/288, loss nan, lr 0.000015
+Dense 0 rank 0: epoch 32/32, step 256/288, loss nan, lr 0.000015
+Dense 0 rank 1: epoch 32/32, step 288/288, loss nan, lr 0.000015
+Dense 0 rank 0: epoch 32/32, step 288/288, loss nan, lr 0.000015
+Dense 0 rank 1: fixed-rule PQ check, 10 images
+Dense 0 rank 0: fixed-rule PQ check, 10 images
+Dense 0 rank 1: fixed-rule PQ check, 20 images
+Dense 0 rank 0: fixed-rule PQ check, 20 images
+Dense 0 rank 1: fixed-rule PQ check, 30 images
+Dense 0 rank 0: fixed-rule PQ check, 30 images
+Dense 0 rank 1: fixed-rule PQ check, 40 images
+Dense 0 rank 0: fixed-rule PQ check, 40 images
+{"epoch": 32, "loss": NaN, "fixed_rule_calibration_PQ": 0.0, "lr": 1.5000008279415489e-05, "updates": 2906, "seconds": 135.24, "peak_vram_gib": 1.336}
+Launching: /usr/bin/python3 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=2 /kaggle/working/filament_gpu_worker.py --config /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/config.json --task dense --member 1
+
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Unexpected keys (bn2.num_batches_tracked, bn2.bias, bn2.running_mean, bn2.running_var, bn2.weight, classifier.bias, classifier.weight, conv_head.weight) found while loading pretrained weights. This may be expected if model is being adapted.
+/usr/local/lib/python3.13/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Unexpected keys (bn2.num_batches_tracked, bn2.bias, bn2.running_mean, bn2.running_var, bn2.weight, classifier.bias, classifier.weight, conv_head.weight) found while loading pretrained weights. This may be expected if model is being adapted.
+
+Dense member 1, rank 1/2: cuda:1, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers
+Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 1/32, step 32/288, loss 0.9839, lr 0.000033
+Dense 1 rank 0: epoch 1/32, step 32/288, loss 0.9854, lr 0.000033
+Dense 1 rank 0: epoch 1/32, step 64/288, loss 0.9722, lr 0.000067
+Dense 1 rank 1: epoch 1/32, step 64/288, loss 0.9727, lr 0.000067
+Dense 1 rank 0: epoch 1/32, step 96/288, loss 0.9544, lr 0.000100
+Dense 1 rank 1: epoch 1/32, step 96/288, loss 0.9552, lr 0.000100
+Dense 1 rank 0: epoch 1/32, step 128/288, loss 0.9326, lr 0.000133
+Dense 1 rank 1: epoch 1/32, step 128/288, loss 0.9322, lr 0.000133
+Dense 1 rank 0: epoch 1/32, step 160/288, loss 0.9067, lr 0.000167
+Dense 1 rank 1: epoch 1/32, step 160/288, loss 0.9058, lr 0.000167
+Dense 1 rank 0: epoch 1/32, step 192/288, loss 0.8755, lr 0.000200
+Dense 1 rank 1: epoch 1/32, step 192/288, loss 0.8753, lr 0.000200
+Dense 1 rank 0: epoch 1/32, step 224/288, loss 0.8434, lr 0.000233
+Dense 1 rank 1: epoch 1/32, step 224/288, loss 0.8431, lr 0.000233
+Dense 1 rank 1: epoch 1/32, step 256/288, loss 0.8116, lr 0.000266
+Dense 1 rank 0: epoch 1/32, step 256/288, loss 0.8121, lr 0.000266
+Dense 1 rank 1: epoch 1/32, step 288/288, loss 0.7818, lr 0.000299
+Dense 1 rank 0: epoch 1/32, step 288/288, loss 0.7823, lr 0.000299
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 1, "loss": 0.7820342347646754, "fixed_rule_calibration_PQ": null, "lr": 0.0002993185765974694, "updates": 96, "seconds": 120.67, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 2/32, step 32/288, loss 0.5015, lr 0.000299
+Dense 1 rank 1: epoch 2/32, step 32/288, loss 0.5029, lr 0.000299
+Dense 1 rank 0: epoch 2/32, step 64/288, loss 0.4875, lr 0.000299
+Dense 1 rank 1: epoch 2/32, step 64/288, loss 0.4886, lr 0.000299
+Dense 1 rank 0: epoch 2/32, step 96/288, loss nan, lr 0.000299
+Dense 1 rank 1: epoch 2/32, step 96/288, loss nan, lr 0.000299
+Dense 1 rank 1: epoch 2/32, step 128/288, loss nan, lr 0.000299
+Dense 1 rank 0: epoch 2/32, step 128/288, loss nan, lr 0.000299
+Dense 1 rank 1: epoch 2/32, step 160/288, loss nan, lr 0.000298
+Dense 1 rank 0: epoch 2/32, step 160/288, loss nan, lr 0.000298
+Dense 1 rank 1: epoch 2/32, step 192/288, loss nan, lr 0.000298
+Dense 1 rank 0: epoch 2/32, step 192/288, loss nan, lr 0.000298
+Dense 1 rank 0: epoch 2/32, step 224/288, loss nan, lr 0.000298
+Dense 1 rank 1: epoch 2/32, step 224/288, loss nan, lr 0.000298
+Dense 1 rank 1: epoch 2/32, step 256/288, loss nan, lr 0.000298
+Dense 1 rank 0: epoch 2/32, step 256/288, loss nan, lr 0.000298
+Dense 1 rank 1: epoch 2/32, step 288/288, loss nan, lr 0.000297
+Dense 1 rank 0: epoch 2/32, step 288/288, loss nan, lr 0.000297
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 2, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0002972713710558006, "updates": 121, "seconds": 114.46, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 3/32, step 32/288, loss nan, lr 0.000297
+Dense 1 rank 0: epoch 3/32, step 32/288, loss nan, lr 0.000297
+Dense 1 rank 1: epoch 3/32, step 64/288, loss nan, lr 0.000297
+Dense 1 rank 0: epoch 3/32, step 64/288, loss nan, lr 0.000297
+Dense 1 rank 0: epoch 3/32, step 96/288, loss nan, lr 0.000296
+Dense 1 rank 1: epoch 3/32, step 96/288, loss nan, lr 0.000296
+Dense 1 rank 1: epoch 3/32, step 128/288, loss nan, lr 0.000296
+Dense 1 rank 0: epoch 3/32, step 128/288, loss nan, lr 0.000296
+Dense 1 rank 0: epoch 3/32, step 160/288, loss nan, lr 0.000296
+Dense 1 rank 1: epoch 3/32, step 160/288, loss nan, lr 0.000296
+Dense 1 rank 0: epoch 3/32, step 192/288, loss nan, lr 0.000295
+Dense 1 rank 1: epoch 3/32, step 192/288, loss nan, lr 0.000295
+Dense 1 rank 0: epoch 3/32, step 224/288, loss nan, lr 0.000295
+Dense 1 rank 1: epoch 3/32, step 224/288, loss nan, lr 0.000295
+Dense 1 rank 0: epoch 3/32, step 256/288, loss nan, lr 0.000294
+Dense 1 rank 1: epoch 3/32, step 256/288, loss nan, lr 0.000294
+Dense 1 rank 0: epoch 3/32, step 288/288, loss nan, lr 0.000294
+Dense 1 rank 1: epoch 3/32, step 288/288, loss nan, lr 0.000294
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 3, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.000293878090804061, "updates": 122, "seconds": 113.95, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 4/32, step 32/288, loss nan, lr 0.000293
+Dense 1 rank 1: epoch 4/32, step 32/288, loss nan, lr 0.000293
+Dense 1 rank 1: epoch 4/32, step 64/288, loss nan, lr 0.000293
+Dense 1 rank 0: epoch 4/32, step 64/288, loss nan, lr 0.000293
+Dense 1 rank 0: epoch 4/32, step 96/288, loss nan, lr 0.000292
+Dense 1 rank 1: epoch 4/32, step 96/288, loss nan, lr 0.000292
+Dense 1 rank 0: epoch 4/32, step 128/288, loss nan, lr 0.000292
+Dense 1 rank 1: epoch 4/32, step 128/288, loss nan, lr 0.000292
+Dense 1 rank 0: epoch 4/32, step 160/288, loss nan, lr 0.000291
+Dense 1 rank 1: epoch 4/32, step 160/288, loss nan, lr 0.000291
+Dense 1 rank 1: epoch 4/32, step 192/288, loss nan, lr 0.000291
+Dense 1 rank 0: epoch 4/32, step 192/288, loss nan, lr 0.000291
+Dense 1 rank 0: epoch 4/32, step 224/288, loss nan, lr 0.000290
+Dense 1 rank 1: epoch 4/32, step 224/288, loss nan, lr 0.000290
+Dense 1 rank 1: epoch 4/32, step 256/288, loss nan, lr 0.000290
+Dense 1 rank 0: epoch 4/32, step 256/288, loss nan, lr 0.000290
+Dense 1 rank 1: epoch 4/32, step 288/288, loss nan, lr 0.000289
+Dense 1 rank 0: epoch 4/32, step 288/288, loss nan, lr 0.000289
+Dense 1 rank 0: fixed-rule PQ check, 10 images
+Dense 1 rank 1: fixed-rule PQ check, 10 images
+Dense 1 rank 1: fixed-rule PQ check, 20 images
+Dense 1 rank 0: fixed-rule PQ check, 20 images
+Dense 1 rank 1: fixed-rule PQ check, 30 images
+Dense 1 rank 0: fixed-rule PQ check, 30 images
+Dense 1 rank 1: fixed-rule PQ check, 40 images
+Dense 1 rank 0: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 4, "loss": NaN, "fixed_rule_calibration_PQ": 0.020758058248575285, "lr": 0.0002891714149860303, "updates": 218, "seconds": 174.37, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 5/32, step 32/288, loss nan, lr 0.000289
+Dense 1 rank 0: epoch 5/32, step 32/288, loss nan, lr 0.000289
+Dense 1 rank 0: epoch 5/32, step 64/288, loss nan, lr 0.000288
+Dense 1 rank 1: epoch 5/32, step 64/288, loss nan, lr 0.000288
+Dense 1 rank 1: epoch 5/32, step 96/288, loss nan, lr 0.000287
+Dense 1 rank 0: epoch 5/32, step 96/288, loss nan, lr 0.000287
+Dense 1 rank 1: epoch 5/32, step 128/288, loss nan, lr 0.000287
+Dense 1 rank 0: epoch 5/32, step 128/288, loss nan, lr 0.000287
+Dense 1 rank 0: epoch 5/32, step 160/288, loss nan, lr 0.000286
+Dense 1 rank 1: epoch 5/32, step 160/288, loss nan, lr 0.000286
+Dense 1 rank 1: epoch 5/32, step 192/288, loss nan, lr 0.000285
+Dense 1 rank 0: epoch 5/32, step 192/288, loss nan, lr 0.000285
+Dense 1 rank 0: epoch 5/32, step 224/288, loss nan, lr 0.000285
+Dense 1 rank 1: epoch 5/32, step 224/288, loss nan, lr 0.000285
+Dense 1 rank 1: epoch 5/32, step 256/288, loss nan, lr 0.000284
+Dense 1 rank 0: epoch 5/32, step 256/288, loss nan, lr 0.000284
+Dense 1 rank 0: epoch 5/32, step 288/288, loss nan, lr 0.000283
+Dense 1 rank 1: epoch 5/32, step 288/288, loss nan, lr 0.000283
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 5, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.000283196671462767, "updates": 314, "seconds": 112.07, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 6/32, step 32/288, loss nan, lr 0.000282
+Dense 1 rank 1: epoch 6/32, step 32/288, loss nan, lr 0.000282
+Dense 1 rank 1: epoch 6/32, step 64/288, loss nan, lr 0.000282
+Dense 1 rank 0: epoch 6/32, step 64/288, loss nan, lr 0.000282
+Dense 1 rank 1: epoch 6/32, step 96/288, loss nan, lr 0.000281
+Dense 1 rank 0: epoch 6/32, step 96/288, loss nan, lr 0.000281
+Dense 1 rank 1: epoch 6/32, step 128/288, loss nan, lr 0.000280
+Dense 1 rank 0: epoch 6/32, step 128/288, loss nan, lr 0.000280
+Dense 1 rank 1: epoch 6/32, step 160/288, loss nan, lr 0.000279
+Dense 1 rank 0: epoch 6/32, step 160/288, loss nan, lr 0.000279
+Dense 1 rank 1: epoch 6/32, step 192/288, loss nan, lr 0.000279
+Dense 1 rank 0: epoch 6/32, step 192/288, loss nan, lr 0.000279
+Dense 1 rank 0: epoch 6/32, step 224/288, loss nan, lr 0.000278
+Dense 1 rank 1: epoch 6/32, step 224/288, loss nan, lr 0.000278
+Dense 1 rank 1: epoch 6/32, step 256/288, loss nan, lr 0.000277
+Dense 1 rank 0: epoch 6/32, step 256/288, loss nan, lr 0.000277
+Dense 1 rank 1: epoch 6/32, step 288/288, loss nan, lr 0.000276
+Dense 1 rank 0: epoch 6/32, step 288/288, loss nan, lr 0.000276
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 6, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0002760114002805271, "updates": 410, "seconds": 112.36, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 7/32, step 32/288, loss nan, lr 0.000275
+Dense 1 rank 1: epoch 7/32, step 32/288, loss nan, lr 0.000275
+Dense 1 rank 0: epoch 7/32, step 64/288, loss nan, lr 0.000274
+Dense 1 rank 1: epoch 7/32, step 64/288, loss nan, lr 0.000274
+Dense 1 rank 0: epoch 7/32, step 96/288, loss nan, lr 0.000273
+Dense 1 rank 1: epoch 7/32, step 96/288, loss nan, lr 0.000273
+Dense 1 rank 1: epoch 7/32, step 128/288, loss nan, lr 0.000272
+Dense 1 rank 0: epoch 7/32, step 128/288, loss nan, lr 0.000272
+Dense 1 rank 0: epoch 7/32, step 160/288, loss nan, lr 0.000272
+Dense 1 rank 1: epoch 7/32, step 160/288, loss nan, lr 0.000272
+Dense 1 rank 0: epoch 7/32, step 192/288, loss nan, lr 0.000271
+Dense 1 rank 1: epoch 7/32, step 192/288, loss nan, lr 0.000271
+Dense 1 rank 1: epoch 7/32, step 224/288, loss nan, lr 0.000270
+Dense 1 rank 0: epoch 7/32, step 224/288, loss nan, lr 0.000270
+Dense 1 rank 1: epoch 7/32, step 256/288, loss nan, lr 0.000269
+Dense 1 rank 0: epoch 7/32, step 256/288, loss nan, lr 0.000269
+Dense 1 rank 1: epoch 7/32, step 288/288, loss nan, lr 0.000268
+Dense 1 rank 0: epoch 7/32, step 288/288, loss nan, lr 0.000268
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 7, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0002676847995286644, "updates": 506, "seconds": 113.16, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 8/32, step 32/288, loss nan, lr 0.000267
+Dense 1 rank 0: epoch 8/32, step 32/288, loss nan, lr 0.000267
+Dense 1 rank 0: epoch 8/32, step 64/288, loss nan, lr 0.000266
+Dense 1 rank 1: epoch 8/32, step 64/288, loss nan, lr 0.000266
+Dense 1 rank 1: epoch 8/32, step 96/288, loss nan, lr 0.000265
+Dense 1 rank 0: epoch 8/32, step 96/288, loss nan, lr 0.000265
+Dense 1 rank 1: epoch 8/32, step 128/288, loss nan, lr 0.000264
+Dense 1 rank 0: epoch 8/32, step 128/288, loss nan, lr 0.000264
+Dense 1 rank 0: epoch 8/32, step 160/288, loss nan, lr 0.000263
+Dense 1 rank 1: epoch 8/32, step 160/288, loss nan, lr 0.000263
+Dense 1 rank 1: epoch 8/32, step 192/288, loss nan, lr 0.000262
+Dense 1 rank 0: epoch 8/32, step 192/288, loss nan, lr 0.000262
+Dense 1 rank 0: epoch 8/32, step 224/288, loss nan, lr 0.000260
+Dense 1 rank 1: epoch 8/32, step 224/288, loss nan, lr 0.000260
+Dense 1 rank 0: epoch 8/32, step 256/288, loss nan, lr 0.000259
+Dense 1 rank 1: epoch 8/32, step 256/288, loss nan, lr 0.000259
+Dense 1 rank 0: epoch 8/32, step 288/288, loss nan, lr 0.000258
+Dense 1 rank 1: epoch 8/32, step 288/288, loss nan, lr 0.000258
+Dense 1 rank 1: fixed-rule PQ check, 10 images
+Dense 1 rank 0: fixed-rule PQ check, 10 images
+Dense 1 rank 1: fixed-rule PQ check, 20 images
+Dense 1 rank 0: fixed-rule PQ check, 20 images
+Dense 1 rank 1: fixed-rule PQ check, 30 images
+Dense 1 rank 0: fixed-rule PQ check, 30 images
+Dense 1 rank 1: fixed-rule PQ check, 40 images
+Dense 1 rank 0: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 8, "loss": NaN, "fixed_rule_calibration_PQ": 0.021055792098368643, "lr": 0.0002582970589242022, "updates": 602, "seconds": 169.35, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 9/32, step 32/288, loss nan, lr 0.000257
+Dense 1 rank 1: epoch 9/32, step 32/288, loss nan, lr 0.000257
+Dense 1 rank 1: epoch 9/32, step 64/288, loss nan, lr 0.000256
+Dense 1 rank 0: epoch 9/32, step 64/288, loss nan, lr 0.000256
+Dense 1 rank 1: epoch 9/32, step 96/288, loss nan, lr 0.000255
+Dense 1 rank 0: epoch 9/32, step 96/288, loss nan, lr 0.000255
+Dense 1 rank 0: epoch 9/32, step 128/288, loss nan, lr 0.000254
+Dense 1 rank 1: epoch 9/32, step 128/288, loss nan, lr 0.000254
+Dense 1 rank 1: epoch 9/32, step 160/288, loss nan, lr 0.000253
+Dense 1 rank 0: epoch 9/32, step 160/288, loss nan, lr 0.000253
+Dense 1 rank 0: epoch 9/32, step 192/288, loss nan, lr 0.000251
+Dense 1 rank 1: epoch 9/32, step 192/288, loss nan, lr 0.000251
+Dense 1 rank 1: epoch 9/32, step 224/288, loss nan, lr 0.000250
+Dense 1 rank 0: epoch 9/32, step 224/288, loss nan, lr 0.000250
+Dense 1 rank 0: epoch 9/32, step 256/288, loss nan, lr 0.000249
+Dense 1 rank 1: epoch 9/32, step 256/288, loss nan, lr 0.000249
+Dense 1 rank 1: epoch 9/32, step 288/288, loss nan, lr 0.000248
+Dense 1 rank 0: epoch 9/32, step 288/288, loss nan, lr 0.000248
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 9, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0002479385875410226, "updates": 698, "seconds": 112.04, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 10/32, step 32/288, loss nan, lr 0.000247
+Dense 1 rank 0: epoch 10/32, step 32/288, loss nan, lr 0.000247
+Dense 1 rank 1: epoch 10/32, step 64/288, loss nan, lr 0.000246
+Dense 1 rank 0: epoch 10/32, step 64/288, loss nan, lr 0.000246
+Dense 1 rank 0: epoch 10/32, step 96/288, loss nan, lr 0.000244
+Dense 1 rank 1: epoch 10/32, step 96/288, loss nan, lr 0.000244
+Dense 1 rank 1: epoch 10/32, step 128/288, loss nan, lr 0.000243
+Dense 1 rank 0: epoch 10/32, step 128/288, loss nan, lr 0.000243
+Dense 1 rank 0: epoch 10/32, step 160/288, loss nan, lr 0.000242
+Dense 1 rank 1: epoch 10/32, step 160/288, loss nan, lr 0.000242
+Dense 1 rank 0: epoch 10/32, step 192/288, loss nan, lr 0.000241
+Dense 1 rank 1: epoch 10/32, step 192/288, loss nan, lr 0.000241
+Dense 1 rank 0: epoch 10/32, step 224/288, loss nan, lr 0.000239
+Dense 1 rank 1: epoch 10/32, step 224/288, loss nan, lr 0.000239
+Dense 1 rank 1: epoch 10/32, step 256/288, loss nan, lr 0.000238
+Dense 1 rank 0: epoch 10/32, step 256/288, loss nan, lr 0.000238
+Dense 1 rank 1: epoch 10/32, step 288/288, loss nan, lr 0.000237
+Dense 1 rank 0: epoch 10/32, step 288/288, loss nan, lr 0.000237
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 10, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00023670914312106208, "updates": 794, "seconds": 112.18, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 11/32, step 32/288, loss nan, lr 0.000235
+Dense 1 rank 0: epoch 11/32, step 32/288, loss nan, lr 0.000235
+Dense 1 rank 0: epoch 11/32, step 64/288, loss nan, lr 0.000234
+Dense 1 rank 1: epoch 11/32, step 64/288, loss nan, lr 0.000234
+Dense 1 rank 1: epoch 11/32, step 96/288, loss nan, lr 0.000233
+Dense 1 rank 0: epoch 11/32, step 96/288, loss nan, lr 0.000233
+Dense 1 rank 0: epoch 11/32, step 128/288, loss nan, lr 0.000231
+Dense 1 rank 1: epoch 11/32, step 128/288, loss nan, lr 0.000231
+Dense 1 rank 0: epoch 11/32, step 160/288, loss nan, lr 0.000230
+Dense 1 rank 1: epoch 11/32, step 160/288, loss nan, lr 0.000230
+Dense 1 rank 0: epoch 11/32, step 192/288, loss nan, lr 0.000229
+Dense 1 rank 1: epoch 11/32, step 192/288, loss nan, lr 0.000229
+Dense 1 rank 1: epoch 11/32, step 224/288, loss nan, lr 0.000227
+Dense 1 rank 0: epoch 11/32, step 224/288, loss nan, lr 0.000227
+Dense 1 rank 0: epoch 11/32, step 256/288, loss nan, lr 0.000226
+Dense 1 rank 1: epoch 11/32, step 256/288, loss nan, lr 0.000226
+Dense 1 rank 0: epoch 11/32, step 288/288, loss nan, lr 0.000225
+Dense 1 rank 1: epoch 11/32, step 288/288, loss nan, lr 0.000225
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 11, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00022471687135272353, "updates": 890, "seconds": 112.35, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 12/32, step 32/288, loss nan, lr 0.000223
+Dense 1 rank 1: epoch 12/32, step 32/288, loss nan, lr 0.000223
+Dense 1 rank 0: epoch 12/32, step 64/288, loss nan, lr 0.000222
+Dense 1 rank 1: epoch 12/32, step 64/288, loss nan, lr 0.000222
+Dense 1 rank 0: epoch 12/32, step 96/288, loss nan, lr 0.000221
+Dense 1 rank 1: epoch 12/32, step 96/288, loss nan, lr 0.000221
+Dense 1 rank 1: epoch 12/32, step 128/288, loss nan, lr 0.000219
+Dense 1 rank 0: epoch 12/32, step 128/288, loss nan, lr 0.000219
+Dense 1 rank 0: epoch 12/32, step 160/288, loss nan, lr 0.000218
+Dense 1 rank 1: epoch 12/32, step 160/288, loss nan, lr 0.000218
+Dense 1 rank 0: epoch 12/32, step 192/288, loss nan, lr 0.000216
+Dense 1 rank 1: epoch 12/32, step 192/288, loss nan, lr 0.000216
+Dense 1 rank 0: epoch 12/32, step 224/288, loss nan, lr 0.000215
+Dense 1 rank 1: epoch 12/32, step 224/288, loss nan, lr 0.000215
+Dense 1 rank 1: epoch 12/32, step 256/288, loss nan, lr 0.000214
+Dense 1 rank 0: epoch 12/32, step 256/288, loss nan, lr 0.000214
+Dense 1 rank 1: epoch 12/32, step 288/288, loss nan, lr 0.000212
+Dense 1 rank 0: epoch 12/32, step 288/288, loss nan, lr 0.000212
+Dense 1 rank 1: fixed-rule PQ check, 10 images
+Dense 1 rank 0: fixed-rule PQ check, 10 images
+Dense 1 rank 1: fixed-rule PQ check, 20 images
+Dense 1 rank 0: fixed-rule PQ check, 20 images
+Dense 1 rank 1: fixed-rule PQ check, 30 images
+Dense 1 rank 0: fixed-rule PQ check, 30 images
+Dense 1 rank 1: fixed-rule PQ check, 40 images
+Dense 1 rank 0: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 12, "loss": NaN, "fixed_rule_calibration_PQ": 0.02107868630404434, "lr": 0.00021207726436877876, "updates": 986, "seconds": 168.23, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 13/32, step 32/288, loss nan, lr 0.000211
+Dense 1 rank 1: epoch 13/32, step 32/288, loss nan, lr 0.000211
+Dense 1 rank 0: epoch 13/32, step 64/288, loss nan, lr 0.000209
+Dense 1 rank 1: epoch 13/32, step 64/288, loss nan, lr 0.000209
+Dense 1 rank 0: epoch 13/32, step 96/288, loss nan, lr 0.000208
+Dense 1 rank 1: epoch 13/32, step 96/288, loss nan, lr 0.000208
+Dense 1 rank 0: epoch 13/32, step 128/288, loss nan, lr 0.000206
+Dense 1 rank 1: epoch 13/32, step 128/288, loss nan, lr 0.000206
+Dense 1 rank 0: epoch 13/32, step 160/288, loss nan, lr 0.000205
+Dense 1 rank 1: epoch 13/32, step 160/288, loss nan, lr 0.000205
+Dense 1 rank 1: epoch 13/32, step 192/288, loss nan, lr 0.000203
+Dense 1 rank 0: epoch 13/32, step 192/288, loss nan, lr 0.000203
+Dense 1 rank 1: epoch 13/32, step 224/288, loss nan, lr 0.000202
+Dense 1 rank 0: epoch 13/32, step 224/288, loss nan, lr 0.000202
+Dense 1 rank 1: epoch 13/32, step 256/288, loss nan, lr 0.000200
+Dense 1 rank 0: epoch 13/32, step 256/288, loss nan, lr 0.000200
+Dense 1 rank 0: epoch 13/32, step 288/288, loss nan, lr 0.000199
+Dense 1 rank 1: epoch 13/32, step 288/288, loss nan, lr 0.000199
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 13, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00019891204849399507, "updates": 1082, "seconds": 112.89, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 14/32, step 32/288, loss nan, lr 0.000197
+Dense 1 rank 1: epoch 14/32, step 32/288, loss nan, lr 0.000197
+Dense 1 rank 1: epoch 14/32, step 64/288, loss nan, lr 0.000196
+Dense 1 rank 0: epoch 14/32, step 64/288, loss nan, lr 0.000196
+Dense 1 rank 0: epoch 14/32, step 96/288, loss nan, lr 0.000194
+Dense 1 rank 1: epoch 14/32, step 96/288, loss nan, lr 0.000194
+Dense 1 rank 0: epoch 14/32, step 128/288, loss nan, lr 0.000193
+Dense 1 rank 1: epoch 14/32, step 128/288, loss nan, lr 0.000193
+Dense 1 rank 1: epoch 14/32, step 160/288, loss nan, lr 0.000191
+Dense 1 rank 0: epoch 14/32, step 160/288, loss nan, lr 0.000191
+Dense 1 rank 0: epoch 14/32, step 192/288, loss nan, lr 0.000190
+Dense 1 rank 1: epoch 14/32, step 192/288, loss nan, lr 0.000190
+Dense 1 rank 1: epoch 14/32, step 224/288, loss nan, lr 0.000188
+Dense 1 rank 0: epoch 14/32, step 224/288, loss nan, lr 0.000188
+Dense 1 rank 1: epoch 14/32, step 256/288, loss nan, lr 0.000187
+Dense 1 rank 0: epoch 14/32, step 256/288, loss nan, lr 0.000187
+Dense 1 rank 0: epoch 14/32, step 288/288, loss nan, lr 0.000185
+Dense 1 rank 1: epoch 14/32, step 288/288, loss nan, lr 0.000185
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 14, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00018534801195408575, "updates": 1178, "seconds": 112.19, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 15/32, step 32/288, loss nan, lr 0.000184
+Dense 1 rank 1: epoch 15/32, step 32/288, loss nan, lr 0.000184
+Dense 1 rank 1: epoch 15/32, step 64/288, loss nan, lr 0.000182
+Dense 1 rank 0: epoch 15/32, step 64/288, loss nan, lr 0.000182
+Dense 1 rank 1: epoch 15/32, step 96/288, loss nan, lr 0.000181
+Dense 1 rank 0: epoch 15/32, step 96/288, loss nan, lr 0.000181
+Dense 1 rank 0: epoch 15/32, step 128/288, loss nan, lr 0.000179
+Dense 1 rank 1: epoch 15/32, step 128/288, loss nan, lr 0.000179
+Dense 1 rank 1: epoch 15/32, step 160/288, loss nan, lr 0.000178
+Dense 1 rank 0: epoch 15/32, step 160/288, loss nan, lr 0.000178
+Dense 1 rank 1: epoch 15/32, step 192/288, loss nan, lr 0.000176
+Dense 1 rank 0: epoch 15/32, step 192/288, loss nan, lr 0.000176
+Dense 1 rank 0: epoch 15/32, step 224/288, loss nan, lr 0.000175
+Dense 1 rank 1: epoch 15/32, step 224/288, loss nan, lr 0.000175
+Dense 1 rank 1: epoch 15/32, step 256/288, loss nan, lr 0.000173
+Dense 1 rank 0: epoch 15/32, step 256/288, loss nan, lr 0.000173
+Dense 1 rank 0: epoch 15/32, step 288/288, loss nan, lr 0.000172
+Dense 1 rank 1: epoch 15/32, step 288/288, loss nan, lr 0.000172
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 15, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00017151578383578674, "updates": 1274, "seconds": 111.88, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 16/32, step 32/288, loss nan, lr 0.000170
+Dense 1 rank 1: epoch 16/32, step 32/288, loss nan, lr 0.000170
+Dense 1 rank 1: epoch 16/32, step 64/288, loss nan, lr 0.000168
+Dense 1 rank 0: epoch 16/32, step 64/288, loss nan, lr 0.000168
+Dense 1 rank 0: epoch 16/32, step 96/288, loss nan, lr 0.000167
+Dense 1 rank 1: epoch 16/32, step 96/288, loss nan, lr 0.000167
+Dense 1 rank 1: epoch 16/32, step 128/288, loss nan, lr 0.000165
+Dense 1 rank 0: epoch 16/32, step 128/288, loss nan, lr 0.000165
+Dense 1 rank 0: epoch 16/32, step 160/288, loss nan, lr 0.000164
+Dense 1 rank 1: epoch 16/32, step 160/288, loss nan, lr 0.000164
+Dense 1 rank 1: epoch 16/32, step 192/288, loss nan, lr 0.000162
+Dense 1 rank 0: epoch 16/32, step 192/288, loss nan, lr 0.000162
+Dense 1 rank 0: epoch 16/32, step 224/288, loss nan, lr 0.000161
+Dense 1 rank 1: epoch 16/32, step 224/288, loss nan, lr 0.000161
+Dense 1 rank 0: epoch 16/32, step 256/288, loss nan, lr 0.000159
+Dense 1 rank 1: epoch 16/32, step 256/288, loss nan, lr 0.000159
+Dense 1 rank 1: epoch 16/32, step 288/288, loss nan, lr 0.000158
+Dense 1 rank 0: epoch 16/32, step 288/288, loss nan, lr 0.000158
+Dense 1 rank 0: fixed-rule PQ check, 10 images
+Dense 1 rank 1: fixed-rule PQ check, 10 images
+Dense 1 rank 0: fixed-rule PQ check, 20 images
+Dense 1 rank 1: fixed-rule PQ check, 20 images
+Dense 1 rank 0: fixed-rule PQ check, 30 images
+Dense 1 rank 1: fixed-rule PQ check, 30 images
+Dense 1 rank 0: fixed-rule PQ check, 40 images
+Dense 1 rank 1: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 16, "loss": NaN, "fixed_rule_calibration_PQ": 0.02107868630404434, "lr": 0.00015754857605734227, "updates": 1370, "seconds": 170.04, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 17/32, step 32/288, loss nan, lr 0.000156
+Dense 1 rank 0: epoch 17/32, step 32/288, loss nan, lr 0.000156
+Dense 1 rank 0: epoch 17/32, step 64/288, loss nan, lr 0.000154
+Dense 1 rank 1: epoch 17/32, step 64/288, loss nan, lr 0.000154
+Dense 1 rank 1: epoch 17/32, step 96/288, loss nan, lr 0.000153
+Dense 1 rank 0: epoch 17/32, step 96/288, loss nan, lr 0.000153
+Dense 1 rank 1: epoch 17/32, step 128/288, loss nan, lr 0.000151
+Dense 1 rank 0: epoch 17/32, step 128/288, loss nan, lr 0.000151
+Dense 1 rank 1: epoch 17/32, step 160/288, loss nan, lr 0.000150
+Dense 1 rank 0: epoch 17/32, step 160/288, loss nan, lr 0.000150
+Dense 1 rank 1: epoch 17/32, step 192/288, loss nan, lr 0.000148
+Dense 1 rank 0: epoch 17/32, step 192/288, loss nan, lr 0.000148
+Dense 1 rank 1: epoch 17/32, step 224/288, loss nan, lr 0.000147
+Dense 1 rank 0: epoch 17/32, step 224/288, loss nan, lr 0.000147
+Dense 1 rank 1: epoch 17/32, step 256/288, loss nan, lr 0.000145
+Dense 1 rank 0: epoch 17/32, step 256/288, loss nan, lr 0.000145
+Dense 1 rank 1: epoch 17/32, step 288/288, loss nan, lr 0.000144
+Dense 1 rank 0: epoch 17/32, step 288/288, loss nan, lr 0.000144
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 17, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0001435809004649112, "updates": 1466, "seconds": 112.3, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 18/32, step 32/288, loss nan, lr 0.000142
+Dense 1 rank 1: epoch 18/32, step 32/288, loss nan, lr 0.000142
+Dense 1 rank 1: epoch 18/32, step 64/288, loss nan, lr 0.000140
+Dense 1 rank 0: epoch 18/32, step 64/288, loss nan, lr 0.000140
+Dense 1 rank 1: epoch 18/32, step 96/288, loss nan, lr 0.000139
+Dense 1 rank 0: epoch 18/32, step 96/288, loss nan, lr 0.000139
+Dense 1 rank 0: epoch 18/32, step 128/288, loss nan, lr 0.000137
+Dense 1 rank 1: epoch 18/32, step 128/288, loss nan, lr 0.000137
+Dense 1 rank 0: epoch 18/32, step 160/288, loss nan, lr 0.000136
+Dense 1 rank 1: epoch 18/32, step 160/288, loss nan, lr 0.000136
+Dense 1 rank 1: epoch 18/32, step 192/288, loss nan, lr 0.000134
+Dense 1 rank 0: epoch 18/32, step 192/288, loss nan, lr 0.000134
+Dense 1 rank 0: epoch 18/32, step 224/288, loss nan, lr 0.000133
+Dense 1 rank 1: epoch 18/32, step 224/288, loss nan, lr 0.000133
+Dense 1 rank 0: epoch 18/32, step 256/288, loss nan, lr 0.000131
+Dense 1 rank 1: epoch 18/32, step 256/288, loss nan, lr 0.000131
+Dense 1 rank 1: epoch 18/32, step 288/288, loss nan, lr 0.000130
+Dense 1 rank 0: epoch 18/32, step 288/288, loss nan, lr 0.000130
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 18, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00012974727340995685, "updates": 1562, "seconds": 111.66, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 19/32, step 32/288, loss nan, lr 0.000128
+Dense 1 rank 1: epoch 19/32, step 32/288, loss nan, lr 0.000128
+Dense 1 rank 0: epoch 19/32, step 64/288, loss nan, lr 0.000127
+Dense 1 rank 1: epoch 19/32, step 64/288, loss nan, lr 0.000127
+Dense 1 rank 1: epoch 19/32, step 96/288, loss nan, lr 0.000125
+Dense 1 rank 0: epoch 19/32, step 96/288, loss nan, lr 0.000125
+Dense 1 rank 1: epoch 19/32, step 128/288, loss nan, lr 0.000124
+Dense 1 rank 0: epoch 19/32, step 128/288, loss nan, lr 0.000124
+Dense 1 rank 0: epoch 19/32, step 160/288, loss nan, lr 0.000122
+Dense 1 rank 1: epoch 19/32, step 160/288, loss nan, lr 0.000122
+Dense 1 rank 0: epoch 19/32, step 192/288, loss nan, lr 0.000121
+Dense 1 rank 1: epoch 19/32, step 192/288, loss nan, lr 0.000121
+Dense 1 rank 1: epoch 19/32, step 224/288, loss nan, lr 0.000119
+Dense 1 rank 0: epoch 19/32, step 224/288, loss nan, lr 0.000119
+Dense 1 rank 0: epoch 19/32, step 256/288, loss nan, lr 0.000118
+Dense 1 rank 1: epoch 19/32, step 256/288, loss nan, lr 0.000118
+Dense 1 rank 1: epoch 19/32, step 288/288, loss nan, lr 0.000116
+Dense 1 rank 0: epoch 19/32, step 288/288, loss nan, lr 0.000116
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 19, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0001161809202832482, "updates": 1658, "seconds": 112.87, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 20/32, step 32/288, loss nan, lr 0.000115
+Dense 1 rank 1: epoch 20/32, step 32/288, loss nan, lr 0.000115
+Dense 1 rank 0: epoch 20/32, step 64/288, loss nan, lr 0.000113
+Dense 1 rank 1: epoch 20/32, step 64/288, loss nan, lr 0.000113
+Dense 1 rank 1: epoch 20/32, step 96/288, loss nan, lr 0.000112
+Dense 1 rank 0: epoch 20/32, step 96/288, loss nan, lr 0.000112
+Dense 1 rank 0: epoch 20/32, step 128/288, loss nan, lr 0.000110
+Dense 1 rank 1: epoch 20/32, step 128/288, loss nan, lr 0.000110
+Dense 1 rank 1: epoch 20/32, step 160/288, loss nan, lr 0.000109
+Dense 1 rank 0: epoch 20/32, step 160/288, loss nan, lr 0.000109
+Dense 1 rank 0: epoch 20/32, step 192/288, loss nan, lr 0.000107
+Dense 1 rank 1: epoch 20/32, step 192/288, loss nan, lr 0.000107
+Dense 1 rank 1: epoch 20/32, step 224/288, loss nan, lr 0.000106
+Dense 1 rank 0: epoch 20/32, step 224/288, loss nan, lr 0.000106
+Dense 1 rank 1: epoch 20/32, step 256/288, loss nan, lr 0.000104
+Dense 1 rank 0: epoch 20/32, step 256/288, loss nan, lr 0.000104
+Dense 1 rank 1: epoch 20/32, step 288/288, loss nan, lr 0.000103
+Dense 1 rank 0: epoch 20/32, step 288/288, loss nan, lr 0.000103
+Dense 1 rank 0: fixed-rule PQ check, 10 images
+Dense 1 rank 1: fixed-rule PQ check, 10 images
+Dense 1 rank 0: fixed-rule PQ check, 20 images
+Dense 1 rank 1: fixed-rule PQ check, 20 images
+Dense 1 rank 0: fixed-rule PQ check, 30 images
+Dense 1 rank 1: fixed-rule PQ check, 30 images
+Dense 1 rank 0: fixed-rule PQ check, 40 images
+Dense 1 rank 1: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 20, "loss": NaN, "fixed_rule_calibration_PQ": 0.02107868630404434, "lr": 0.00010301249248151845, "updates": 1754, "seconds": 170.17, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 21/32, step 32/288, loss nan, lr 0.000102
+Dense 1 rank 1: epoch 21/32, step 32/288, loss nan, lr 0.000102
+Dense 1 rank 1: epoch 21/32, step 64/288, loss nan, lr 0.000100
+Dense 1 rank 0: epoch 21/32, step 64/288, loss nan, lr 0.000100
+Dense 1 rank 1: epoch 21/32, step 96/288, loss nan, lr 0.000099
+Dense 1 rank 0: epoch 21/32, step 96/288, loss nan, lr 0.000099
+Dense 1 rank 1: epoch 21/32, step 128/288, loss nan, lr 0.000097
+Dense 1 rank 0: epoch 21/32, step 128/288, loss nan, lr 0.000097
+Dense 1 rank 1: epoch 21/32, step 160/288, loss nan, lr 0.000096
+Dense 1 rank 0: epoch 21/32, step 160/288, loss nan, lr 0.000096
+Dense 1 rank 0: epoch 21/32, step 192/288, loss nan, lr 0.000095
+Dense 1 rank 1: epoch 21/32, step 192/288, loss nan, lr 0.000095
+Dense 1 rank 0: epoch 21/32, step 224/288, loss nan, lr 0.000093
+Dense 1 rank 1: epoch 21/32, step 224/288, loss nan, lr 0.000093
+Dense 1 rank 0: epoch 21/32, step 256/288, loss nan, lr 0.000092
+Dense 1 rank 1: epoch 21/32, step 256/288, loss nan, lr 0.000092
+Dense 1 rank 1: epoch 21/32, step 288/288, loss nan, lr 0.000090
+Dense 1 rank 0: epoch 21/32, step 288/288, loss nan, lr 0.000090
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 21, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 9.036880916309311e-05, "updates": 1850, "seconds": 112.0, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 22/32, step 32/288, loss nan, lr 0.000089
+Dense 1 rank 1: epoch 22/32, step 32/288, loss nan, lr 0.000089
+Dense 1 rank 1: epoch 22/32, step 64/288, loss nan, lr 0.000088
+Dense 1 rank 0: epoch 22/32, step 64/288, loss nan, lr 0.000088
+Dense 1 rank 1: epoch 22/32, step 96/288, loss nan, lr 0.000086
+Dense 1 rank 0: epoch 22/32, step 96/288, loss nan, lr 0.000086
+Dense 1 rank 0: epoch 22/32, step 128/288, loss nan, lr 0.000085
+Dense 1 rank 1: epoch 22/32, step 128/288, loss nan, lr 0.000085
+Dense 1 rank 0: epoch 22/32, step 160/288, loss nan, lr 0.000084
+Dense 1 rank 1: epoch 22/32, step 160/288, loss nan, lr 0.000084
+Dense 1 rank 1: epoch 22/32, step 192/288, loss nan, lr 0.000082
+Dense 1 rank 0: epoch 22/32, step 192/288, loss nan, lr 0.000082
+Dense 1 rank 0: epoch 22/32, step 224/288, loss nan, lr 0.000081
+Dense 1 rank 1: epoch 22/32, step 224/288, loss nan, lr 0.000081
+Dense 1 rank 0: epoch 22/32, step 256/288, loss nan, lr 0.000080
+Dense 1 rank 1: epoch 22/32, step 256/288, loss nan, lr 0.000080
+Dense 1 rank 1: epoch 22/32, step 288/288, loss nan, lr 0.000078
+Dense 1 rank 0: epoch 22/32, step 288/288, loss nan, lr 0.000078
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 22, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 7.837163591006901e-05, "updates": 1946, "seconds": 112.63, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 23/32, step 32/288, loss nan, lr 0.000077
+Dense 1 rank 1: epoch 23/32, step 32/288, loss nan, lr 0.000077
+Dense 1 rank 0: epoch 23/32, step 64/288, loss nan, lr 0.000076
+Dense 1 rank 1: epoch 23/32, step 64/288, loss nan, lr 0.000076
+Dense 1 rank 0: epoch 23/32, step 96/288, loss nan, lr 0.000075
+Dense 1 rank 1: epoch 23/32, step 96/288, loss nan, lr 0.000075
+Dense 1 rank 0: epoch 23/32, step 128/288, loss nan, lr 0.000073
+Dense 1 rank 1: epoch 23/32, step 128/288, loss nan, lr 0.000073
+Dense 1 rank 0: epoch 23/32, step 160/288, loss nan, lr 0.000072
+Dense 1 rank 1: epoch 23/32, step 160/288, loss nan, lr 0.000072
+Dense 1 rank 1: epoch 23/32, step 192/288, loss nan, lr 0.000071
+Dense 1 rank 0: epoch 23/32, step 192/288, loss nan, lr 0.000071
+Dense 1 rank 0: epoch 23/32, step 224/288, loss nan, lr 0.000070
+Dense 1 rank 1: epoch 23/32, step 224/288, loss nan, lr 0.000070
+Dense 1 rank 1: epoch 23/32, step 256/288, loss nan, lr 0.000068
+Dense 1 rank 0: epoch 23/32, step 256/288, loss nan, lr 0.000068
+Dense 1 rank 1: epoch 23/32, step 288/288, loss nan, lr 0.000067
+Dense 1 rank 0: epoch 23/32, step 288/288, loss nan, lr 0.000067
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 23, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 6.713651205919483e-05, "updates": 2042, "seconds": 112.3, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 24/32, step 32/288, loss nan, lr 0.000066
+Dense 1 rank 0: epoch 24/32, step 32/288, loss nan, lr 0.000066
+Dense 1 rank 1: epoch 24/32, step 64/288, loss nan, lr 0.000065
+Dense 1 rank 0: epoch 24/32, step 64/288, loss nan, lr 0.000065
+Dense 1 rank 1: epoch 24/32, step 96/288, loss nan, lr 0.000064
+Dense 1 rank 0: epoch 24/32, step 96/288, loss nan, lr 0.000064
+Dense 1 rank 1: epoch 24/32, step 128/288, loss nan, lr 0.000062
+Dense 1 rank 0: epoch 24/32, step 128/288, loss nan, lr 0.000062
+Dense 1 rank 1: epoch 24/32, step 160/288, loss nan, lr 0.000061
+Dense 1 rank 0: epoch 24/32, step 160/288, loss nan, lr 0.000061
+Dense 1 rank 0: epoch 24/32, step 192/288, loss nan, lr 0.000060
+Dense 1 rank 1: epoch 24/32, step 192/288, loss nan, lr 0.000060
+Dense 1 rank 1: epoch 24/32, step 224/288, loss nan, lr 0.000059Dense 1 rank 0: epoch 24/32, step 224/288, loss nan, lr 0.000059
+
+Dense 1 rank 1: epoch 24/32, step 256/288, loss nan, lr 0.000058
+Dense 1 rank 0: epoch 24/32, step 256/288, loss nan, lr 0.000058
+Dense 1 rank 1: epoch 24/32, step 288/288, loss nan, lr 0.000057
+Dense 1 rank 0: epoch 24/32, step 288/288, loss nan, lr 0.000057
+Dense 1 rank 0: fixed-rule PQ check, 10 images
+Dense 1 rank 1: fixed-rule PQ check, 10 images
+Dense 1 rank 0: fixed-rule PQ check, 20 images
+Dense 1 rank 1: fixed-rule PQ check, 20 images
+Dense 1 rank 0: fixed-rule PQ check, 30 images
+Dense 1 rank 1: fixed-rule PQ check, 30 images
+Dense 1 rank 0: fixed-rule PQ check, 40 images
+Dense 1 rank 1: fixed-rule PQ check, 40 images
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 24, "loss": NaN, "fixed_rule_calibration_PQ": 0.02107868630404434, "lr": 5.677163799489784e-05, "updates": 2138, "seconds": 170.69, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 25/32, step 32/288, loss nan, lr 0.000056
+Dense 1 rank 1: epoch 25/32, step 32/288, loss nan, lr 0.000056
+Dense 1 rank 1: epoch 25/32, step 64/288, loss nan, lr 0.000055
+Dense 1 rank 0: epoch 25/32, step 64/288, loss nan, lr 0.000055
+Dense 1 rank 0: epoch 25/32, step 96/288, loss nan, lr 0.000054
+Dense 1 rank 1: epoch 25/32, step 96/288, loss nan, lr 0.000054
+Dense 1 rank 1: epoch 25/32, step 128/288, loss nan, lr 0.000052
+Dense 1 rank 0: epoch 25/32, step 128/288, loss nan, lr 0.000052
+Dense 1 rank 0: epoch 25/32, step 160/288, loss nan, lr 0.000051
+Dense 1 rank 1: epoch 25/32, step 160/288, loss nan, lr 0.000051
+Dense 1 rank 1: epoch 25/32, step 192/288, loss nan, lr 0.000050
+Dense 1 rank 0: epoch 25/32, step 192/288, loss nan, lr 0.000050
+Dense 1 rank 0: epoch 25/32, step 224/288, loss nan, lr 0.000049
+Dense 1 rank 1: epoch 25/32, step 224/288, loss nan, lr 0.000049
+Dense 1 rank 1: epoch 25/32, step 256/288, loss nan, lr 0.000048
+Dense 1 rank 0: epoch 25/32, step 256/288, loss nan, lr 0.000048
+Dense 1 rank 1: epoch 25/32, step 288/288, loss nan, lr 0.000047
+Dense 1 rank 0: epoch 25/32, step 288/288, loss nan, lr 0.000047
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 25, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 4.7376833120433774e-05, "updates": 2234, "seconds": 112.65, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 26/32, step 32/288, loss nan, lr 0.000046
+Dense 1 rank 1: epoch 26/32, step 32/288, loss nan, lr 0.000046
+Dense 1 rank 0: epoch 26/32, step 64/288, loss nan, lr 0.000045
+Dense 1 rank 1: epoch 26/32, step 64/288, loss nan, lr 0.000045
+Dense 1 rank 1: epoch 26/32, step 96/288, loss nan, lr 0.000044
+Dense 1 rank 0: epoch 26/32, step 96/288, loss nan, lr 0.000044
+Dense 1 rank 0: epoch 26/32, step 128/288, loss nan, lr 0.000044
+Dense 1 rank 1: epoch 26/32, step 128/288, loss nan, lr 0.000044
+Dense 1 rank 1: epoch 26/32, step 160/288, loss nan, lr 0.000043
+Dense 1 rank 0: epoch 26/32, step 160/288, loss nan, lr 0.000043
+Dense 1 rank 0: epoch 26/32, step 192/288, loss nan, lr 0.000042
+Dense 1 rank 1: epoch 26/32, step 192/288, loss nan, lr 0.000042
+Dense 1 rank 0: epoch 26/32, step 224/288, loss nan, lr 0.000041
+Dense 1 rank 1: epoch 26/32, step 224/288, loss nan, lr 0.000041
+Dense 1 rank 0: epoch 26/32, step 256/288, loss nan, lr 0.000040
+Dense 1 rank 1: epoch 26/32, step 256/288, loss nan, lr 0.000040
+Dense 1 rank 1: epoch 26/32, step 288/288, loss nan, lr 0.000039
+Dense 1 rank 0: epoch 26/32, step 288/288, loss nan, lr 0.000039
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 26, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 3.904257454246649e-05, "updates": 2330, "seconds": 112.44, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 27/32, step 32/288, loss nan, lr 0.000038
+Dense 1 rank 1: epoch 27/32, step 32/288, loss nan, lr 0.000038
+Dense 1 rank 1: epoch 27/32, step 64/288, loss nan, lr 0.000037
+Dense 1 rank 0: epoch 27/32, step 64/288, loss nan, lr 0.000037
+Dense 1 rank 1: epoch 27/32, step 96/288, loss nan, lr 0.000037
+Dense 1 rank 0: epoch 27/32, step 96/288, loss nan, lr 0.000037
+Dense 1 rank 0: epoch 27/32, step 128/288, loss nan, lr 0.000036
+Dense 1 rank 1: epoch 27/32, step 128/288, loss nan, lr 0.000036
+Dense 1 rank 0: epoch 27/32, step 160/288, loss nan, lr 0.000035
+Dense 1 rank 1: epoch 27/32, step 160/288, loss nan, lr 0.000035
+Dense 1 rank 1: epoch 27/32, step 192/288, loss nan, lr 0.000034
+Dense 1 rank 0: epoch 27/32, step 192/288, loss nan, lr 0.000034
+Dense 1 rank 1: epoch 27/32, step 224/288, loss nan, lr 0.000033
+Dense 1 rank 0: epoch 27/32, step 224/288, loss nan, lr 0.000033
+Dense 1 rank 0: epoch 27/32, step 256/288, loss nan, lr 0.000033
+Dense 1 rank 1: epoch 27/32, step 256/288, loss nan, lr 0.000033
+Dense 1 rank 1: epoch 27/32, step 288/288, loss nan, lr 0.000032
+Dense 1 rank 0: epoch 27/32, step 288/288, loss nan, lr 0.000032
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 27, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 3.1849125727071006e-05, "updates": 2426, "seconds": 112.68, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 28/32, step 32/288, loss nan, lr 0.000031
+Dense 1 rank 1: epoch 28/32, step 32/288, loss nan, lr 0.000031
+Dense 1 rank 0: epoch 28/32, step 64/288, loss nan, lr 0.000030
+Dense 1 rank 1: epoch 28/32, step 64/288, loss nan, lr 0.000030
+Dense 1 rank 1: epoch 28/32, step 96/288, loss nan, lr 0.000030
+Dense 1 rank 0: epoch 28/32, step 96/288, loss nan, lr 0.000030
+Dense 1 rank 0: epoch 28/32, step 128/288, loss nan, lr 0.000029
+Dense 1 rank 1: epoch 28/32, step 128/288, loss nan, lr 0.000029
+Dense 1 rank 0: epoch 28/32, step 160/288, loss nan, lr 0.000028
+Dense 1 rank 1: epoch 28/32, step 160/288, loss nan, lr 0.000028
+Dense 1 rank 1: epoch 28/32, step 192/288, loss nan, lr 0.000028
+Dense 1 rank 0: epoch 28/32, step 192/288, loss nan, lr 0.000028
+Dense 1 rank 0: epoch 28/32, step 224/288, loss nan, lr 0.000027
+Dense 1 rank 1: epoch 28/32, step 224/288, loss nan, lr 0.000027
+Dense 1 rank 1: epoch 28/32, step 256/288, loss nan, lr 0.000026
+Dense 1 rank 0: epoch 28/32, step 256/288, loss nan, lr 0.000026
+Dense 1 rank 1: epoch 28/32, step 288/288, loss nan, lr 0.000026
+Dense 1 rank 0: epoch 28/32, step 288/288, loss nan, lr 0.000026
+Dense 1 rank 0: fixed-rule PQ check, 10 images
+Dense 1 rank 1: fixed-rule PQ check, 10 images
+Dense 1 rank 0: fixed-rule PQ check, 20 images
+Dense 1 rank 1: fixed-rule PQ check, 20 images
+Dense 1 rank 0: fixed-rule PQ check, 30 images
+Dense 1 rank 1: fixed-rule PQ check, 30 images
+Dense 1 rank 0: fixed-rule PQ check, 40 images
+Dense 1 rank 1: fixed-rule PQ check, 40 images
+{"epoch": 28, "loss": NaN, "fixed_rule_calibration_PQ": 0.02107868630404434, "lr": 2.5865763518678648e-05, "updates": 2522, "seconds": 169.95, "peak_vram_gib": 3.269}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 29/32, step 32/288, loss nan, lr 0.000025
+Dense 1 rank 1: epoch 29/32, step 32/288, loss nan, lr 0.000025
+Dense 1 rank 1: epoch 29/32, step 64/288, loss nan, lr 0.000025
+Dense 1 rank 0: epoch 29/32, step 64/288, loss nan, lr 0.000025
+Dense 1 rank 1: epoch 29/32, step 96/288, loss nan, lr 0.000024
+Dense 1 rank 0: epoch 29/32, step 96/288, loss nan, lr 0.000024
+Dense 1 rank 1: epoch 29/32, step 128/288, loss nan, lr 0.000024
+Dense 1 rank 0: epoch 29/32, step 128/288, loss nan, lr 0.000024
+Dense 1 rank 1: epoch 29/32, step 160/288, loss nan, lr 0.000023
+Dense 1 rank 0: epoch 29/32, step 160/288, loss nan, lr 0.000023
+Dense 1 rank 0: epoch 29/32, step 192/288, loss nan, lr 0.000023
+Dense 1 rank 1: epoch 29/32, step 192/288, loss nan, lr 0.000023
+Dense 1 rank 0: epoch 29/32, step 224/288, loss nan, lr 0.000022
+Dense 1 rank 1: epoch 29/32, step 224/288, loss nan, lr 0.000022
+Dense 1 rank 0: epoch 29/32, step 256/288, loss nan, lr 0.000022
+Dense 1 rank 1: epoch 29/32, step 256/288, loss nan, lr 0.000022
+Dense 1 rank 1: epoch 29/32, step 288/288, loss nan, lr 0.000021
+Dense 1 rank 0: epoch 29/32, step 288/288, loss nan, lr 0.000021
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 29, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 2.1150110966194776e-05, "updates": 2618, "seconds": 112.91, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 30/32, step 32/288, loss nan, lr 0.000021
+Dense 1 rank 0: epoch 30/32, step 32/288, loss nan, lr 0.000021
+Dense 1 rank 1: epoch 30/32, step 64/288, loss nan, lr 0.000020
+Dense 1 rank 0: epoch 30/32, step 64/288, loss nan, lr 0.000020
+Dense 1 rank 1: epoch 30/32, step 96/288, loss nan, lr 0.000020
+Dense 1 rank 0: epoch 30/32, step 96/288, loss nan, lr 0.000020
+Dense 1 rank 0: epoch 30/32, step 128/288, loss nan, lr 0.000019
+Dense 1 rank 1: epoch 30/32, step 128/288, loss nan, lr 0.000019
+Dense 1 rank 0: epoch 30/32, step 160/288, loss nan, lr 0.000019
+Dense 1 rank 1: epoch 30/32, step 160/288, loss nan, lr 0.000019
+Dense 1 rank 1: epoch 30/32, step 192/288, loss nan, lr 0.000019
+Dense 1 rank 0: epoch 30/32, step 192/288, loss nan, lr 0.000019
+Dense 1 rank 1: epoch 30/32, step 224/288, loss nan, lr 0.000018
+Dense 1 rank 0: epoch 30/32, step 224/288, loss nan, lr 0.000018
+Dense 1 rank 1: epoch 30/32, step 256/288, loss nan, lr 0.000018
+Dense 1 rank 0: epoch 30/32, step 256/288, loss nan, lr 0.000018
+Dense 1 rank 1: epoch 30/32, step 288/288, loss nan, lr 0.000018
+Dense 1 rank 0: epoch 30/32, step 288/288, loss nan, lr 0.000018
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 30, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 1.7747582381537673e-05, "updates": 2714, "seconds": 112.11, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 31/32, step 32/288, loss nan, lr 0.000017
+Dense 1 rank 1: epoch 31/32, step 32/288, loss nan, lr 0.000017
+Dense 1 rank 1: epoch 31/32, step 64/288, loss nan, lr 0.000017
+Dense 1 rank 0: epoch 31/32, step 64/288, loss nan, lr 0.000017
+Dense 1 rank 1: epoch 31/32, step 96/288, loss nan, lr 0.000017
+Dense 1 rank 0: epoch 31/32, step 96/288, loss nan, lr 0.000017
+Dense 1 rank 0: epoch 31/32, step 128/288, loss nan, lr 0.000017
+Dense 1 rank 1: epoch 31/32, step 128/288, loss nan, lr 0.000017
+Dense 1 rank 1: epoch 31/32, step 160/288, loss nan, lr 0.000016
+Dense 1 rank 0: epoch 31/32, step 160/288, loss nan, lr 0.000016
+Dense 1 rank 0: epoch 31/32, step 192/288, loss nan, lr 0.000016
+Dense 1 rank 1: epoch 31/32, step 192/288, loss nan, lr 0.000016
+Dense 1 rank 0: epoch 31/32, step 224/288, loss nan, lr 0.000016
+Dense 1 rank 1: epoch 31/32, step 224/288, loss nan, lr 0.000016
+Dense 1 rank 0: epoch 31/32, step 256/288, loss nan, lr 0.000016
+Dense 1 rank 1: epoch 31/32, step 256/288, loss nan, lr 0.000016
+Dense 1 rank 1: epoch 31/32, step 288/288, loss nan, lr 0.000016
+Dense 1 rank 0: epoch 31/32, step 288/288, loss nan, lr 0.000016
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 31, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 1.569094597498897e-05, "updates": 2810, "seconds": 112.44, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 32/32, step 32/288, loss nan, lr 0.000016
+Dense 1 rank 1: epoch 32/32, step 32/288, loss nan, lr 0.000016
+Dense 1 rank 0: epoch 32/32, step 64/288, loss nan, lr 0.000015
+Dense 1 rank 1: epoch 32/32, step 64/288, loss nan, lr 0.000015
+Dense 1 rank 1: epoch 32/32, step 96/288, loss nan, lr 0.000015
+Dense 1 rank 0: epoch 32/32, step 96/288, loss nan, lr 0.000015
+Dense 1 rank 1: epoch 32/32, step 128/288, loss nan, lr 0.000015
+Dense 1 rank 0: epoch 32/32, step 128/288, loss nan, lr 0.000015
+Dense 1 rank 1: epoch 32/32, step 160/288, loss nan, lr 0.000015
+Dense 1 rank 0: epoch 32/32, step 160/288, loss nan, lr 0.000015
+Dense 1 rank 0: epoch 32/32, step 192/288, loss nan, lr 0.000015
+Dense 1 rank 1: epoch 32/32, step 192/288, loss nan, lr 0.000015
+Dense 1 rank 0: epoch 32/32, step 224/288, loss nan, lr 0.000015
+Dense 1 rank 1: epoch 32/32, step 224/288, loss nan, lr 0.000015
+Dense 1 rank 0: epoch 32/32, step 256/288, loss nan, lr 0.000015
+Dense 1 rank 1: epoch 32/32, step 256/288, loss nan, lr 0.000015
+Dense 1 rank 1: epoch 32/32, step 288/288, loss nan, lr 0.000015
+Dense 1 rank 0: epoch 32/32, step 288/288, loss nan, lr 0.000015
+Dense 1 rank 0: fixed-rule PQ check, 10 images
+Dense 1 rank 1: fixed-rule PQ check, 10 images
+Dense 1 rank 0: fixed-rule PQ check, 20 images
+Dense 1 rank 1: fixed-rule PQ check, 20 images
+Dense 1 rank 0: fixed-rule PQ check, 30 images
+Dense 1 rank 1: fixed-rule PQ check, 30 images
+Dense 1 rank 0: fixed-rule PQ check, 40 images
+Dense 1 rank 1: fixed-rule PQ check, 40 images
+{"epoch": 32, "loss": NaN, "fixed_rule_calibration_PQ": 0.02107868630404434, "lr": 1.5000008279415489e-05, "updates": 2906, "seconds": 169.72, "peak_vram_gib": 3.269}
+Selection model checkpoints: {'detector': '/kaggle/working/kaggle_native_hybrid_v1_8d27489d35/selection_models/detector/weights/best.pt', 'dense': ['/kaggle/working/kaggle_native_hybrid_v1_8d27489d35/selection_models/dense_0/best.pt', '/kaggle/working/kaggle_native_hybrid_v1_8d27489d35/selection_models/dense_1/best.pt']}

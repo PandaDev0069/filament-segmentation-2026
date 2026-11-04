@@ -1,0 +1,4 @@
+<Figure size 1400x1350 with 9 Axes>
+/kaggle/working/kaggle_native_hybrid_v1_8d27489d35/submission.csv
+Full runs also copy submission.csv to: /kaggle/working/submission.csv
+Review report_metrics.json, submission_audit.json and the previews before uploading.

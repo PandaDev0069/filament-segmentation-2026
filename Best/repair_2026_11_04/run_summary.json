@@ -1,0 +1,1006 @@
+{
+  "1": {
+    "source_head": "import importlib.metadata as metadata\nimport importlib.util\nimport subprocess\nimport sys\nfrom pathli",
+    "output_chars": 82,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": "Packages ready. Use a fresh kernel if you previously imported different versions.\n"
+  },
+  "3": {
+    "source_head": "_FILAMENT_SECTIONS = {}\n\ndef _filament_section(line, cell):\n    name = line.strip()\n    if not name ",
+    "output_chars": 29,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": "Inline helper cells enabled.\n"
+  },
+  "5": {
+    "source_head": "%%filament_section imports_and_io\n\"\"\"Train-only, date-grouped detector + native mask learning for MA",
+    "output_chars": 0,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": ""
+  },
+  "7": {
+    "source_head": "%%filament_section data\ndef normalize_solar(gray):\n    \"\"\"Always normalize. Uncertain geometry disab",
+    "output_chars": 0,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": ""
+  },
+  "9": {
+    "source_head": "%%filament_section models\ndef device_setup(cfg, distributed=False):\n    if not torch.cuda.is_availab",
+    "output_chars": 0,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": ""
+  },
+  "11": {
+    "source_head": "%%filament_section metrics\ndef update_ema(ema, model, decay):\n    with torch.no_grad():\n        for ",
+    "output_chars": 0,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": ""
+  },
+  "13": {
+    "source_head": "%%filament_section mask_training\ndef train_dense(config_path, member, full=False):\n    cfg = load_js",
+    "output_chars": 0,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": ""
+  },
+  "15": {
+    "source_head": "%%filament_section detector_training\ndef train_detector(config_path, full=False):\n    from ultralyti",
+    "output_chars": 0,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": ""
+  },
+  "17": {
+    "source_head": "%%filament_section prediction\ndef box_iou(box, boxes):\n    boxes = np.asarray(boxes, dtype=float).re",
+    "output_chars": 0,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": ""
+  },
+  "19": {
+    "source_head": "%%filament_section candidates\nFEATURES = [\"log_area\", \"mean_probability\", \"max_probability\", \"q90_pr",
+    "output_chars": 0,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": ""
+  },
+  "21": {
+    "source_head": "%%filament_section calibration\ndef quality_estimator(seed):\n    from sklearn.ensemble import HistGra",
+    "output_chars": 0,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": ""
+  },
+  "23": {
+    "source_head": "%%filament_section submission\ndef evaluate_report(cfg, candidate_folder, recipe):\n    import joblib\n",
+    "output_chars": 0,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": ""
+  },
+  "25": {
+    "source_head": "_SECTION_ORDER = ['imports_and_io', 'data', 'models', 'metrics', 'mask_training', 'detector_training",
+    "output_chars": 59,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": "Created GPU worker: /kaggle/working/filament_gpu_worker.py\n"
+  },
+  "27": {
+    "source_head": "MODE = 'full'\nDATA_ROOT_OVERRIDE = ''       # normally leave empty; search only /kaggle/input\nGPU_ID",
+    "output_chars": 191,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": "GPUs: [(0, 'Tesla T4'), (1, 'Tesla T4')]\nCPU loader workers total: 4\nMode: full | Full-data refit: True\nDetector initializer: yolo11m.pt\nMask encoders: ['resnet34', 'tu-tf_efficientnetv2_s']\n"
+  },
+  "29": {
+    "source_head": "CFG, MANIFEST = prepare(CFG)\nRUN = Path(CFG['run'])\nprint('Run directory:', RUN)\nfor part, sources i",
+    "output_chars": 683,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": "Disk free 19.5 GiB; estimated new cache 6.2, models/maps 3.5, reserve 2.0. No Ultralytics disk cache or duplicated images.\nPrepared train: 532 physical images, 867 annotator records\nPrepared calibration: 82 physical images, 134 annotator records\nPrepared report: 93 physical images, 153 annotator records\nPrepared test: 180 physical images, 0 annotator records\nRun directory: /kaggle/working/kaggle_native_hybrid_v1_8d27489d35\ntrain images= 532 annotator records= 867 geometry fallbacks= 24\ncalibration images= 82 annotator records= 134 geometry fallbacks= 3\nreport images= 93 annotator records= 153 geometry fallbacks= 6\ntest images= 180 annotator records= 0 geometry fallbacks= 14\n"
+  },
+  "30": {
+    "source_head": "import cv2\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nexamples = MANIFEST['splits']['train'",
+    "output_chars": 35,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": "<Figure size 1300x1200 with 9 Axes>"
+  },
+  "32": {
+    "source_head": "train_all(CFG, full=False)\nprint('Selection model checkpoints:', model_paths(CFG, full=False))",
+    "output_chars": 136846,
+    "epochs": [
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 1,
+        "loss": 0.6040772574746774,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0002993185765974694,
+        "updates": 96,
+        "seconds": 83.76,
+        "peak_vram_gib": 1.245
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 2,
+        "loss": 0.38988616076918936,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0002972713710558006,
+        "updates": 192,
+        "seconds": 85.06,
+        "peak_vram_gib": 1.245
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 3,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.000293878090804061,
+        "updates": 227,
+        "seconds": 82.52,
+        "peak_vram_gib": 1.245
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 4,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.14815007638998187,
+        "lr": 0.0002891714149860303,
+        "updates": 227,
+        "seconds": 133.99,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 5,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.000283196671462767,
+        "updates": 314,
+        "seconds": 79.23,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 6,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0002760114002805271,
+        "updates": 410,
+        "seconds": 80.88,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 7,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0002676847995286644,
+        "updates": 506,
+        "seconds": 80.02,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 8,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.034442982361394314,
+        "lr": 0.0002582970589242022,
+        "updates": 602,
+        "seconds": 133.66,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 9,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0002479385875410226,
+        "updates": 698,
+        "seconds": 81.74,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 10,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00023670914312106208,
+        "updates": 794,
+        "seconds": 80.25,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 11,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00022471687135272353,
+        "updates": 890,
+        "seconds": 80.97,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 12,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.0,
+        "lr": 0.00021207726436877876,
+        "updates": 986,
+        "seconds": 134.66,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 13,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00019891204849399507,
+        "updates": 1082,
+        "seconds": 81.76,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 14,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00018534801195408575,
+        "updates": 1178,
+        "seconds": 82.9,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 15,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00017151578383578674,
+        "updates": 1274,
+        "seconds": 81.66,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 16,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.0,
+        "lr": 0.00015754857605734227,
+        "updates": 1370,
+        "seconds": 137.34,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 17,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0001435809004649112,
+        "updates": 1466,
+        "seconds": 81.63,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 18,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00012974727340995685,
+        "updates": 1562,
+        "seconds": 81.32,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 19,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0001161809202832482,
+        "updates": 1658,
+        "seconds": 82.53,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 20,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.0,
+        "lr": 0.00010301249248151845,
+        "updates": 1754,
+        "seconds": 135.97,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 21,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 9.036880916309311e-05,
+        "updates": 1850,
+        "seconds": 82.0,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 22,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 7.837163591006901e-05,
+        "updates": 1946,
+        "seconds": 79.86,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 23,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 6.713651205919483e-05,
+        "updates": 2042,
+        "seconds": 82.44,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 24,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.0,
+        "lr": 5.677163799489784e-05,
+        "updates": 2138,
+        "seconds": 136.91,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 25,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 4.7376833120433774e-05,
+        "updates": 2234,
+        "seconds": 82.03,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 26,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 3.904257454246649e-05,
+        "updates": 2330,
+        "seconds": 83.14,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 27,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 3.1849125727071006e-05,
+        "updates": 2426,
+        "seconds": 80.7,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 28,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.0,
+        "lr": 2.5865763518678648e-05,
+        "updates": 2522,
+        "seconds": 134.76,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 29,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 2.1150110966194776e-05,
+        "updates": 2618,
+        "seconds": 82.59,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 30,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 1.7747582381537673e-05,
+        "updates": 2714,
+        "seconds": 82.2,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 31,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 1.569094597498897e-05,
+        "updates": 2810,
+        "seconds": 82.57,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 32,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.0,
+        "lr": 1.5000008279415489e-05,
+        "updates": 2906,
+        "seconds": 135.24,
+        "peak_vram_gib": 1.336
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 1,
+        "loss": 0.7820342347646754,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0002993185765974694,
+        "updates": 96,
+        "seconds": 120.67,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 2,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0002972713710558006,
+        "updates": 121,
+        "seconds": 114.46,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 3,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.000293878090804061,
+        "updates": 122,
+        "seconds": 113.95,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 4,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.020758058248575285,
+        "lr": 0.0002891714149860303,
+        "updates": 218,
+        "seconds": 174.37,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 5,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.000283196671462767,
+        "updates": 314,
+        "seconds": 112.07,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 6,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0002760114002805271,
+        "updates": 410,
+        "seconds": 112.36,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 7,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0002676847995286644,
+        "updates": 506,
+        "seconds": 113.16,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 8,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.021055792098368643,
+        "lr": 0.0002582970589242022,
+        "updates": 602,
+        "seconds": 169.35,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 9,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0002479385875410226,
+        "updates": 698,
+        "seconds": 112.04,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 10,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00023670914312106208,
+        "updates": 794,
+        "seconds": 112.18,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 11,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00022471687135272353,
+        "updates": 890,
+        "seconds": 112.35,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 12,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.02107868630404434,
+        "lr": 0.00021207726436877876,
+        "updates": 986,
+        "seconds": 168.23,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 13,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00019891204849399507,
+        "updates": 1082,
+        "seconds": 112.89,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 14,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00018534801195408575,
+        "updates": 1178,
+        "seconds": 112.19,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 15,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00017151578383578674,
+        "updates": 1274,
+        "seconds": 111.88,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 16,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.02107868630404434,
+        "lr": 0.00015754857605734227,
+        "updates": 1370,
+        "seconds": 170.04,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 17,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0001435809004649112,
+        "updates": 1466,
+        "seconds": 112.3,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 18,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00012974727340995685,
+        "updates": 1562,
+        "seconds": 111.66,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 19,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0001161809202832482,
+        "updates": 1658,
+        "seconds": 112.87,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 20,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.02107868630404434,
+        "lr": 0.00010301249248151845,
+        "updates": 1754,
+        "seconds": 170.17,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 21,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 9.036880916309311e-05,
+        "updates": 1850,
+        "seconds": 112.0,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 22,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 7.837163591006901e-05,
+        "updates": 1946,
+        "seconds": 112.63,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 23,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 6.713651205919483e-05,
+        "updates": 2042,
+        "seconds": 112.3,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 24,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.02107868630404434,
+        "lr": 5.677163799489784e-05,
+        "updates": 2138,
+        "seconds": 170.69,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 25,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 4.7376833120433774e-05,
+        "updates": 2234,
+        "seconds": 112.65,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 26,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 3.904257454246649e-05,
+        "updates": 2330,
+        "seconds": 112.44,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 27,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 3.1849125727071006e-05,
+        "updates": 2426,
+        "seconds": 112.68,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 28,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.02107868630404434,
+        "lr": 2.5865763518678648e-05,
+        "updates": 2522,
+        "seconds": 169.95,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 29,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 2.1150110966194776e-05,
+        "updates": 2618,
+        "seconds": 112.91,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 30,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 1.7747582381537673e-05,
+        "updates": 2714,
+        "seconds": 112.11,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 31,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 1.569094597498897e-05,
+        "updates": 2810,
+        "seconds": 112.44,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+        "epoch": 32,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": 0.02107868630404434,
+        "lr": 1.5000008279415489e-05,
+        "updates": 2906,
+        "seconds": 169.72,
+        "peak_vram_gib": 3.269
+      }
+    ],
+    "events": [
+      "Launching: /usr/bin/python3 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=2 /kaggle/working/filament_gpu_worker.py --config /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/config.json --task detector",
+      "Launching: /usr/bin/python3 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=2 /kaggle/working/filament_gpu_worker.py --config /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/config.json --task dense --member 0",
+      "Dense member 0, rank 1/2: cuda:1, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+      "Dense member 0, rank 0/2: cuda:0, 532 sources, native 512 crops, 288 microbatches/epoch, 2 loader workers",
+      "Launching: /usr/bin/python3 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=2 /kaggle/working/filament_gpu_worker.py --config /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/config.json --task dense --member 1",
+      "Dense member 1, rank 1/2: cuda:1, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers",
+      "Dense member 1, rank 0/2: cuda:0, 532 sources, native 768 crops, 288 microbatches/epoch, 2 loader workers"
+    ],
+    "nan_lines": 1139,
+    "tail": "0.000015\nDense 1 rank 1: epoch 32/32, step 224/288, loss nan, lr 0.000015\nDense 1 rank 0: epoch 32/32, step 256/288, loss nan, lr 0.000015\nDense 1 rank 1: epoch 32/32, step 256/288, loss nan, lr 0.000015\nDense 1 rank 1: epoch 32/32, step 288/288, loss nan, lr 0.000015\nDense 1 rank 0: epoch 32/32, step 288/288, loss nan, lr 0.000015\nDense 1 rank 0: fixed-rule PQ check, 10 images\nDense 1 rank 1: fixed-rule PQ check, 10 images\nDense 1 rank 0: fixed-rule PQ check, 20 images\nDense 1 rank 1: fixed-rule PQ check, 20 images\nDense 1 rank 0: fixed-rule PQ check, 30 images\nDense 1 rank 1: fixed-rule PQ check, 30 images\nDense 1 rank 0: fixed-rule PQ check, 40 images\nDense 1 rank 1: fixed-rule PQ check, 40 images\n{\"epoch\": 32, \"loss\": NaN, \"fixed_rule_calibration_PQ\": 0.02107868630404434, \"lr\": 1.5000008279415489e-05, \"updates\": 2906, \"seconds\": 169.72, \"peak_vram_gib\": 3.269}\nSelection model checkpoints: {'detector': '/kaggle/working/kaggle_native_hybrid_v1_8d27489d35/selection_models/detector/weights/best.pt', 'dense': ['/kaggle/working/kaggle_native_hybrid_v1_8d27489d35/selection_models/dense_0/best.pt', '/kaggle/working/kaggle_native_hybrid_v1_8d27489d35/selection_models/dense_1/best.pt']}\n"
+  },
+  "33": {
+    "source_head": "import pandas as pd\nfig, axes = plt.subplots(1, 2, figsize=(12, 4))\nfor member in range(len(CFG['den",
+    "output_chars": 34,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": "<Figure size 1200x400 with 2 Axes>"
+  },
+  "35": {
+    "source_head": "CALIBRATION_MAPS = predict_part(CFG, 'calibration', full=False)\nCALIBRATION_CANDIDATES = build_candi",
+    "output_chars": 7849,
+    "epochs": [],
+    "events": [
+      "/kaggle/working/filament_gpu_worker.py:915: RuntimeWarning: invalid value encountered in cast",
+      "/kaggle/working/filament_gpu_worker.py:915: RuntimeWarning: invalid value encountered in cast",
+      "Selected pipeline: {\"set\": \"hybrid_adaptive\", \"quality\": true, \"cutoff\": 0.15, \"min_area\": 50, \"PQ\": 0.01117156762235393, \"SQ\": 0.6293316427259381, \"RQ\": 0.01775147928994083, \"TP\": 9, \"FP\": 6, \"FN\": 990, \"sum_IoU\": 5.663984784533443, \"physical_predictions\": 11}"
+    ],
+    "nan_lines": 0,
+    "tail": "ense_0.65     True    0.15       150  0.010428  0.660249  0.015795   \n6       hybrid_0.65     True    0.15        50  0.010388  0.657678  0.015795   \n7       hybrid_0.65     True    0.15       150  0.010388  0.657678  0.015795   \n8    dense_adaptive     True    0.15        50  0.009987  0.634186  0.015748   \n9    dense_adaptive     True    0.15       150  0.009987  0.634186  0.015748   \n10       dense_0.65    False    0.70       150  0.009891  0.660249  0.014981   \n11        dense_0.5     True    0.15        50  0.009879  0.627347  0.015748   \n\n    TP  FP   FN   sum_IoU  physical_predictions  \n0    9   6  990  5.663985                    11  \n1    9   6  990  5.663985                    11  \n2    9   5  990  5.470452                    10  \n3    9   5  990  5.470452                    10  \n4    8   6  991  5.281988                    10  \n5    8   6  991  5.281988                    10  \n6    8   6  991  5.261421                    10  \n7    8   6  991  5.261421                    10  \n8    8   9  991  5.073487                    11  \n9    8   9  991  5.073487                    11  \n10   8  61  991  5.281988                    38  \n11   8   9  991  5.018774                    11  "
+  },
+  "37": {
+    "source_head": "REPORT_MAPS = predict_part(CFG, 'report', full=False)\nREPORT_CANDIDATES = build_candidate_cache(CFG,",
+    "output_chars": 7317,
+    "epochs": [],
+    "events": [
+      "/kaggle/working/filament_gpu_worker.py:915: RuntimeWarning: invalid value encountered in cast",
+      "/kaggle/working/filament_gpu_worker.py:915: RuntimeWarning: invalid value encountered in cast"
+    ],
+    "nan_lines": 0,
+    "tail": "didate cache: report, 93 sources\nHeld-out report: {\n  \"PQ\": 0.0034510882912068327,\n  \"SQ\": 0.6321243386727181,\n  \"RQ\": 0.00545950864422202,\n  \"TP\": 3,\n  \"FP\": 17,\n  \"FN\": 1076,\n  \"sum_IoU\": 1.8963730160181544,\n  \"physical_images\": 93,\n  \"cohorts\": {\n    \"disk_fit\": {\n      \"PQ\": 0.0013598467773811888,\n      \"SQ\": 0.7078002476269087,\n      \"RQ\": 0.0019212295869356388,\n      \"TP\": 1,\n      \"FP\": 13,\n      \"FN\": 1026,\n      \"sum_IoU\": 0.7078002476269087\n    },\n    \"fallback_normalized\": {\n      \"PQ\": 0.0409852678755602,\n      \"SQ\": 0.5942863841956229,\n      \"RQ\": 0.06896551724137931,\n      \"TP\": 2,\n      \"FP\": 4,\n      \"FN\": 50,\n      \"sum_IoU\": 1.1885727683912457\n    }\n  },\n  \"note\": \"Independent report; frozen recipe and calibration-fitted quality model. Before all-data refit.\"\n}\n\n         PQ        SQ       RQ  TP  FP    FN   sum_IoU  physical_images  \\\n0  0.003451  0.632124  0.00546   3  17  1076  1.896373               93   \n\n                                             cohorts  \\\n0  {'disk_fit': {'PQ': 0.0013598467773811888, 'SQ...   \n\n                                                note  \n0  Independent report; frozen recipe and calibrat...  \n<Figure size 1400x1350 with 9 Axes>"
+  },
+  "39": {
+    "source_head": "if CFG['refit_full']:\n    train_all(CFG, full=True)\nTEST_MAPS = predict_part(CFG, 'test', full=CFG['",
+    "output_chars": 78865,
+    "epochs": [
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 707 sources, native 512 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 1,
+        "loss": 0.5850917526931738,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0002584691331700926,
+        "updates": 128,
+        "seconds": 117.83,
+        "peak_vram_gib": 1.245
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 707 sources, native 512 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 2,
+        "loss": 0.3657574017699954,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00015779221712753134,
+        "updates": 256,
+        "seconds": 115.13,
+        "peak_vram_gib": 1.245
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 707 sources, native 512 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 3,
+        "loss": 0.2932233059628047,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 5.6944124254819896e-05,
+        "updates": 384,
+        "seconds": 115.85,
+        "peak_vram_gib": 1.245
+      },
+      {
+        "stage": "Dense member 0, rank 0/2: cuda:0, 707 sources, native 512 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 4,
+        "loss": 0.26959619450312367,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 1.5000299617331197e-05,
+        "updates": 511,
+        "seconds": 115.91,
+        "peak_vram_gib": 1.245
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 1,
+        "loss": 0.7416045402344462,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00029516960855806713,
+        "updates": 128,
+        "seconds": 159.4,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 2,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00028095729409351216,
+        "updates": 154,
+        "seconds": 153.12,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 3,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0002583315690593093,
+        "updates": 218,
+        "seconds": 153.16,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 4,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00022883433922576109,
+        "updates": 346,
+        "seconds": 155.55,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 5,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00019447579205954656,
+        "updates": 474,
+        "seconds": 154.18,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 6,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.00015759740576985954,
+        "updates": 602,
+        "seconds": 154.1,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 7,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 0.0001207123814379272,
+        "updates": 730,
+        "seconds": 154.84,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 8,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 8.633437251658598e-05,
+        "updates": 858,
+        "seconds": 154.35,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 9,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 5.680618350147944e-05,
+        "updates": 986,
+        "seconds": 154.69,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 10,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 3.414011167634738e-05,
+        "updates": 1114,
+        "seconds": 153.97,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 11,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 1.9880812378617873e-05,
+        "updates": 1242,
+        "seconds": 153.57,
+        "peak_vram_gib": 3.269
+      },
+      {
+        "stage": "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+        "epoch": 12,
+        "loss": NaN,
+        "fixed_rule_calibration_PQ": null,
+        "lr": 1.5000033290824941e-05,
+        "updates": 1370,
+        "seconds": 154.34,
+        "peak_vram_gib": 3.269
+      }
+    ],
+    "events": [
+      "Launching: /usr/bin/python3 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=2 /kaggle/working/filament_gpu_worker.py --config /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/config.json --task detector --full",
+      "Launching: /usr/bin/python3 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=2 /kaggle/working/filament_gpu_worker.py --config /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/config.json --task dense --member 0 --full",
+      "Dense member 0, rank 1/2: cuda:1, 707 sources, native 512 crops, 383 microbatches/epoch, 2 loader workers",
+      "Dense member 0, rank 0/2: cuda:0, 707 sources, native 512 crops, 383 microbatches/epoch, 2 loader workers",
+      "Launching: /usr/bin/python3 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=2 /kaggle/working/filament_gpu_worker.py --config /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/config.json --task dense --member 1 --full",
+      "Dense member 1, rank 1/2: cuda:1, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+      "Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers",
+      "/kaggle/working/filament_gpu_worker.py:915: RuntimeWarning: invalid value encountered in cast",
+      "/kaggle/working/filament_gpu_worker.py:915: RuntimeWarning: invalid value encountered in cast",
+      "Wrote /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/submission.csv: 180 images, 6 masks"
+    ],
+    "nan_lines": 249,
+    "tail": " 'geometry_ok': True},\n  {'image': '20211119005210Mh.jpeg', 'predictions': 0, 'geometry_ok': True},\n  {'image': '20211214174010Mh.jpeg', 'predictions': 0, 'geometry_ok': True},\n  {'image': '20211224120130Ch.jpeg', 'predictions': 0, 'geometry_ok': True},\n  {'image': '20211231180850Bh.jpeg', 'predictions': 0, 'geometry_ok': True},\n  {'image': '20220124155050Bh.jpeg', 'predictions': 0, 'geometry_ok': True},\n  {'image': '20220328035030Lh.jpeg', 'predictions': 0, 'geometry_ok': True},\n  {'image': '20220523234912Lh.jpeg', 'predictions': 0, 'geometry_ok': True},\n  {'image': '20220621185332Bh.jpeg', 'predictions': 0, 'geometry_ok': True},\n  {'image': '20220626185332Bh.jpeg', 'predictions': 0, 'geometry_ok': True},\n  {'image': '20220714185352Th.jpeg', 'predictions': 0, 'geometry_ok': False},\n  {'image': '20220728185352Th.jpeg', 'predictions': 0, 'geometry_ok': False}],\n 'overlap_check': True,\n 'rle_roundtrip_check': True,\n 'recipe': {'set': 'hybrid_adaptive',\n  'quality': True,\n  'cutoff': 0.15,\n  'min_area': 50},\n 'smoke': False,\n 'all_data_refit': True,\n 'external_filament_ground_truth': False,\n 'training_annotation_sha': '5da9e92b5a1a1947fd5d57adb6688269625c48ec1ef884daf2a01618c9ed54a1'}"
+  },
+  "40": {
+    "source_head": "preview(CFG, 'test', TEST_CANDIDATES, RECIPE)\nplt.show()\nfrom IPython.display import FileLink, displ",
+    "output_chars": 257,
+    "epochs": [],
+    "events": [],
+    "nan_lines": 0,
+    "tail": "<Figure size 1400x1350 with 9 Axes>\n/kaggle/working/kaggle_native_hybrid_v1_8d27489d35/submission.csv\nFull runs also copy submission.csv to: /kaggle/working/submission.csv\nReview report_metrics.json, submission_audit.json and the previews before uploading.\n"
+  }
+}

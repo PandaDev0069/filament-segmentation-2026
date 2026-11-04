@@ -36,10 +36,10 @@ lines[discovery.lineno - 1:discovery.end_lineno] = ['''def discover_root(configu
 source = "".join(lines)
 source = source.replace('Embedded verbatim by build_pq50_notebook.py. No external filament annotations,',
                         'All code is included in this Kaggle notebook. No external filament annotations,')
-source = source.replace('output_root="pq50_outputs", run_name="native_hybrid_v1"',
-                        'output_root="/kaggle/working", run_name="kaggle_native_hybrid_v1"')
-source = source.replace('VERSION = "pq50-native-hybrid-v1"',
-                        'VERSION = "kaggle-native-hybrid-v1"\nINPUT_ROOT = Path("/kaggle/input")\nWORKER_SCRIPT = Path("/kaggle/working/filament_gpu_worker.py")')
+source = source.replace('output_root="pq50_outputs", run_name="native_hybrid_v2_fp32"',
+                        'output_root="/kaggle/working", run_name="kaggle_native_hybrid_v2_fp32"')
+source = source.replace('VERSION = "pq50-native-hybrid-v2-fp32"',
+                        'VERSION = "kaggle-native-hybrid-v2-fp32"\nINPUT_ROOT = Path("/kaggle/input")\nWORKER_SCRIPT = Path("/kaggle/working/filament_gpu_worker.py")')
 source = source.replace('file_sha(__file__)', 'file_sha(WORKER_SCRIPT)')
 source = source.replace('Path(__file__)', 'Path(WORKER_SCRIPT)')
 # The notebook defines main() but only the generated worker invokes it.
@@ -75,7 +75,7 @@ def code(text):
 
 
 md('''
-# Solar filaments: complete Kaggle training and submission notebook
+# Solar filaments: corrected Kaggle training and submission notebook
 
 **This one notebook contains the complete pipeline.** Its only attached input is
 the [competition dataset](https://www.kaggle.com/competitions/filament-segmentation-2026/data).
@@ -91,6 +91,13 @@ Models: YOLO11m box proposals plus ResNet34 and EfficientNetV2-S U-Nets learning
 native-resolution masks. It uses two GPUs, **four total loader workers**, separate
 annotator targets, grouped validation, learned quality and adaptive mask selection.
 The 0.50 score is a target; this new pipeline has no established full-run score.
+
+**November 4 repair:** mask networks now train and predict in float32, with finite
+checks before backward, optimizer updates, checkpoint saves and probability
+encoding. Calibration selects a healthy individual network or their mean.
+Full-data refitting is disabled by default so test uses the reported models.
+Report PQ below 0.10 stops export as a collapse check; it is not a score target.
+The corrected version uses a fresh run fingerprint and cache schema.
 
 All helper code is visible below. The notebook automatically assembles its own
 worker script for multi-GPU subprocesses. No repository, local Python module,
@@ -183,8 +190,8 @@ md('''
 ## Run settings
 
 `MODE='full'` trains and generates the real submission. `MODE='smoke'` runs a tiny
-environment check and creates only `smoke_submission.csv`. Full mode also refits
-on all supplied training labels after freezing validation choices. It is a
+environment check and creates only `smoke_submission.csv`. Optional refitting on
+all training labels is disabled by default. It is a
 substantial training run; total time on two T4s has not been measured.
 
 Model initialization is downloaded automatically: YOLO11m from Ultralytics and
@@ -197,12 +204,12 @@ MODE = 'full'
 DATA_ROOT_OVERRIDE = ''       # normally leave empty; search only /kaggle/input
 GPU_IDS = [0, 1]
 CPU_WORKERS = 4               # total: two loader workers per GPU
-REFIT_FULL = True
+REFIT_FULL = False            # use the models actually validated on the report partition
 
 CFG = default_config()
 CFG.update(mode=MODE, data_root=DATA_ROOT_OVERRIDE, gpu_ids=GPU_IDS,
            cpu_workers=CPU_WORKERS, refit_full=REFIT_FULL,
-           output_root='/kaggle/working', run_name='kaggle_native_hybrid_v1',
+           output_root='/kaggle/working', run_name='kaggle_native_hybrid_v2_fp32',
            detector_weights='yolo11m.pt', pretrained=True)
 
 if not torch.cuda.is_available() or not GPU_IDS or max(GPU_IDS) >= torch.cuda.device_count():
@@ -253,4 +260,5 @@ notebook = nbf.v4.new_notebook(cells=cells, metadata={
 nbf.validate(notebook)
 target = HERE / "solar-filament-kaggle-standalone.ipynb"
 nbf.write(notebook, target)
+nbf.write(notebook, HERE / "solar-filament-kaggle-fixed.ipynb")
 print(target)

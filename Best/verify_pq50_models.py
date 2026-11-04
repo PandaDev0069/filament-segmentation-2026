@@ -1,5 +1,6 @@
 """Optional actual-model CPU-DDP / CUDA crop checks, separate from the notebook."""
 import argparse
+import copy
 import hashlib
 import json
 from pathlib import Path
@@ -19,7 +20,9 @@ def ddp_worker(rank, init, target):
     model = r.build_dense(dict(encoder="resnet18"), pretrained=False)
     r.train_mode(model)
     wrapper = DistributedDataParallel(model, broadcast_buffers=False)
-    optimizer = torch.optim.SGD(model.parameters(), lr=.001)
+    ema = copy.deepcopy(model).eval().requires_grad_(False)
+    optimizer = r.dense_optimizer(model, r.default_config())
+    updates = 0
     for step in range(2):
         torch.manual_seed(100 + rank + step * 5)
         x = torch.rand(2, 3, 64, 64)
@@ -29,14 +32,24 @@ def ddp_worker(rank, init, target):
         loss = r.dense_loss(wrapper(x), y)
         loss.backward()
         assert all(torch.isfinite(p.grad).all() for p in model.parameters() if p.grad is not None)
-        optimizer.step()
+        updates = r.dense_step(model, optimizer, ema, updates, .995, synchronize=True)
     checksum = hashlib.sha256(b"".join(p.detach().numpy().tobytes() for p in model.parameters())).hexdigest()
     hashes = [None, None]
     dist.all_gather_object(hashes, checksum)
     assert len(set(hashes)) == 1
+    # A fault on only rank one must stop EVERY rank at the same point.
+    stopped = False
+    try:
+        r.require_finite(torch.tensor(float('nan') if rank == 1 else 1.), 'injected rank-one failure', synchronize=True)
+    except FloatingPointError:
+        stopped = True
+    stopped_ranks = [None, None]
+    dist.all_gather_object(stopped_ranks, stopped)
+    assert all(stopped_ranks)
     if rank == 0:
         r.save_json(target, dict(two_cpu_ranks=True, identical_post_update_parameters=True,
-            backward_steps=2, loss=float(loss.detach()), parameter_sha=checksum,
+            backward_steps=updates, loss=float(loss.detach()), parameter_sha=checksum,
+            one_rank_nan_stops_both=True,
             limitation="Gloo CPU exercises the actual model graph, not two-T4 CUDA/NCCL execution."))
     dist.destroy_process_group()
 
@@ -53,29 +66,29 @@ def check_cuda(target, pretrained=False, batch=1):
         x = torch.rand(batch, 3, size, size, device=device)
         y = torch.zeros(batch, 2, size, size, device=device)
         y[:, 0, size//2:size//2 + 5, size//2:size//2 + 70] = 1
-        optimizer = torch.optim.AdamW(model.parameters(), lr=3e-4)
-        scaler = torch.amp.GradScaler("cuda")
+        optimizer = r.dense_optimizer(model, r.default_config())
+        for group in optimizer.param_groups:
+            group['lr'] *= group['lr_scale']
+        ema = copy.deepcopy(model).eval().requires_grad_(False)
         before = next(model.parameters()).detach().clone()
-        with torch.autocast("cuda"):
+        with torch.autocast("cuda", enabled=False):
             logits = model(x)
             loss = r.dense_loss(logits, y)
         assert logits.shape == y.shape and torch.isfinite(loss)
-        scaler.scale(loss).backward()
-        scaler.unscale_(optimizer)
+        loss.backward()
         unused = [name for name, p in model.named_parameters() if p.requires_grad and p.grad is None]
         assert not unused, unused
         assert all(torch.isfinite(p.grad).all() for p in model.parameters() if p.grad is not None)
-        scaler.step(optimizer)
-        scaler.update()
+        assert r.dense_step(model, optimizer, ema, 0, .995) == 1
         torch.cuda.synchronize()
         assert not torch.equal(before, next(model.parameters()))
-        result = dict(encoder=spec["encoder"], crop=size, batch=batch, pretrained=pretrained,
+        result = dict(encoder=spec["encoder"], crop=size, batch=batch, pretrained=pretrained, precision='float32',
             finite_backward_and_adam_update=True, loss=float(loss.detach()),
             peak_allocated_gib=torch.cuda.max_memory_allocated() / 2**30)
         print(json.dumps(result), flush=True)
         results.append(result)
         r.save_json(target, dict(gpu=torch.cuda.get_device_name(0), dense_models=results))
-        del model, x, y, optimizer, scaler, logits, loss, before
+        del model, ema, x, y, optimizer, logits, loss, before
         import gc
         gc.collect()
     r.save_json(target, dict(gpu=torch.cuda.get_device_name(0), dense_models=results))

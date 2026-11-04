@@ -56,6 +56,16 @@ def test_notebook_has_no_local_workspace_dependencies(notebook):
     assert all(not c.get('outputs') for c in notebook.cells)
 
 
+def test_fixed_download_contains_the_same_corrected_pipeline(notebook):
+    fixed = nbformat.read(HERE / 'solar-filament-kaggle-fixed.ipynb', as_version=4)
+    assert [c.source for c in fixed.cells] == [c.source for c in notebook.cells]
+    assert any("REFIT_FULL = False" in c.source for c in fixed.cells)
+    assert any('DENSE_SELECTION = select_dense_members' in c.source for c in fixed.cells)
+    code = '\n'.join(c.source for c in fixed.cells if c.cell_type == 'code')
+    assert 'GradScaler(' not in code
+    assert 'def quantize_probabilities(' in code
+
+
 def test_all_cells_are_valid_python_or_registered_magic(notebook):
     shell = InteractiveShell.instance()
     for cell in notebook.cells:

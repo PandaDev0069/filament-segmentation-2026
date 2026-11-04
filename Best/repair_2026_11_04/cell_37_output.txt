@@ -1,0 +1,140 @@
+/kaggle/working/filament_gpu_worker.py:915: RuntimeWarning: invalid value encountered in cast
+  np.savez_compressed(f, prob=np.rint(np.clip(probability, 0, 1) * 255).astype(np.uint8), boxes=boxes)
+/kaggle/working/filament_gpu_worker.py:915: RuntimeWarning: invalid value encountered in cast
+  np.savez_compressed(f, prob=np.rint(np.clip(probability, 0, 1) * 255).astype(np.uint8), boxes=boxes)
+
+Prediction GPU 1: report 1/46 20110326170914Mh, 7 proposals
+Prediction GPU 0: report 1/47 20110221173814Mh, 4 proposals
+Prediction GPU 1: report 2/46 20110526122534Ch, 28 proposals
+Prediction GPU 0: report 2/47 20110509121334Ch, 22 proposals
+Prediction GPU 1: report 3/46 20110727063234Lh, 12 proposals
+Prediction GPU 0: report 3/47 20110711071214Th, 25 proposals
+Prediction GPU 1: report 4/46 20110824141054Bh, 20 proposals
+Prediction GPU 0: report 4/47 20110815140454Bh, 20 proposals
+Prediction GPU 1: report 5/46 20111116063134Lh, 33 proposals
+Prediction GPU 0: report 5/47 20111009110234Ch, 22 proposals
+Prediction GPU 0: report 6/47 20120225172914Mh, 13 proposals
+Prediction GPU 1: report 6/46 20120323144054Bh, 17 proposals
+Prediction GPU 0: report 7/47 20120331142954Bh, 30 proposals
+Prediction GPU 1: report 7/46 20120424072414Th, 28 proposals
+Prediction GPU 0: report 8/47 20120424120134Ch, 23 proposals
+Prediction GPU 1: report 8/46 20120712123634Ch, 25 proposals
+Prediction GPU 1: report 9/46 20120814140454Bh, 18 proposals
+Prediction GPU 0: report 9/47 20120802090314Th, 26 proposals
+Prediction GPU 1: report 10/46 20120928063134Lh, 18 proposals
+Prediction GPU 0: report 10/47 20120814163114Mh, 16 proposals
+Prediction GPU 1: report 11/46 20121114172254Bh, 17 proposals
+Prediction GPU 0: report 11/47 20121109103634Ch, 19 proposals
+Prediction GPU 0: report 12/47 20130111104734Ch, 43 proposals
+Prediction GPU 1: report 12/46 20130218220314Mh, 4 proposals
+Prediction GPU 0: report 13/47 20130219063134Lh, 3 proposals
+Prediction GPU 1: report 13/46 20130305112734Ch, 25 proposals
+Prediction GPU 1: report 14/46 20130404063134Lh, 28 proposals
+Prediction GPU 0: report 14/47 20130324015554Uh, 16 proposals
+Prediction GPU 0: report 15/47 20130807073114Th, 26 proposals
+Prediction GPU 1: report 15/46 20130810121534Ch, 21 proposals
+Prediction GPU 0: report 16/47 20131016185334Ch, 24 proposals
+Prediction GPU 1: report 16/46 20131125192154Bh, 29 proposals
+Prediction GPU 1: report 17/46 20140112180134Ch, 43 proposals
+Prediction GPU 0: report 17/47 20131201192134Ch, 31 proposals
+Prediction GPU 1: report 18/46 20140210180154Bh, 38 proposals
+Prediction GPU 0: report 18/47 20140205180154Bh, 44 proposals
+Prediction GPU 0: report 19/47 20140601195814Mh, 12 proposals
+Prediction GPU 1: report 19/46 20140908175354Bh, 29 proposals
+Prediction GPU 0: report 20/47 20140908231334Lh, 22 proposals
+Prediction GPU 1: report 20/46 20141010195834Ch, 30 proposals
+Prediction GPU 0: report 21/47 20141013195834Ch, 27 proposals
+Prediction GPU 1: report 21/46 20141013195854Bh, 26 proposals
+Prediction GPU 0: report 22/47 20141016022554Uh, 30 proposals
+Prediction GPU 1: report 22/46 20141016195834Ch, 20 proposals
+Prediction GPU 0: report 23/47 20150325015554Uh, 30 proposals
+Prediction GPU 1: report 23/46 20150610082014Th, 26 proposals
+Prediction GPU 0: report 24/47 20150625082014Th, 15 proposals
+Prediction GPU 1: report 24/46 20150625082034Lh, 14 proposals
+Prediction GPU 1: report 25/46 20151011144554Bh, 16 proposals
+Prediction GPU 0: report 25/47 20150629161614Mh, 9 proposals
+Prediction GPU 1: report 26/46 20151116201114Mh, 22 proposals
+Prediction GPU 0: report 26/47 20151107133734Ch, 11 proposals
+Prediction GPU 0: report 27/47 20151116224034Lh, 21 proposals
+Prediction GPU 1: report 27/46 20151209201754Bh, 10 proposals
+Prediction GPU 0: report 28/47 20151219133734Ch, 22 proposals
+Prediction GPU 1: report 28/46 20160103133734Ch, 12 proposals
+Prediction GPU 0: report 29/47 20160107133714Th, 6 proposals
+Prediction GPU 1: report 29/46 20160129225334Lh, 28 proposals
+Prediction GPU 0: report 30/47 20160223173514Mh, 14 proposals
+Prediction GPU 1: report 30/46 20160302133734Ch, 13 proposals
+Prediction GPU 0: report 31/47 20160430133714Th, 9 proposals
+Prediction GPU 1: report 31/46 20160430133734Ch, 16 proposals
+Prediction GPU 0: report 32/47 20160831133714Th, 8 proposals
+Prediction GPU 1: report 32/46 20160920230134Lh, 11 proposals
+Prediction GPU 0: report 33/47 20161129022454Uh, 21 proposals
+Prediction GPU 1: report 33/46 20161229133734Ch, 22 proposals
+Prediction GPU 0: report 34/47 20170107133714Th, 3 proposals
+Prediction GPU 1: report 34/46 20170316133730Ch, 7 proposals
+Prediction GPU 0: report 35/47 20170417014150Uh, 8 proposals
+Prediction GPU 1: report 35/46 20170417232530Lh, 16 proposals
+Prediction GPU 0: report 36/47 20170503013050Uh, 8 proposals
+Prediction GPU 1: report 36/46 20170722235230Lh, 6 proposals
+Prediction GPU 0: report 37/47 20170827165310Mh, 2 proposals
+Prediction GPU 1: report 37/46 20170927143450Bh, 6 proposals
+Prediction GPU 0: report 38/47 20171005133730Ch, 7 proposals
+Prediction GPU 1: report 38/46 20171005144050Bh, 6 proposals
+Prediction GPU 0: report 39/47 20171007133710Th, 1 proposals
+Prediction GPU 1: report 39/46 20171007133730Ch, 14 proposals
+Prediction GPU 0: report 40/47 20171115170950Bh, 0 proposals
+Prediction GPU 1: report 40/46 20171115222230Lh, 11 proposals
+Prediction GPU 0: report 41/47 20180827232530Lh, 3 proposals
+Prediction GPU 1: report 41/46 20190602025430Lh, 2 proposals
+Prediction GPU 0: report 42/47 20190925165810Mh, 2 proposals
+Prediction GPU 1: report 42/46 20210626060050Uh, 5 proposals
+Prediction GPU 0: report 43/47 20210626133950Bh, 5 proposals
+Prediction GPU 1: report 43/46 20210728164530Mh, 11 proposals
+Prediction GPU 0: report 44/47 20210812044930Lh, 8 proposals
+Prediction GPU 1: report 44/46 20211016145050Bh, 1 proposals
+Prediction GPU 0: report 45/47 20211229120130Ch, 15 proposals
+Prediction GPU 1: report 45/46 20211229120210Th, 5 proposals
+Prediction GPU 0: report 46/47 20220104043050Uh, 1 proposals
+Prediction GPU 1: report 46/46 20220328143550Bh, 4 proposals
+Prediction GPU 0: report 47/47 20220721185332Bh, 18 proposals
+Candidate cache: report, 93 sources
+Held-out report: {
+  "PQ": 0.0034510882912068327,
+  "SQ": 0.6321243386727181,
+  "RQ": 0.00545950864422202,
+  "TP": 3,
+  "FP": 17,
+  "FN": 1076,
+  "sum_IoU": 1.8963730160181544,
+  "physical_images": 93,
+  "cohorts": {
+    "disk_fit": {
+      "PQ": 0.0013598467773811888,
+      "SQ": 0.7078002476269087,
+      "RQ": 0.0019212295869356388,
+      "TP": 1,
+      "FP": 13,
+      "FN": 1026,
+      "sum_IoU": 0.7078002476269087
+    },
+    "fallback_normalized": {
+      "PQ": 0.0409852678755602,
+      "SQ": 0.5942863841956229,
+      "RQ": 0.06896551724137931,
+      "TP": 2,
+      "FP": 4,
+      "FN": 50,
+      "sum_IoU": 1.1885727683912457
+    }
+  },
+  "note": "Independent report; frozen recipe and calibration-fitted quality model. Before all-data refit."
+}
+
+         PQ        SQ       RQ  TP  FP    FN   sum_IoU  physical_images  \
+0  0.003451  0.632124  0.00546   3  17  1076  1.896373               93   
+
+                                             cohorts  \
+0  {'disk_fit': {'PQ': 0.0013598467773811888, 'SQ...   
+
+                                                note  
+0  Independent report; frozen recipe and calibrat...  
+<Figure size 1400x1350 with 9 Axes>

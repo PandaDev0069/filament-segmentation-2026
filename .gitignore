@@ -1,2 +1,3 @@
 .venv/
 solar_filament_tiles/
+*.pt

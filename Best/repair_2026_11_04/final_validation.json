@@ -1,0 +1,154 @@
+{
+  "checks_passed": 56,
+  "sustained_fp32": {
+    "gpu": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+    "torch": "2.14.1+cu132",
+    "models": [
+      {
+        "encoder": "resnet34",
+        "native_crop": 512,
+        "batch": 1,
+        "precision": "float32",
+        "optimizer_updates": 256,
+        "foreground_crops": 189,
+        "first32_loss": 0.7808682918548584,
+        "last32_loss": 0.33070200867950916,
+        "all_losses_finite": true,
+        "native_prediction_shape": [
+          2,
+          2048,
+          2048
+        ],
+        "probability_min": 8.240526221925393e-05,
+        "probability_max": 0.9999552965164185,
+        "prediction_finite": true,
+        "quantization_valid": true,
+        "checkpoint_finite": true,
+        "peak_allocated_gib": 0.8738236427307129,
+        "seconds": 417.3992099761963
+      },
+      {
+        "encoder": "tu-tf_efficientnetv2_s",
+        "native_crop": 768,
+        "batch": 1,
+        "precision": "float32",
+        "optimizer_updates": 256,
+        "foreground_crops": 229,
+        "first32_loss": 0.9739557188004255,
+        "last32_loss": 0.24908664543181658,
+        "all_losses_finite": true,
+        "native_prediction_shape": [
+          2,
+          2048,
+          2048
+        ],
+        "probability_min": 0.00011145933240186423,
+        "probability_max": 0.9988981485366821,
+        "prediction_finite": true,
+        "quantization_valid": true,
+        "checkpoint_finite": true,
+        "peak_allocated_gib": 2.5432190895080566,
+        "seconds": 735.2566781044006
+      }
+    ],
+    "note": "Numerical regression test on four train images, not a PQ or leaderboard result."
+  },
+  "batch2_fp32": {
+    "gpu": "NVIDIA GeForce RTX 3070 Ti Laptop GPU",
+    "dense_models": [
+      {
+        "encoder": "resnet34",
+        "crop": 512,
+        "batch": 2,
+        "pretrained": true,
+        "precision": "float32",
+        "finite_backward_and_adam_update": true,
+        "loss": 0.9288605451583862,
+        "peak_allocated_gib": 0.9883017539978027
+      },
+      {
+        "encoder": "tu-tf_efficientnetv2_s",
+        "crop": 768,
+        "batch": 2,
+        "pretrained": true,
+        "precision": "float32",
+        "finite_backward_and_adam_update": true,
+        "loss": 1.3006701469421387,
+        "peak_allocated_gib": 4.568671703338623
+      }
+    ]
+  },
+  "ddp": {
+    "two_cpu_ranks": true,
+    "identical_post_update_parameters": true,
+    "backward_steps": 2,
+    "loss": 0.8277451992034912,
+    "parameter_sha": "880e3d675ed3ccbb217f8194e711f6b975f37cc56f5c7e8b61ceab911791d5e8",
+    "one_rank_nan_stops_both": true,
+    "limitation": "Gloo CPU exercises the actual model graph, not two-T4 CUDA/NCCL execution."
+  },
+  "subprocess_smoke": {
+    "completed": true,
+    "csv": "D:\\filament-segmentation-2026\\Best\\repair_2026_11_04\\validation\\numerics_native_565d78aa0e\\smoke_submission.csv",
+    "sha256": "1fa7481b6547dee494c5249b69b95364c789bb13c6f41b66bb733d17725bda05",
+    "mode": "smoke",
+    "submission_audit": {
+      "file": "D:\\filament-segmentation-2026\\Best\\repair_2026_11_04\\validation\\numerics_native_565d78aa0e\\smoke_submission.csv",
+      "sha256": "1fa7481b6547dee494c5249b69b95364c789bb13c6f41b66bb733d17725bda05",
+      "native_shape": [
+        2048,
+        2048
+      ],
+      "images": 4,
+      "masks": 69,
+      "zero_prediction_images": 0,
+      "per_image": [
+        {
+          "image": "20110120105534Ch.jpeg",
+          "predictions": 17,
+          "geometry_ok": true
+        },
+        {
+          "image": "20110130110334Ch.jpeg",
+          "predictions": 16,
+          "geometry_ok": true
+        },
+        {
+          "image": "20110214175414Mh.jpeg",
+          "predictions": 19,
+          "geometry_ok": false
+        },
+        {
+          "image": "20110329082654Uh.jpeg",
+          "predictions": 17,
+          "geometry_ok": true
+        }
+      ],
+      "overlap_check": true,
+      "rle_roundtrip_check": true,
+      "recipe": {
+        "set": "dense_0.5",
+        "quality": false,
+        "cutoff": 0.55,
+        "min_area": 50
+      },
+      "smoke": true,
+      "all_data_refit": false,
+      "external_filament_ground_truth": false,
+      "training_annotation_sha": "5da9e92b5a1a1947fd5d57adb6688269625c48ec1ef884daf2a01618c9ed54a1"
+    },
+    "note": "Short mechanical regression test, not a competition submission or PQ benchmark."
+  },
+  "corrected_notebook": "D:\\filament-segmentation-2026\\Best\\solar-filament-kaggle-fixed.ipynb",
+  "notebook_sha256": "469753641cf45d763b0f84b8785a943e0d919c2f7ce3bd5d69e697d7940611e5",
+  "original_notebook_and_logs_unchanged": true,
+  "full_corrected_kaggle_score": null,
+  "visualization_update": {
+    "current_notebook_sha256": "aefbd17c50a8299bcec1a9a421c0e72ca9ad740b6f525c9074d729eda6e5e2eb",
+    "targeted_checks_passed": 10,
+    "rendered_views": 4,
+    "gallery_images_displayed": 2,
+    "training_plots_enabled": true,
+    "note": "Plot generation/display update. The sustained numerical checks above apply to the preceding repaired build; numerical training logic is unchanged."
+  }
+}

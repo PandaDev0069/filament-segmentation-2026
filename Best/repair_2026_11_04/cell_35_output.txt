@@ -1,0 +1,117 @@
+/kaggle/working/filament_gpu_worker.py:915: RuntimeWarning: invalid value encountered in cast
+  np.savez_compressed(f, prob=np.rint(np.clip(probability, 0, 1) * 255).astype(np.uint8), boxes=boxes)
+/kaggle/working/filament_gpu_worker.py:915: RuntimeWarning: invalid value encountered in cast
+  np.savez_compressed(f, prob=np.rint(np.clip(probability, 0, 1) * 255).astype(np.uint8), boxes=boxes)
+
+Prediction GPU 0: calibration 1/41 20110123174914Mh, 5 proposals
+Prediction GPU 1: calibration 1/41 20110128174814Mh, 12 proposals
+Prediction GPU 1: calibration 2/41 20110312082634Lh, 22 proposals
+Prediction GPU 0: calibration 2/41 20110215083814Th, 11 proposals
+Prediction GPU 1: calibration 3/41 20110601063134Lh, 23 proposals
+Prediction GPU 0: calibration 3/41 20110425063154Uh, 22 proposals
+Prediction GPU 1: calibration 4/41 20110823120334Ch, 7 proposals
+Prediction GPU 0: calibration 4/41 20110617063134Lh, 18 proposals
+Prediction GPU 1: calibration 5/41 20111029063154Uh, 28 proposals
+Prediction GPU 0: calibration 5/41 20111018063134Lh, 11 proposals
+Prediction GPU 1: calibration 6/41 20120215153654Bh, 37 proposals
+Prediction GPU 0: calibration 6/41 20120113104834Ch, 26 proposals
+Prediction GPU 1: calibration 7/41 20120223152054Bh, 14 proposals
+Prediction GPU 0: calibration 7/41 20120223063154Uh, 14 proposals
+Prediction GPU 1: calibration 8/41 20120703070814Th, 31 proposals
+Prediction GPU 0: calibration 8/41 20120318063154Uh, 17 proposals
+Prediction GPU 1: calibration 9/41 20121022145554Bh, 42 proposals
+Prediction GPU 0: calibration 9/41 20120810121634Ch, 19 proposals
+Prediction GPU 0: calibration 10/41 20121030150354Bh, 24 proposals
+Prediction GPU 1: calibration 10/41 20121113103634Ch, 23 proposals
+Prediction GPU 0: calibration 11/41 20121118092514Th, 41 proposals
+Prediction GPU 1: calibration 11/41 20121129063154Uh, 15 proposals
+Prediction GPU 0: calibration 12/41 20121207103034Ch, 29 proposals
+Prediction GPU 1: calibration 12/41 20121219063154Uh, 27 proposals
+Prediction GPU 0: calibration 13/41 20130116172814Mh, 20 proposals
+Prediction GPU 1: calibration 13/41 20130304170614Mh, 15 proposals
+Prediction GPU 0: calibration 14/41 20130407063154Uh, 22 proposals
+Prediction GPU 1: calibration 14/41 20130423072414Th, 12 proposals
+Prediction GPU 0: calibration 15/41 20130429063154Uh, 13 proposals
+Prediction GPU 1: calibration 15/41 20130611063154Uh, 30 proposals
+Prediction GPU 0: calibration 16/41 20130630070714Th, 13 proposals
+Prediction GPU 1: calibration 16/41 20130705161714Mh, 28 proposals
+Prediction GPU 0: calibration 17/41 20130719140154Bh, 38 proposals
+Prediction GPU 1: calibration 17/41 20130725122934Ch, 32 proposals
+Prediction GPU 0: calibration 18/41 20130901073614Th, 38 proposals
+Prediction GPU 1: calibration 18/41 20130905073714Th, 30 proposals
+Prediction GPU 0: calibration 19/41 20130923060834Lh, 18 proposals
+Prediction GPU 1: calibration 19/41 20130925143254Bh, 33 proposals
+Prediction GPU 0: calibration 20/41 20131013185334Ch, 25 proposals
+Prediction GPU 1: calibration 20/41 20131107043054Uh, 26 proposals
+Prediction GPU 0: calibration 21/41 20131116185334Ch, 29 proposals
+Prediction GPU 1: calibration 21/41 20140127180134Ch, 35 proposals
+Prediction GPU 0: calibration 22/41 20140212024554Uh, 29 proposals
+Prediction GPU 1: calibration 22/41 20140409081614Th, 8 proposals
+Prediction GPU 0: calibration 23/41 20140430071914Th, 48 proposals
+Prediction GPU 1: calibration 23/41 20140719071414Th, 17 proposals
+Prediction GPU 0: calibration 24/41 20140803234534Lh, 35 proposals
+Prediction GPU 1: calibration 24/41 20140814195854Bh, 19 proposals
+Prediction GPU 0: calibration 25/41 20140903073614Th, 31 proposals
+Prediction GPU 1: calibration 25/41 20140921195854Bh, 34 proposals
+Prediction GPU 0: calibration 26/41 20141026024454Uh, 20 proposals
+Prediction GPU 1: calibration 26/41 20141116222234Lh, 40 proposals
+Prediction GPU 0: calibration 27/41 20150116082034Lh, 22 proposals
+Prediction GPU 1: calibration 27/41 20150423120034Ch, 37 proposals
+Prediction GPU 0: calibration 28/41 20150731082034Lh, 37 proposals
+Prediction GPU 1: calibration 28/41 20150926111934Ch, 25 proposals
+Prediction GPU 0: calibration 29/41 20151228024254Uh, 21 proposals
+Prediction GPU 1: calibration 29/41 20160125154854Bh, 22 proposals
+Prediction GPU 0: calibration 30/41 20160315133714Th, 11 proposals
+Prediction GPU 1: calibration 30/41 20160501143154Bh, 16 proposals
+Prediction GPU 0: calibration 31/41 20160510163914Mh, 25 proposals
+Prediction GPU 1: calibration 31/41 20160518011654Uh, 14 proposals
+Prediction GPU 0: calibration 32/41 20160804133734Ch, 9 proposals
+Prediction GPU 1: calibration 32/41 20160808133714Th, 10 proposals
+Prediction GPU 0: calibration 33/41 20170418013450Uh, 6 proposals
+Prediction GPU 1: calibration 33/41 20170719235330Lh, 10 proposals
+Prediction GPU 0: calibration 34/41 20170804140650Bh, 6 proposals
+Prediction GPU 1: calibration 34/41 20171004143950Bh, 9 proposals
+Prediction GPU 0: calibration 35/41 20171025133730Ch, 18 proposals
+Prediction GPU 1: calibration 35/41 20171025223130Lh, 19 proposals
+Prediction GPU 0: calibration 36/41 20180309000910Mh, 4 proposals
+Prediction GPU 1: calibration 36/41 20180318020350Uh, 1 proposals
+Prediction GPU 1: calibration 37/41 20180714000010Mh, 5 proposals
+Prediction GPU 0: calibration 37/41 20180318232230Lh, 2 proposals
+Prediction GPU 1: calibration 38/41 20180925000030Lh, 3 proposals
+Prediction GPU 0: calibration 38/41 20180801232450Bh, 0 proposals
+Prediction GPU 1: calibration 39/41 20210620163530Mh, 10 proposals
+Prediction GPU 0: calibration 39/41 20190609123330Ch, 9 proposals
+Prediction GPU 1: calibration 40/41 20210731074710Th, 9 proposals
+Prediction GPU 0: calibration 40/41 20210624133950Bh, 5 proposals
+Prediction GPU 1: calibration 41/41 20220724185352Mh, 16 proposals
+Prediction GPU 0: calibration 41/41 20210814044930Lh, 15 proposals
+Candidate cache: calibration, 82 sources
+Selected pipeline: {"set": "hybrid_adaptive", "quality": true, "cutoff": 0.15, "min_area": 50, "PQ": 0.01117156762235393, "SQ": 0.6293316427259381, "RQ": 0.01775147928994083, "TP": 9, "FP": 6, "FN": 990, "sum_IoU": 5.663984784533443, "physical_predictions": 11}
+
+                set  quality  cutoff  min_area        PQ        SQ        RQ  \
+0   hybrid_adaptive     True    0.15        50  0.011172  0.629332  0.017751   
+1   hybrid_adaptive     True    0.15       150  0.011172  0.629332  0.017751   
+2        hybrid_0.5     True    0.15        50  0.010800  0.607828  0.017769   
+3        hybrid_0.5     True    0.15       150  0.010800  0.607828  0.017769   
+4        dense_0.65     True    0.15        50  0.010428  0.660249  0.015795   
+5        dense_0.65     True    0.15       150  0.010428  0.660249  0.015795   
+6       hybrid_0.65     True    0.15        50  0.010388  0.657678  0.015795   
+7       hybrid_0.65     True    0.15       150  0.010388  0.657678  0.015795   
+8    dense_adaptive     True    0.15        50  0.009987  0.634186  0.015748   
+9    dense_adaptive     True    0.15       150  0.009987  0.634186  0.015748   
+10       dense_0.65    False    0.70       150  0.009891  0.660249  0.014981   
+11        dense_0.5     True    0.15        50  0.009879  0.627347  0.015748   
+
+    TP  FP   FN   sum_IoU  physical_predictions  
+0    9   6  990  5.663985                    11  
+1    9   6  990  5.663985                    11  
+2    9   5  990  5.470452                    10  
+3    9   5  990  5.470452                    10  
+4    8   6  991  5.281988                    10  
+5    8   6  991  5.281988                    10  
+6    8   6  991  5.261421                    10  
+7    8   6  991  5.261421                    10  
+8    8   9  991  5.073487                    11  
+9    8   9  991  5.073487                    11  
+10   8  61  991  5.281988                    38  
+11   8   9  991  5.018774                    11  

@@ -1,0 +1,1044 @@
+Launching: /usr/bin/python3 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=2 /kaggle/working/filament_gpu_worker.py --config /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/config.json --task detector --full
+New https://pypi.org/project/ultralytics/8.4.201 available 😃 Update with 'pip install -U ultralytics'
+Ultralytics 8.4.198 🚀 Python-3.13.16 torch-2.11.0+cu130 CUDA:0 (Tesla T4, 14912MiB)
+                                                        CUDA:1 (Tesla T4, 14912MiB)
+Overriding model.yaml nc=80 with nc=1
+Transferred 643/649 items from pretrained weights
+Freezing layer 'model.23.dfl.conv.weight'
+[34m[1mAMP: [0mrunning Automatic Mixed Precision (AMP) checks...
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1mtrain: [0mFast image access ✅ (ping: 0.0±0.0 ms, read: 2460.8±1366.0 MB/s, size: 4696.3 KB)
+[K[34m[1mtrain: [0mScanning /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/detector_data/labels/calibration... 1154 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 1154/1154 27.3it/s 42.3s
+[34m[1mtrain: [0mNew cache created: /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/detector_data/labels/calibration.cache
+[34m[1malbumentations: [0mBlur(p=0.01, blur_limit=(3, 7)), MedianBlur(p=0.01, blur_limit=(3, 7)), ToGray(p=0.01, method='weighted_average', num_output_channels=3), CLAHE(p=0.01, clip_limit=(1.0, 4.0), tile_grid_size=(8, 8))
+[34m[1mval: [0mFast image access ✅ (ping: 0.0±0.0 ms, read: 3576.3±2036.3 MB/s, size: 4604.7 KB)
+[K[34m[1mval: [0mScanning /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/detector_data/labels/train.cache... 867 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 867/867 129.9Mit/s 0.0s
+[34m[1moptimizer:[0m AdamW(lr=0.001, momentum=0.937) with parameter groups 106 weight(decay=0.0), 113 weight(decay=0.0001), 112 bias(decay=0.0)
+Using 1154 train, 867 val images for fraction=1.0 at imgsz=2048
+Using 4 dataloader workers
+Logging results to [1m/kaggle/working/kaggle_native_hybrid_v1_8d27489d35/full_models/detector[0m
+Starting training for 40 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       1/40      5.95G      2.038      2.312      1.787          1       2048: 100% ━━━━━━━━━━━━ 577/577 3.0it/s 3:12
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:06
+                   all        867       6121       0.32      0.367      0.247     0.0989
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       2/40      6.22G      2.003      2.077      1.809          1       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:09
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.375       0.41      0.314      0.136
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       3/40      6.22G      1.881      1.935       1.73          4       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.326      0.384      0.269      0.122
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       4/40      6.22G      1.772      1.812      1.667          8       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:03
+                   all        867       6121      0.451      0.476      0.414      0.193
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       5/40      6.22G      1.727      1.748      1.625         15       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.459      0.495      0.432      0.218
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       6/40      6.22G      1.651      1.729      1.582         10       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.463      0.484      0.439      0.223
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       7/40      6.22G      1.614      1.635      1.543         12       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.512      0.522      0.486      0.249
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       8/40      6.22G       1.59        1.6      1.537         12       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:07
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.496      0.533      0.486      0.254
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K       9/40      6.22G      1.567      1.587      1.536          3       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:07
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.521       0.52      0.499      0.251
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      10/40      6.22G      1.539      1.525      1.503          4       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:07
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.542      0.533      0.521      0.273
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      11/40      6.22G      1.531      1.531      1.496         12       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.546      0.546      0.522      0.281
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      12/40      6.22G      1.474      1.461      1.458          2       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.535      0.571       0.54      0.292
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      13/40      6.22G      1.461      1.434       1.44          1       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.533      0.574      0.534      0.292
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      14/40      6.22G      1.421      1.412      1.417          4       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:05
+                   all        867       6121      0.554      0.553      0.543      0.303
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      15/40      6.22G      1.426      1.392      1.417         12       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:07
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.545       0.59      0.562      0.315
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      16/40      6.22G      1.372      1.328      1.388          7       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:07
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:05
+                   all        867       6121      0.547      0.597      0.561      0.313
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      17/40      6.22G      1.373      1.346       1.38          7       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121       0.55      0.609      0.572      0.323
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      18/40      6.22G      1.338       1.31      1.358          4       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:05
+                   all        867       6121      0.573      0.607      0.594      0.342
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      19/40      6.22G      1.325       1.29      1.347         11       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:05
+                   all        867       6121      0.573      0.618      0.597      0.343
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      20/40      6.22G      1.302      1.267       1.34         18       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:05
+                   all        867       6121      0.569      0.611      0.591      0.347
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      21/40      6.22G      1.278      1.237      1.328          8       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:03
+                   all        867       6121       0.59       0.62      0.617      0.364
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      22/40      6.22G      1.279      1.225       1.33          5       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:05
+                   all        867       6121       0.59      0.611      0.615      0.368
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      23/40      6.22G      1.264      1.195      1.308         10       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121        0.6      0.641      0.626      0.381
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      24/40      6.22G      1.234      1.166      1.293          6       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:05
+                   all        867       6121      0.628      0.633      0.644      0.392
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      25/40      6.22G      1.213      1.133      1.278          7       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:03
+                   all        867       6121      0.625      0.637      0.624      0.383
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      26/40      6.22G      1.191      1.127       1.27          7       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:05
+                   all        867       6121      0.629      0.638       0.65      0.401
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      27/40      6.22G      1.168      1.107      1.254          4       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.624      0.637      0.644      0.402
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      28/40      6.22G      1.154        1.1      1.247         11       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:03
+                   all        867       6121      0.636      0.647      0.669      0.421
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      29/40      6.22G      1.124      1.042      1.235         10       2048: 100% ━━━━━━━━━━━━ 577/577 3.0it/s 3:09
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:05
+                   all        867       6121      0.652      0.643      0.675      0.429
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      30/40      6.22G      1.115      1.063      1.223          5       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.655      0.651      0.677      0.431
+Closing dataloader mosaic
+[34m[1malbumentations: [0mBlur(p=0.01, blur_limit=(3, 7)), MedianBlur(p=0.01, blur_limit=(3, 7)), ToGray(p=0.01, method='weighted_average', num_output_channels=3), CLAHE(p=0.01, clip_limit=(1.0, 4.0), tile_grid_size=(8, 8))
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      31/40      6.22G      1.109      1.031      1.225          2       2048: 100% ━━━━━━━━━━━━ 577/577 3.0it/s 3:10
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.4it/s 2:06
+                   all        867       6121      0.652      0.659       0.68      0.432
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      32/40      6.22G      1.098      1.012      1.219          2       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:08
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:06
+                   all        867       6121      0.651      0.671      0.685      0.439
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      33/40      6.22G      1.077     0.9943      1.207          7       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:09
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:03
+                   all        867       6121      0.653       0.68      0.689      0.442
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      34/40      6.22G      1.043     0.9808      1.184          9       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:09
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.661      0.682      0.701      0.455
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      35/40      6.22G      1.022     0.9539      1.176          9       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:09
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.671      0.675      0.704       0.46
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      36/40      6.22G       1.02     0.9438      1.167          3       2048: 100% ━━━━━━━━━━━━ 577/577 3.0it/s 3:09
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:05
+                   all        867       6121      0.673       0.68      0.708      0.462
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      37/40      6.22G      1.005     0.9279      1.163          6       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:09
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:05
+                   all        867       6121      0.683      0.676      0.714       0.47
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      38/40      6.22G      1.017     0.9194      1.178         10       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:09
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:04
+                   all        867       6121      0.692      0.671      0.714       0.47
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      39/40      6.22G     0.9876     0.9082       1.16          9       2048: 100% ━━━━━━━━━━━━ 577/577 3.1it/s 3:09
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.5it/s 2:05
+                   all        867       6121      0.693      0.673       0.72      0.476
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K      40/40      6.22G     0.9761     0.8929      1.154          5       2048: 100% ━━━━━━━━━━━━ 577/577 3.0it/s 3:09
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 3.4it/s 2:06
+                   all        867       6121      0.685       0.68      0.716      0.472
+
+40 epochs completed in 3.488 hours.
+Optimizer stripped from /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/full_models/detector/weights/last.pt, 41.0MB
+Optimizer stripped from /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/full_models/detector/weights/best.pt, 41.0MB
+
+Validating /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/full_models/detector/weights/best.pt...
+YOLO11m summary (fused): 125 layers, 20,030,803 parameters, 0 gradients, 67.8 GFLOPs
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 434/434 4.0it/s 1:47
+                   all        867       6121      0.691      0.674      0.719      0.475
+Speed: 0.9ms preprocess, 53.8ms inference, 0.0ms loss, 0.9ms postprocess per image
+Launching: /usr/bin/python3 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=2 /kaggle/working/filament_gpu_worker.py --config /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/config.json --task dense --member 0 --full
+
+/usr/local/lib/python3.13/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+
+Dense member 0, rank 1/2: cuda:1, 707 sources, native 512 crops, 383 microbatches/epoch, 2 loader workers
+Dense member 0, rank 0/2: cuda:0, 707 sources, native 512 crops, 383 microbatches/epoch, 2 loader workers
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 1/4, step 32/383, loss 0.7428, lr 0.000025
+Dense 0 rank 0: epoch 1/4, step 32/383, loss 0.7412, lr 0.000025
+Dense 0 rank 1: epoch 1/4, step 64/383, loss 0.7248, lr 0.000050
+Dense 0 rank 0: epoch 1/4, step 64/383, loss 0.7251, lr 0.000050
+Dense 0 rank 1: epoch 1/4, step 96/383, loss 0.7087, lr 0.000075
+Dense 0 rank 0: epoch 1/4, step 96/383, loss 0.7089, lr 0.000075
+Dense 0 rank 1: epoch 1/4, step 128/383, loss 0.6934, lr 0.000099
+Dense 0 rank 0: epoch 1/4, step 128/383, loss 0.6939, lr 0.000099
+Dense 0 rank 1: epoch 1/4, step 160/383, loss 0.6787, lr 0.000122
+Dense 0 rank 0: epoch 1/4, step 160/383, loss 0.6791, lr 0.000122
+Dense 0 rank 1: epoch 1/4, step 192/383, loss 0.6645, lr 0.000145
+Dense 0 rank 0: epoch 1/4, step 192/383, loss 0.6640, lr 0.000145
+Dense 0 rank 1: epoch 1/4, step 224/383, loss 0.6495, lr 0.000167
+Dense 0 rank 0: epoch 1/4, step 224/383, loss 0.6487, lr 0.000167
+Dense 0 rank 1: epoch 1/4, step 256/383, loss 0.6355, lr 0.000188
+Dense 0 rank 0: epoch 1/4, step 256/383, loss 0.6341, lr 0.000188
+Dense 0 rank 0: epoch 1/4, step 288/383, loss 0.6210, lr 0.000208
+Dense 0 rank 1: epoch 1/4, step 288/383, loss 0.6221, lr 0.000208
+Dense 0 rank 0: epoch 1/4, step 320/383, loss 0.6083, lr 0.000226
+Dense 0 rank 1: epoch 1/4, step 320/383, loss 0.6093, lr 0.000226
+Dense 0 rank 1: epoch 1/4, step 352/383, loss 0.5973, lr 0.000243
+Dense 0 rank 0: epoch 1/4, step 352/383, loss 0.5965, lr 0.000243
+{"epoch": 1, "loss": 0.5850917526931738, "fixed_rule_calibration_PQ": null, "lr": 0.0002584691331700926, "updates": 128, "seconds": 117.83, "peak_vram_gib": 1.245}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 0: epoch 2/4, step 32/383, loss 0.4447, lr 0.000252
+Dense 0 rank 1: epoch 2/4, step 32/383, loss 0.4406, lr 0.000252
+Dense 0 rank 0: epoch 2/4, step 64/383, loss 0.4338, lr 0.000244
+Dense 0 rank 1: epoch 2/4, step 64/383, loss 0.4282, lr 0.000244
+Dense 0 rank 0: epoch 2/4, step 96/383, loss 0.4246, lr 0.000237
+Dense 0 rank 1: epoch 2/4, step 96/383, loss 0.4173, lr 0.000237
+Dense 0 rank 1: epoch 2/4, step 128/383, loss 0.4098, lr 0.000229
+Dense 0 rank 0: epoch 2/4, step 128/383, loss 0.4158, lr 0.000229
+Dense 0 rank 1: epoch 2/4, step 160/383, loss 0.4019, lr 0.000221
+Dense 0 rank 0: epoch 2/4, step 160/383, loss 0.4092, lr 0.000221
+Dense 0 rank 1: epoch 2/4, step 192/383, loss 0.3948, lr 0.000212
+Dense 0 rank 0: epoch 2/4, step 192/383, loss 0.4005, lr 0.000212
+Dense 0 rank 1: epoch 2/4, step 224/383, loss 0.3880, lr 0.000203
+Dense 0 rank 0: epoch 2/4, step 224/383, loss 0.3944, lr 0.000203
+Dense 0 rank 0: epoch 2/4, step 256/383, loss 0.3889, lr 0.000194
+Dense 0 rank 1: epoch 2/4, step 256/383, loss 0.3848, lr 0.000194
+Dense 0 rank 0: epoch 2/4, step 288/383, loss 0.3798, lr 0.000185
+Dense 0 rank 1: epoch 2/4, step 288/383, loss 0.3793, lr 0.000185
+Dense 0 rank 0: epoch 2/4, step 320/383, loss 0.3765, lr 0.000176
+Dense 0 rank 1: epoch 2/4, step 320/383, loss 0.3754, lr 0.000176
+Dense 0 rank 0: epoch 2/4, step 352/383, loss 0.3712, lr 0.000167
+Dense 0 rank 1: epoch 2/4, step 352/383, loss 0.3692, lr 0.000167
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 2, "loss": 0.3657574017699954, "fixed_rule_calibration_PQ": null, "lr": 0.00015779221712753134, "updates": 256, "seconds": 115.13, "peak_vram_gib": 1.245}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 3/4, step 32/383, loss 0.3477, lr 0.000148
+Dense 0 rank 0: epoch 3/4, step 32/383, loss 0.3414, lr 0.000148
+Dense 0 rank 1: epoch 3/4, step 64/383, loss 0.3324, lr 0.000139
+Dense 0 rank 0: epoch 3/4, step 64/383, loss 0.3234, lr 0.000139
+Dense 0 rank 1: epoch 3/4, step 96/383, loss 0.3286, lr 0.000130
+Dense 0 rank 0: epoch 3/4, step 96/383, loss 0.3159, lr 0.000130
+Dense 0 rank 0: epoch 3/4, step 128/383, loss 0.3051, lr 0.000121
+Dense 0 rank 1: epoch 3/4, step 128/383, loss 0.3295, lr 0.000121
+Dense 0 rank 0: epoch 3/4, step 160/383, loss 0.3042, lr 0.000112
+Dense 0 rank 1: epoch 3/4, step 160/383, loss 0.3282, lr 0.000112
+Dense 0 rank 0: epoch 3/4, step 192/383, loss 0.3036, lr 0.000103
+Dense 0 rank 1: epoch 3/4, step 192/383, loss 0.3247, lr 0.000103
+Dense 0 rank 0: epoch 3/4, step 224/383, loss 0.2994, lr 0.000095
+Dense 0 rank 1: epoch 3/4, step 224/383, loss 0.3166, lr 0.000095
+Dense 0 rank 0: epoch 3/4, step 256/383, loss 0.2973, lr 0.000086
+Dense 0 rank 1: epoch 3/4, step 256/383, loss 0.3145, lr 0.000086
+Dense 0 rank 0: epoch 3/4, step 288/383, loss 0.2952, lr 0.000078
+Dense 0 rank 1: epoch 3/4, step 288/383, loss 0.3093, lr 0.000078
+Dense 0 rank 0: epoch 3/4, step 320/383, loss 0.2917, lr 0.000071
+Dense 0 rank 1: epoch 3/4, step 320/383, loss 0.3067, lr 0.000071
+Dense 0 rank 0: epoch 3/4, step 352/383, loss 0.2881, lr 0.000064
+Dense 0 rank 1: epoch 3/4, step 352/383, loss 0.3035, lr 0.000064
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 3, "loss": 0.2932233059628047, "fixed_rule_calibration_PQ": null, "lr": 5.6944124254819896e-05, "updates": 384, "seconds": 115.85, "peak_vram_gib": 1.245}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [512, 512], "loader_workers": 2, "total_loader_workers": 4}
+Dense 0 rank 1: epoch 4/4, step 32/383, loss 0.2757, lr 0.000051
+Dense 0 rank 0: epoch 4/4, step 32/383, loss 0.3037, lr 0.000051
+Dense 0 rank 1: epoch 4/4, step 64/383, loss 0.2730, lr 0.000045
+Dense 0 rank 0: epoch 4/4, step 64/383, loss 0.2874, lr 0.000045
+Dense 0 rank 1: epoch 4/4, step 96/383, loss 0.2645, lr 0.000039
+Dense 0 rank 0: epoch 4/4, step 96/383, loss 0.2771, lr 0.000039
+Dense 0 rank 0: epoch 4/4, step 128/383, loss 0.2713, lr 0.000034
+Dense 0 rank 1: epoch 4/4, step 128/383, loss 0.2697, lr 0.000034
+Dense 0 rank 0: epoch 4/4, step 160/383, loss 0.2715, lr 0.000030
+Dense 0 rank 1: epoch 4/4, step 160/383, loss 0.2783, lr 0.000030
+Dense 0 rank 0: epoch 4/4, step 192/383, loss 0.2729, lr 0.000026
+Dense 0 rank 1: epoch 4/4, step 192/383, loss 0.2773, lr 0.000026
+Dense 0 rank 1: epoch 4/4, step 224/383, loss 0.2725, lr 0.000023
+Dense 0 rank 0: epoch 4/4, step 224/383, loss 0.2697, lr 0.000023
+Dense 0 rank 0: epoch 4/4, step 256/383, loss 0.2700, lr 0.000020
+Dense 0 rank 1: epoch 4/4, step 256/383, loss 0.2703, lr 0.000020
+Dense 0 rank 1: epoch 4/4, step 288/383, loss 0.2751, lr 0.000018
+Dense 0 rank 0: epoch 4/4, step 288/383, loss 0.2688, lr 0.000018
+Dense 0 rank 1: epoch 4/4, step 320/383, loss 0.2725, lr 0.000016
+Dense 0 rank 0: epoch 4/4, step 320/383, loss 0.2720, lr 0.000016
+Dense 0 rank 1: epoch 4/4, step 352/383, loss 0.2727, lr 0.000015
+Dense 0 rank 0: epoch 4/4, step 352/383, loss 0.2698, lr 0.000015
+{"epoch": 4, "loss": 0.26959619450312367, "fixed_rule_calibration_PQ": null, "lr": 1.5000299617331197e-05, "updates": 511, "seconds": 115.91, "peak_vram_gib": 1.245}
+Launching: /usr/bin/python3 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=2 /kaggle/working/filament_gpu_worker.py --config /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/config.json --task dense --member 1 --full
+
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Unexpected keys (bn2.num_batches_tracked, bn2.bias, bn2.running_mean, bn2.running_var, bn2.weight, classifier.bias, classifier.weight, conv_head.weight) found while loading pretrained weights. This may be expected if model is being adapted.
+/usr/local/lib/python3.13/dist-packages/torch/distributed/c10d_logger.py:83: UserWarning: barrier(): using the device under current context. You can specify `device_id` in `init_process_group` to mute this warning.
+  return func(*args, **kwargs)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Unexpected keys (bn2.num_batches_tracked, bn2.bias, bn2.running_mean, bn2.running_var, bn2.weight, classifier.bias, classifier.weight, conv_head.weight) found while loading pretrained weights. This may be expected if model is being adapted.
+
+Dense member 1, rank 1/2: cuda:1, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers
+Dense member 1, rank 0/2: cuda:0, 707 sources, native 768 crops, 383 microbatches/epoch, 2 loader workers
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 1/12, step 32/383, loss 0.9845, lr 0.000025
+Dense 1 rank 1: epoch 1/12, step 32/383, loss 0.9848, lr 0.000025
+Dense 1 rank 0: epoch 1/12, step 64/383, loss 0.9760, lr 0.000050
+Dense 1 rank 1: epoch 1/12, step 64/383, loss 0.9760, lr 0.000050
+Dense 1 rank 0: epoch 1/12, step 96/383, loss 0.9625, lr 0.000075
+Dense 1 rank 1: epoch 1/12, step 96/383, loss 0.9621, lr 0.000075
+Dense 1 rank 0: epoch 1/12, step 128/383, loss 0.9452, lr 0.000100
+Dense 1 rank 1: epoch 1/12, step 128/383, loss 0.9450, lr 0.000100
+Dense 1 rank 1: epoch 1/12, step 160/383, loss 0.9239, lr 0.000125
+Dense 1 rank 0: epoch 1/12, step 160/383, loss 0.9242, lr 0.000125
+Dense 1 rank 1: epoch 1/12, step 192/383, loss 0.8991, lr 0.000150
+Dense 1 rank 0: epoch 1/12, step 192/383, loss 0.8998, lr 0.000150
+Dense 1 rank 0: epoch 1/12, step 224/383, loss 0.8724, lr 0.000174
+Dense 1 rank 1: epoch 1/12, step 224/383, loss 0.8716, lr 0.000174
+Dense 1 rank 1: epoch 1/12, step 256/383, loss 0.8438, lr 0.000199
+Dense 1 rank 0: epoch 1/12, step 256/383, loss 0.8441, lr 0.000199
+Dense 1 rank 1: epoch 1/12, step 288/383, loss 0.8162, lr 0.000224
+Dense 1 rank 0: epoch 1/12, step 288/383, loss 0.8165, lr 0.000224
+Dense 1 rank 1: epoch 1/12, step 320/383, loss 0.7895, lr 0.000248
+Dense 1 rank 0: epoch 1/12, step 320/383, loss 0.7899, lr 0.000248
+Dense 1 rank 0: epoch 1/12, step 352/383, loss 0.7648, lr 0.000272
+Dense 1 rank 1: epoch 1/12, step 352/383, loss 0.7641, lr 0.000272
+{"epoch": 1, "loss": 0.7416045402344462, "fixed_rule_calibration_PQ": null, "lr": 0.00029516960855806713, "updates": 128, "seconds": 159.4, "peak_vram_gib": 3.269}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 2/12, step 32/383, loss 0.4528, lr 0.000294
+Dense 1 rank 1: epoch 2/12, step 32/383, loss 0.4530, lr 0.000294
+Dense 1 rank 1: epoch 2/12, step 64/383, loss 0.4422, lr 0.000293
+Dense 1 rank 0: epoch 2/12, step 64/383, loss 0.4422, lr 0.000293
+Dense 1 rank 1: epoch 2/12, step 96/383, loss nan, lr 0.000292
+Dense 1 rank 0: epoch 2/12, step 96/383, loss nan, lr 0.000292
+Dense 1 rank 1: epoch 2/12, step 128/383, loss nan, lr 0.000291
+Dense 1 rank 0: epoch 2/12, step 128/383, loss nan, lr 0.000291
+Dense 1 rank 1: epoch 2/12, step 160/383, loss nan, lr 0.000290
+Dense 1 rank 0: epoch 2/12, step 160/383, loss nan, lr 0.000290
+Dense 1 rank 0: epoch 2/12, step 192/383, loss nan, lr 0.000289
+Dense 1 rank 1: epoch 2/12, step 192/383, loss nan, lr 0.000289
+Dense 1 rank 0: epoch 2/12, step 224/383, loss nan, lr 0.000288
+Dense 1 rank 1: epoch 2/12, step 224/383, loss nan, lr 0.000288
+Dense 1 rank 0: epoch 2/12, step 256/383, loss nan, lr 0.000287
+Dense 1 rank 1: epoch 2/12, step 256/383, loss nan, lr 0.000287
+Dense 1 rank 0: epoch 2/12, step 288/383, loss nan, lr 0.000285
+Dense 1 rank 1: epoch 2/12, step 288/383, loss nan, lr 0.000285
+Dense 1 rank 0: epoch 2/12, step 320/383, loss nan, lr 0.000284
+Dense 1 rank 1: epoch 2/12, step 320/383, loss nan, lr 0.000284
+Dense 1 rank 0: epoch 2/12, step 352/383, loss nan, lr 0.000282
+Dense 1 rank 1: epoch 2/12, step 352/383, loss nan, lr 0.000282
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 2, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00028095729409351216, "updates": 154, "seconds": 153.12, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 3/12, step 32/383, loss nan, lr 0.000279
+Dense 1 rank 1: epoch 3/12, step 32/383, loss nan, lr 0.000279
+Dense 1 rank 1: epoch 3/12, step 64/383, loss nan, lr 0.000278
+Dense 1 rank 0: epoch 3/12, step 64/383, loss nan, lr 0.000278
+Dense 1 rank 1: epoch 3/12, step 96/383, loss nan, lr 0.000276
+Dense 1 rank 0: epoch 3/12, step 96/383, loss nan, lr 0.000276
+Dense 1 rank 1: epoch 3/12, step 128/383, loss nan, lr 0.000274
+Dense 1 rank 0: epoch 3/12, step 128/383, loss nan, lr 0.000274
+Dense 1 rank 0: epoch 3/12, step 160/383, loss nan, lr 0.000272
+Dense 1 rank 1: epoch 3/12, step 160/383, loss nan, lr 0.000272
+Dense 1 rank 1: epoch 3/12, step 192/383, loss nan, lr 0.000271
+Dense 1 rank 0: epoch 3/12, step 192/383, loss nan, lr 0.000271
+Dense 1 rank 0: epoch 3/12, step 224/383, loss nan, lr 0.000269
+Dense 1 rank 1: epoch 3/12, step 224/383, loss nan, lr 0.000269
+Dense 1 rank 0: epoch 3/12, step 256/383, loss nan, lr 0.000267
+Dense 1 rank 1: epoch 3/12, step 256/383, loss nan, lr 0.000267
+Dense 1 rank 1: epoch 3/12, step 288/383, loss nan, lr 0.000265
+Dense 1 rank 0: epoch 3/12, step 288/383, loss nan, lr 0.000265
+Dense 1 rank 1: epoch 3/12, step 320/383, loss nan, lr 0.000263
+Dense 1 rank 0: epoch 3/12, step 320/383, loss nan, lr 0.000263
+Dense 1 rank 1: epoch 3/12, step 352/383, loss nan, lr 0.000260
+Dense 1 rank 0: epoch 3/12, step 352/383, loss nan, lr 0.000260
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 3, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0002583315690593093, "updates": 218, "seconds": 153.16, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 4/12, step 32/383, loss nan, lr 0.000256
+Dense 1 rank 1: epoch 4/12, step 32/383, loss nan, lr 0.000256
+Dense 1 rank 1: epoch 4/12, step 64/383, loss nan, lr 0.000254
+Dense 1 rank 0: epoch 4/12, step 64/383, loss nan, lr 0.000254
+Dense 1 rank 1: epoch 4/12, step 96/383, loss nan, lr 0.000252
+Dense 1 rank 0: epoch 4/12, step 96/383, loss nan, lr 0.000252
+Dense 1 rank 1: epoch 4/12, step 128/383, loss nan, lr 0.000249
+Dense 1 rank 0: epoch 4/12, step 128/383, loss nan, lr 0.000249
+Dense 1 rank 1: epoch 4/12, step 160/383, loss nan, lr 0.000247
+Dense 1 rank 0: epoch 4/12, step 160/383, loss nan, lr 0.000247
+Dense 1 rank 1: epoch 4/12, step 192/383, loss nan, lr 0.000244
+Dense 1 rank 0: epoch 4/12, step 192/383, loss nan, lr 0.000244
+Dense 1 rank 1: epoch 4/12, step 224/383, loss nan, lr 0.000242
+Dense 1 rank 0: epoch 4/12, step 224/383, loss nan, lr 0.000242
+Dense 1 rank 1: epoch 4/12, step 256/383, loss nan, lr 0.000239
+Dense 1 rank 0: epoch 4/12, step 256/383, loss nan, lr 0.000239
+Dense 1 rank 0: epoch 4/12, step 288/383, loss nan, lr 0.000237
+Dense 1 rank 1: epoch 4/12, step 288/383, loss nan, lr 0.000237
+Dense 1 rank 0: epoch 4/12, step 320/383, loss nan, lr 0.000234
+Dense 1 rank 1: epoch 4/12, step 320/383, loss nan, lr 0.000234
+Dense 1 rank 1: epoch 4/12, step 352/383, loss nan, lr 0.000231
+Dense 1 rank 0: epoch 4/12, step 352/383, loss nan, lr 0.000231
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 4, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00022883433922576109, "updates": 346, "seconds": 155.55, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 5/12, step 32/383, loss nan, lr 0.000226
+Dense 1 rank 1: epoch 5/12, step 32/383, loss nan, lr 0.000226
+Dense 1 rank 0: epoch 5/12, step 64/383, loss nan, lr 0.000223
+Dense 1 rank 1: epoch 5/12, step 64/383, loss nan, lr 0.000223
+Dense 1 rank 1: epoch 5/12, step 96/383, loss nan, lr 0.000221
+Dense 1 rank 0: epoch 5/12, step 96/383, loss nan, lr 0.000221
+Dense 1 rank 0: epoch 5/12, step 128/383, loss nan, lr 0.000218
+Dense 1 rank 1: epoch 5/12, step 128/383, loss nan, lr 0.000218
+Dense 1 rank 0: epoch 5/12, step 160/383, loss nan, lr 0.000215
+Dense 1 rank 1: epoch 5/12, step 160/383, loss nan, lr 0.000215
+Dense 1 rank 1: epoch 5/12, step 192/383, loss nan, lr 0.000212
+Dense 1 rank 0: epoch 5/12, step 192/383, loss nan, lr 0.000212
+Dense 1 rank 1: epoch 5/12, step 224/383, loss nan, lr 0.000209
+Dense 1 rank 0: epoch 5/12, step 224/383, loss nan, lr 0.000209
+Dense 1 rank 0: epoch 5/12, step 256/383, loss nan, lr 0.000206
+Dense 1 rank 1: epoch 5/12, step 256/383, loss nan, lr 0.000206
+Dense 1 rank 0: epoch 5/12, step 288/383, loss nan, lr 0.000203
+Dense 1 rank 1: epoch 5/12, step 288/383, loss nan, lr 0.000203
+Dense 1 rank 0: epoch 5/12, step 320/383, loss nan, lr 0.000200
+Dense 1 rank 1: epoch 5/12, step 320/383, loss nan, lr 0.000200
+Dense 1 rank 1: epoch 5/12, step 352/383, loss nan, lr 0.000197
+Dense 1 rank 0: epoch 5/12, step 352/383, loss nan, lr 0.000197
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 5, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00019447579205954656, "updates": 474, "seconds": 154.18, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 6/12, step 32/383, loss nan, lr 0.000191
+Dense 1 rank 1: epoch 6/12, step 32/383, loss nan, lr 0.000191
+Dense 1 rank 0: epoch 6/12, step 64/383, loss nan, lr 0.000188
+Dense 1 rank 1: epoch 6/12, step 64/383, loss nan, lr 0.000188
+Dense 1 rank 1: epoch 6/12, step 96/383, loss nan, lr 0.000185
+Dense 1 rank 0: epoch 6/12, step 96/383, loss nan, lr 0.000185
+Dense 1 rank 1: epoch 6/12, step 128/383, loss nan, lr 0.000182
+Dense 1 rank 0: epoch 6/12, step 128/383, loss nan, lr 0.000182
+Dense 1 rank 1: epoch 6/12, step 160/383, loss nan, lr 0.000179
+Dense 1 rank 0: epoch 6/12, step 160/383, loss nan, lr 0.000179
+Dense 1 rank 1: epoch 6/12, step 192/383, loss nan, lr 0.000176
+Dense 1 rank 0: epoch 6/12, step 192/383, loss nan, lr 0.000176
+Dense 1 rank 1: epoch 6/12, step 224/383, loss nan, lr 0.000173
+Dense 1 rank 0: epoch 6/12, step 224/383, loss nan, lr 0.000173
+Dense 1 rank 1: epoch 6/12, step 256/383, loss nan, lr 0.000170
+Dense 1 rank 0: epoch 6/12, step 256/383, loss nan, lr 0.000170
+Dense 1 rank 1: epoch 6/12, step 288/383, loss nan, lr 0.000167
+Dense 1 rank 0: epoch 6/12, step 288/383, loss nan, lr 0.000167
+Dense 1 rank 1: epoch 6/12, step 320/383, loss nan, lr 0.000164
+Dense 1 rank 0: epoch 6/12, step 320/383, loss nan, lr 0.000164
+Dense 1 rank 1: epoch 6/12, step 352/383, loss nan, lr 0.000161
+Dense 1 rank 0: epoch 6/12, step 352/383, loss nan, lr 0.000161
+{"epoch": 6, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.00015759740576985954, "updates": 602, "seconds": 154.1, "peak_vram_gib": 3.269}
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 7/12, step 32/383, loss nan, lr 0.000154
+Dense 1 rank 0: epoch 7/12, step 32/383, loss nan, lr 0.000154
+Dense 1 rank 1: epoch 7/12, step 64/383, loss nan, lr 0.000151
+Dense 1 rank 0: epoch 7/12, step 64/383, loss nan, lr 0.000151
+Dense 1 rank 1: epoch 7/12, step 96/383, loss nan, lr 0.000148
+Dense 1 rank 0: epoch 7/12, step 96/383, loss nan, lr 0.000148
+Dense 1 rank 0: epoch 7/12, step 128/383, loss nan, lr 0.000145
+Dense 1 rank 1: epoch 7/12, step 128/383, loss nan, lr 0.000145
+Dense 1 rank 1: epoch 7/12, step 160/383, loss nan, lr 0.000142
+Dense 1 rank 0: epoch 7/12, step 160/383, loss nan, lr 0.000142
+Dense 1 rank 1: epoch 7/12, step 192/383, loss nan, lr 0.000139
+Dense 1 rank 0: epoch 7/12, step 192/383, loss nan, lr 0.000139
+Dense 1 rank 1: epoch 7/12, step 224/383, loss nan, lr 0.000136
+Dense 1 rank 0: epoch 7/12, step 224/383, loss nan, lr 0.000136
+Dense 1 rank 0: epoch 7/12, step 256/383, loss nan, lr 0.000133
+Dense 1 rank 1: epoch 7/12, step 256/383, loss nan, lr 0.000133
+Dense 1 rank 1: epoch 7/12, step 288/383, loss nan, lr 0.000130
+Dense 1 rank 0: epoch 7/12, step 288/383, loss nan, lr 0.000130
+Dense 1 rank 0: epoch 7/12, step 320/383, loss nan, lr 0.000127
+Dense 1 rank 1: epoch 7/12, step 320/383, loss nan, lr 0.000127
+Dense 1 rank 1: epoch 7/12, step 352/383, loss nan, lr 0.000124
+Dense 1 rank 0: epoch 7/12, step 352/383, loss nan, lr 0.000124
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 7, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 0.0001207123814379272, "updates": 730, "seconds": 154.84, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 8/12, step 32/383, loss nan, lr 0.000118
+Dense 1 rank 0: epoch 8/12, step 32/383, loss nan, lr 0.000118
+Dense 1 rank 0: epoch 8/12, step 64/383, loss nan, lr 0.000115
+Dense 1 rank 1: epoch 8/12, step 64/383, loss nan, lr 0.000115
+Dense 1 rank 1: epoch 8/12, step 96/383, loss nan, lr 0.000112
+Dense 1 rank 0: epoch 8/12, step 96/383, loss nan, lr 0.000112
+Dense 1 rank 1: epoch 8/12, step 128/383, loss nan, lr 0.000109
+Dense 1 rank 0: epoch 8/12, step 128/383, loss nan, lr 0.000109
+Dense 1 rank 1: epoch 8/12, step 160/383, loss nan, lr 0.000106
+Dense 1 rank 0: epoch 8/12, step 160/383, loss nan, lr 0.000106
+Dense 1 rank 1: epoch 8/12, step 192/383, loss nan, lr 0.000103
+Dense 1 rank 0: epoch 8/12, step 192/383, loss nan, lr 0.000103
+Dense 1 rank 0: epoch 8/12, step 224/383, loss nan, lr 0.000100
+Dense 1 rank 1: epoch 8/12, step 224/383, loss nan, lr 0.000100
+Dense 1 rank 1: epoch 8/12, step 256/383, loss nan, lr 0.000097
+Dense 1 rank 0: epoch 8/12, step 256/383, loss nan, lr 0.000097
+Dense 1 rank 0: epoch 8/12, step 288/383, loss nan, lr 0.000094
+Dense 1 rank 1: epoch 8/12, step 288/383, loss nan, lr 0.000094
+Dense 1 rank 0: epoch 8/12, step 320/383, loss nan, lr 0.000092
+Dense 1 rank 1: epoch 8/12, step 320/383, loss nan, lr 0.000092
+Dense 1 rank 0: epoch 8/12, step 352/383, loss nan, lr 0.000089
+Dense 1 rank 1: epoch 8/12, step 352/383, loss nan, lr 0.000089
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 8, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 8.633437251658598e-05, "updates": 858, "seconds": 154.35, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 9/12, step 32/383, loss nan, lr 0.000084
+Dense 1 rank 1: epoch 9/12, step 32/383, loss nan, lr 0.000084
+Dense 1 rank 0: epoch 9/12, step 64/383, loss nan, lr 0.000081
+Dense 1 rank 1: epoch 9/12, step 64/383, loss nan, lr 0.000081
+Dense 1 rank 1: epoch 9/12, step 96/383, loss nan, lr 0.000078
+Dense 1 rank 0: epoch 9/12, step 96/383, loss nan, lr 0.000078
+Dense 1 rank 0: epoch 9/12, step 128/383, loss nan, lr 0.000076
+Dense 1 rank 1: epoch 9/12, step 128/383, loss nan, lr 0.000076
+Dense 1 rank 1: epoch 9/12, step 160/383, loss nan, lr 0.000073
+Dense 1 rank 0: epoch 9/12, step 160/383, loss nan, lr 0.000073
+Dense 1 rank 0: epoch 9/12, step 192/383, loss nan, lr 0.000071
+Dense 1 rank 1: epoch 9/12, step 192/383, loss nan, lr 0.000071
+Dense 1 rank 1: epoch 9/12, step 224/383, loss nan, lr 0.000068
+Dense 1 rank 0: epoch 9/12, step 224/383, loss nan, lr 0.000068
+Dense 1 rank 1: epoch 9/12, step 256/383, loss nan, lr 0.000066
+Dense 1 rank 0: epoch 9/12, step 256/383, loss nan, lr 0.000066
+Dense 1 rank 0: epoch 9/12, step 288/383, loss nan, lr 0.000064
+Dense 1 rank 1: epoch 9/12, step 288/383, loss nan, lr 0.000064
+Dense 1 rank 1: epoch 9/12, step 320/383, loss nan, lr 0.000061
+Dense 1 rank 0: epoch 9/12, step 320/383, loss nan, lr 0.000061
+Dense 1 rank 1: epoch 9/12, step 352/383, loss nan, lr 0.000059
+Dense 1 rank 0: epoch 9/12, step 352/383, loss nan, lr 0.000059
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 9, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 5.680618350147944e-05, "updates": 986, "seconds": 154.69, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 0: epoch 10/12, step 32/383, loss nan, lr 0.000055
+Dense 1 rank 1: epoch 10/12, step 32/383, loss nan, lr 0.000055
+Dense 1 rank 1: epoch 10/12, step 64/383, loss nan, lr 0.000052
+Dense 1 rank 0: epoch 10/12, step 64/383, loss nan, lr 0.000052
+Dense 1 rank 0: epoch 10/12, step 96/383, loss nan, lr 0.000050
+Dense 1 rank 1: epoch 10/12, step 96/383, loss nan, lr 0.000050
+Dense 1 rank 1: epoch 10/12, step 128/383, loss nan, lr 0.000048
+Dense 1 rank 0: epoch 10/12, step 128/383, loss nan, lr 0.000048
+Dense 1 rank 1: epoch 10/12, step 160/383, loss nan, lr 0.000046
+Dense 1 rank 0: epoch 10/12, step 160/383, loss nan, lr 0.000046
+Dense 1 rank 1: epoch 10/12, step 192/383, loss nan, lr 0.000044
+Dense 1 rank 0: epoch 10/12, step 192/383, loss nan, lr 0.000044
+Dense 1 rank 0: epoch 10/12, step 224/383, loss nan, lr 0.000043
+Dense 1 rank 1: epoch 10/12, step 224/383, loss nan, lr 0.000043
+Dense 1 rank 1: epoch 10/12, step 256/383, loss nan, lr 0.000041
+Dense 1 rank 0: epoch 10/12, step 256/383, loss nan, lr 0.000041
+Dense 1 rank 0: epoch 10/12, step 288/383, loss nan, lr 0.000039
+Dense 1 rank 1: epoch 10/12, step 288/383, loss nan, lr 0.000039
+Dense 1 rank 1: epoch 10/12, step 320/383, loss nan, lr 0.000037
+Dense 1 rank 0: epoch 10/12, step 320/383, loss nan, lr 0.000037
+Dense 1 rank 0: epoch 10/12, step 352/383, loss nan, lr 0.000036
+Dense 1 rank 1: epoch 10/12, step 352/383, loss nan, lr 0.000036
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 10, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 3.414011167634738e-05, "updates": 1114, "seconds": 153.97, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 11/12, step 32/383, loss nan, lr 0.000033
+Dense 1 rank 0: epoch 11/12, step 32/383, loss nan, lr 0.000033
+Dense 1 rank 0: epoch 11/12, step 64/383, loss nan, lr 0.000031
+Dense 1 rank 1: epoch 11/12, step 64/383, loss nan, lr 0.000031
+Dense 1 rank 1: epoch 11/12, step 96/383, loss nan, lr 0.000030
+Dense 1 rank 0: epoch 11/12, step 96/383, loss nan, lr 0.000030
+Dense 1 rank 0: epoch 11/12, step 128/383, loss nan, lr 0.000028
+Dense 1 rank 1: epoch 11/12, step 128/383, loss nan, lr 0.000028
+Dense 1 rank 0: epoch 11/12, step 160/383, loss nan, lr 0.000027
+Dense 1 rank 1: epoch 11/12, step 160/383, loss nan, lr 0.000027
+Dense 1 rank 0: epoch 11/12, step 192/383, loss nan, lr 0.000026
+Dense 1 rank 1: epoch 11/12, step 192/383, loss nan, lr 0.000026
+Dense 1 rank 0: epoch 11/12, step 224/383, loss nan, lr 0.000025
+Dense 1 rank 1: epoch 11/12, step 224/383, loss nan, lr 0.000025
+Dense 1 rank 1: epoch 11/12, step 256/383, loss nan, lr 0.000024
+Dense 1 rank 0: epoch 11/12, step 256/383, loss nan, lr 0.000024
+Dense 1 rank 1: epoch 11/12, step 288/383, loss nan, lr 0.000023
+Dense 1 rank 0: epoch 11/12, step 288/383, loss nan, lr 0.000023
+Dense 1 rank 0: epoch 11/12, step 320/383, loss nan, lr 0.000022
+Dense 1 rank 1: epoch 11/12, step 320/383, loss nan, lr 0.000022
+Dense 1 rank 0: epoch 11/12, step 352/383, loss nan, lr 0.000021
+Dense 1 rank 1: epoch 11/12, step 352/383, loss nan, lr 0.000021
+{"rank": 1, "world_size": 2, "gpu": "cuda:1", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+{"epoch": 11, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 1.9880812378617873e-05, "updates": 1242, "seconds": 153.57, "peak_vram_gib": 3.269}
+{"rank": 0, "world_size": 2, "gpu": "cuda:0", "gpu_name": "Tesla T4", "observed_batch": 2, "native_crop": [768, 768], "loader_workers": 2, "total_loader_workers": 4}
+Dense 1 rank 1: epoch 12/12, step 32/383, loss nan, lr 0.000019
+Dense 1 rank 0: epoch 12/12, step 32/383, loss nan, lr 0.000019
+Dense 1 rank 0: epoch 12/12, step 64/383, loss nan, lr 0.000018
+Dense 1 rank 1: epoch 12/12, step 64/383, loss nan, lr 0.000018
+Dense 1 rank 0: epoch 12/12, step 96/383, loss nan, lr 0.000018
+Dense 1 rank 1: epoch 12/12, step 96/383, loss nan, lr 0.000018
+Dense 1 rank 0: epoch 12/12, step 128/383, loss nan, lr 0.000017
+Dense 1 rank 1: epoch 12/12, step 128/383, loss nan, lr 0.000017
+Dense 1 rank 1: epoch 12/12, step 160/383, loss nan, lr 0.000017
+Dense 1 rank 0: epoch 12/12, step 160/383, loss nan, lr 0.000017
+Dense 1 rank 0: epoch 12/12, step 192/383, loss nan, lr 0.000016
+Dense 1 rank 1: epoch 12/12, step 192/383, loss nan, lr 0.000016
+Dense 1 rank 1: epoch 12/12, step 224/383, loss nan, lr 0.000016
+Dense 1 rank 0: epoch 12/12, step 224/383, loss nan, lr 0.000016
+Dense 1 rank 1: epoch 12/12, step 256/383, loss nan, lr 0.000016
+Dense 1 rank 0: epoch 12/12, step 256/383, loss nan, lr 0.000016
+Dense 1 rank 0: epoch 12/12, step 288/383, loss nan, lr 0.000015
+Dense 1 rank 1: epoch 12/12, step 288/383, loss nan, lr 0.000015
+Dense 1 rank 0: epoch 12/12, step 320/383, loss nan, lr 0.000015
+Dense 1 rank 1: epoch 12/12, step 320/383, loss nan, lr 0.000015
+Dense 1 rank 0: epoch 12/12, step 352/383, loss nan, lr 0.000015
+Dense 1 rank 1: epoch 12/12, step 352/383, loss nan, lr 0.000015
+{"epoch": 12, "loss": NaN, "fixed_rule_calibration_PQ": null, "lr": 1.5000033290824941e-05, "updates": 1370, "seconds": 154.34, "peak_vram_gib": 3.269}
+
+/kaggle/working/filament_gpu_worker.py:915: RuntimeWarning: invalid value encountered in cast
+  np.savez_compressed(f, prob=np.rint(np.clip(probability, 0, 1) * 255).astype(np.uint8), boxes=boxes)
+/kaggle/working/filament_gpu_worker.py:915: RuntimeWarning: invalid value encountered in cast
+  np.savez_compressed(f, prob=np.rint(np.clip(probability, 0, 1) * 255).astype(np.uint8), boxes=boxes)
+
+Prediction GPU 1: test 1/90 20110130110334Ch, 2 proposals
+Prediction GPU 0: test 1/90 20110120105534Ch, 4 proposals
+Prediction GPU 1: test 2/90 20110329082654Uh, 23 proposals
+Prediction GPU 0: test 2/90 20110214175414Mh, 10 proposals
+Prediction GPU 1: test 3/90 20110424064534Lh, 21 proposals
+Prediction GPU 0: test 3/90 20110408083214Th, 23 proposals
+Prediction GPU 1: test 4/90 20110529063154Uh, 19 proposals
+Prediction GPU 0: test 4/90 20110429120534Ch, 28 proposals
+Prediction GPU 1: test 5/90 20110603123034Ch, 20 proposals
+Prediction GPU 0: test 5/90 20110531070514Th, 18 proposals
+Prediction GPU 1: test 6/90 20110811121534Ch, 34 proposals
+Prediction GPU 0: test 6/90 20110706164014Mh, 6 proposals
+Prediction GPU 0: test 7/90 20110819131834Ch, 16 proposals
+Prediction GPU 1: test 7/90 20110827141254Bh, 12 proposals
+Prediction GPU 1: test 8/90 20111015063134Lh, 32 proposals
+Prediction GPU 0: test 8/90 20110912142254Bh, 26 proposals
+Prediction GPU 1: test 9/90 20111114063134Lh, 30 proposals
+Prediction GPU 0: test 9/90 20111017113714Th, 13 proposals
+Prediction GPU 1: test 10/90 20111124153054Bh, 14 proposals
+Prediction GPU 0: test 10/90 20111122063134Lh, 37 proposals
+Prediction GPU 1: test 11/90 20111208173814Mh, 24 proposals
+Prediction GPU 0: test 11/90 20111128175514Mh, 17 proposals
+Prediction GPU 1: test 12/90 20111216174914Mh, 24 proposals
+Prediction GPU 0: test 12/90 20111216103234Ch, 23 proposals
+Prediction GPU 1: test 13/90 20120111191454Bh, 26 proposals
+Prediction GPU 0: test 13/90 20120107063134Lh, 35 proposals
+Prediction GPU 1: test 14/90 20120218152654Bh, 24 proposals
+Prediction GPU 0: test 14/90 20120115063134Lh, 37 proposals
+Prediction GPU 1: test 15/90 20120402164214Mh, 18 proposals
+Prediction GPU 0: test 15/90 20120402105814Th, 18 proposals
+Prediction GPU 1: test 16/90 20120512063234Lh, 31 proposals
+Prediction GPU 0: test 16/90 20120405130014Th, 18 proposals
+Prediction GPU 1: test 17/90 20120606063154Uh, 16 proposals
+Prediction GPU 0: test 17/90 20120528063154Uh, 17 proposals
+Prediction GPU 1: test 18/90 20120707070914Th, 22 proposals
+Prediction GPU 0: test 18/90 20120622063154Uh, 18 proposals
+Prediction GPU 1: test 19/90 20120730072014Th, 25 proposals
+Prediction GPU 0: test 19/90 20120710063134Lh, 23 proposals
+Prediction GPU 1: test 20/90 20120930063534Lh, 20 proposals
+Prediction GPU 0: test 20/90 20120813063134Lh, 31 proposals
+Prediction GPU 1: test 21/90 20121125063154Uh, 27 proposals
+Prediction GPU 0: test 21/90 20121024073354Uh, 24 proposals
+Prediction GPU 1: test 22/90 20121206063154Uh, 21 proposals
+Prediction GPU 0: test 22/90 20121203063334Lh, 35 proposals
+Prediction GPU 1: test 23/90 20121220110614Th, 16 proposals
+Prediction GPU 0: test 23/90 20121216154954Bh, 22 proposals
+Prediction GPU 1: test 24/90 20130104104234Ch, 30 proposals
+Prediction GPU 0: test 24/90 20121229085414Th, 13 proposals
+Prediction GPU 1: test 25/90 20130206063154Uh, 26 proposals
+Prediction GPU 0: test 25/90 20130110085614Th, 32 proposals
+Prediction GPU 1: test 26/90 20130213063454Uh, 18 proposals
+Prediction GPU 0: test 26/90 20130208063134Lh, 29 proposals
+Prediction GPU 1: test 27/90 20130315063154Uh, 16 proposals
+Prediction GPU 0: test 27/90 20130310063154Uh, 23 proposals
+Prediction GPU 1: test 28/90 20130521063134Lh, 19 proposals
+Prediction GPU 0: test 28/90 20130328063154Uh, 11 proposals
+Prediction GPU 1: test 29/90 20130530133654Bh, 43 proposals
+Prediction GPU 0: test 29/90 20130526063134Lh, 35 proposals
+Prediction GPU 1: test 30/90 20130606133454Bh, 23 proposals
+Prediction GPU 0: test 30/90 20130603063154Uh, 14 proposals
+Prediction GPU 1: test 31/90 20130627063134Lh, 20 proposals
+Prediction GPU 0: test 31/90 20130609133454Bh, 33 proposals
+Prediction GPU 1: test 32/90 20130811121434Ch, 24 proposals
+Prediction GPU 0: test 32/90 20130702070714Th, 23 proposals
+Prediction GPU 1: test 33/90 20131027185354Bh, 30 proposals
+Prediction GPU 0: test 33/90 20130825141154Bh, 17 proposals
+Prediction GPU 1: test 34/90 20131110185354Bh, 31 proposals
+Prediction GPU 0: test 34/90 20131027223034Lh, 36 proposals
+Prediction GPU 1: test 35/90 20131230192154Bh, 31 proposals
+Prediction GPU 0: test 35/90 20131217192134Ch, 30 proposals
+Prediction GPU 1: test 36/90 20140309170314Mh, 20 proposals
+Prediction GPU 0: test 36/90 20140118180214Mh, 31 proposals
+Prediction GPU 1: test 37/90 20140403081714Th, 35 proposals
+Prediction GPU 0: test 37/90 20140322200714Mh, 20 proposals
+Prediction GPU 1: test 38/90 20140420195854Bh, 47 proposals
+Prediction GPU 0: test 38/90 20140410195814Mh, 19 proposals
+Prediction GPU 1: test 39/90 20140516234034Lh, 21 proposals
+Prediction GPU 0: test 39/90 20140514195854Bh, 29 proposals
+Prediction GPU 1: test 40/90 20140520200054Bh, 19 proposals
+Prediction GPU 0: test 40/90 20140519195834Ch, 31 proposals
+Prediction GPU 1: test 41/90 20140629195814Mh, 14 proposals
+Prediction GPU 0: test 41/90 20140526195834Ch, 32 proposals
+Prediction GPU 1: test 42/90 20140710020754Uh, 17 proposals
+Prediction GPU 0: test 42/90 20140707023654Uh, 33 proposals
+Prediction GPU 1: test 43/90 20140907195814Mh, 22 proposals
+Prediction GPU 0: test 43/90 20140828080414Th, 33 proposals
+Prediction GPU 1: test 44/90 20141009195814Mh, 33 proposals
+Prediction GPU 0: test 44/90 20140925195834Ch, 29 proposals
+Prediction GPU 1: test 45/90 20141120195834Ch, 29 proposals
+Prediction GPU 0: test 45/90 20141104195854Bh, 33 proposals
+Prediction GPU 1: test 46/90 20141222201814Mh, 43 proposals
+Prediction GPU 0: test 46/90 20141220201934Ch, 33 proposals
+Prediction GPU 1: test 47/90 20150124081954Uh, 20 proposals
+Prediction GPU 0: test 47/90 20150105104334Ch, 31 proposals
+Prediction GPU 1: test 48/90 20150601122834Ch, 12 proposals
+Prediction GPU 0: test 48/90 20150430082014Th, 26 proposals
+Prediction GPU 1: test 49/90 20150619133554Bh, 22 proposals
+Prediction GPU 0: test 49/90 20150602122934Ch, 19 proposals
+Prediction GPU 1: test 50/90 20150623152934Ch, 22 proposals
+Prediction GPU 0: test 50/90 20150620161314Mh, 31 proposals
+Prediction GPU 1: test 51/90 20151003081954Uh, 15 proposals
+Prediction GPU 0: test 51/90 20150913082034Lh, 10 proposals
+Prediction GPU 1: test 52/90 20151026171014Mh, 17 proposals
+Prediction GPU 0: test 52/90 20151015170634Ch, 24 proposals
+Prediction GPU 1: test 53/90 20151204133714Th, 4 proposals
+Prediction GPU 0: test 53/90 20151117212434Ch, 13 proposals
+Prediction GPU 1: test 54/90 20151214171854Bh, 20 proposals
+Prediction GPU 0: test 54/90 20151207173614Mh, 10 proposals
+Prediction GPU 1: test 55/90 20160116133734Ch, 22 proposals
+Prediction GPU 0: test 55/90 20151227133734Ch, 33 proposals
+Prediction GPU 1: test 56/90 20160311020654Uh, 21 proposals
+Prediction GPU 0: test 56/90 20160226151654Bh, 11 proposals
+Prediction GPU 1: test 57/90 20160327133714Th, 14 proposals
+Prediction GPU 0: test 57/90 20160312020554Uh, 14 proposals
+Prediction GPU 1: test 58/90 20160405014154Uh, 18 proposals
+Prediction GPU 0: test 58/90 20160327133734Ch, 15 proposals
+Prediction GPU 1: test 59/90 20160513133714Th, 17 proposals
+Prediction GPU 0: test 59/90 20160505025554Uh, 16 proposals
+Prediction GPU 1: test 60/90 20160713133714Th, 9 proposals
+Prediction GPU 0: test 60/90 20160602010754Uh, 13 proposals
+Prediction GPU 1: test 61/90 20160828133734Ch, 17 proposals
+Prediction GPU 0: test 61/90 20160820233134Lh, 13 proposals
+Prediction GPU 1: test 62/90 20161015144954Bh, 8 proposals
+Prediction GPU 0: test 62/90 20160930165914Mh, 7 proposals
+Prediction GPU 1: test 63/90 20161020145454Bh, 13 proposals
+Prediction GPU 0: test 63/90 20161019133714Th, 8 proposals
+Prediction GPU 1: test 64/90 20161111133734Ch, 9 proposals
+Prediction GPU 0: test 64/90 20161104133714Th, 18 proposals
+Prediction GPU 1: test 65/90 20161219133734Ch, 6 proposals
+Prediction GPU 0: test 65/90 20161116222134Lh, 12 proposals
+Prediction GPU 1: test 66/90 20170129133714Th, 5 proposals
+Prediction GPU 0: test 66/90 20161231223534Lh, 12 proposals
+Prediction GPU 1: test 67/90 20170326133730Ch, 11 proposals
+Prediction GPU 0: test 67/90 20170313145450Bh, 12 proposals
+Prediction GPU 1: test 68/90 20170329014850Uh, 9 proposals
+Prediction GPU 0: test 68/90 20170328014950Uh, 7 proposals
+Prediction GPU 1: test 69/90 20170414151450Bh, 4 proposals
+Prediction GPU 0: test 69/90 20170330133710Th, 8 proposals
+Prediction GPU 1: test 70/90 20170626133730Ch, 2 proposals
+Prediction GPU 0: test 70/90 20170516134450Bh, 5 proposals
+Prediction GPU 1: test 71/90 20170902231930Lh, 8 proposals
+Prediction GPU 0: test 71/90 20170708164010Mh, 2 proposals
+Prediction GPU 1: test 72/90 20171018223630Lh, 11 proposals
+Prediction GPU 0: test 72/90 20170926225530Lh, 5 proposals
+Prediction GPU 1: test 73/90 20171027150050Bh, 14 proposals
+Prediction GPU 0: test 73/90 20171021223430Lh, 14 proposals
+Prediction GPU 1: test 74/90 20171107222630Lh, 8 proposals
+Prediction GPU 0: test 74/90 20171029171010Mh, 25 proposals
+Prediction GPU 1: test 75/90 20171122022450Uh, 12 proposals
+Prediction GPU 0: test 75/90 20171108222430Lh, 6 proposals
+Prediction GPU 1: test 76/90 20180726232450Bh, 9 proposals
+Prediction GPU 0: test 76/90 20180507140210Th, 12 proposals
+Prediction GPU 1: test 77/90 20181030230030Lh, 7 proposals
+Prediction GPU 0: test 77/90 20181012105930Ch, 5 proposals
+Prediction GPU 1: test 78/90 20190607032610Mh, 11 proposals
+Prediction GPU 0: test 78/90 20190605025430Lh, 8 proposals
+Prediction GPU 1: test 79/90 20200806072410Th, 0 proposals
+Prediction GPU 0: test 79/90 20200310113230Ch, 0 proposals
+Prediction GPU 1: test 80/90 20210101202450Bh, 4 proposals
+Prediction GPU 0: test 80/90 20201228202510Mh, 5 proposals
+Prediction GPU 1: test 81/90 20210219230330Lh, 7 proposals
+Prediction GPU 0: test 81/90 20210127110130Ch, 8 proposals
+Prediction GPU 1: test 82/90 20210627163630Mh, 18 proposals
+Prediction GPU 0: test 82/90 20210607142350Bh, 2 proposals
+Prediction GPU 1: test 83/90 20210708060030Lh, 6 proposals
+Prediction GPU 0: test 83/90 20210701163730Mh, 22 proposals
+Prediction GPU 1: test 84/90 20210730044930Lh, 35 proposals
+Prediction GPU 0: test 84/90 20210726041650Uh, 6 proposals
+Prediction GPU 1: test 85/90 20211119005210Mh, 3 proposals
+Prediction GPU 0: test 85/90 20210811072510Th, 5 proposals
+Prediction GPU 1: test 86/90 20211224120130Ch, 13 proposals
+Prediction GPU 0: test 86/90 20211214174010Mh, 0 proposals
+Prediction GPU 1: test 87/90 20220124155050Bh, 2 proposals
+Prediction GPU 0: test 87/90 20211231180850Bh, 7 proposals
+Prediction GPU 1: test 88/90 20220523234912Lh, 19 proposals
+Prediction GPU 0: test 88/90 20220328035030Lh, 5 proposals
+Prediction GPU 1: test 89/90 20220626185332Bh, 20 proposals
+Prediction GPU 0: test 89/90 20220621185332Bh, 12 proposals
+Prediction GPU 1: test 90/90 20220728185352Th, 2 proposals
+Prediction GPU 0: test 90/90 20220714185352Th, 19 proposals
+Candidate cache: test, 180 sources
+Wrote /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/submission.csv: 180 images, 6 masks
+Submission: /kaggle/working/kaggle_native_hybrid_v1_8d27489d35/submission.csv
+
+          filament_id                                   segmentation_rle
+0  20110130110334Ch_1  fb^b01oo12N1O2N001O01O1O10O100O1O001O00001O000...
+1  20110130110334Ch_2  ^Rm[33lo12N2O0O2O0000000O1O1N110O001O1O10O10O1...
+2  20180507140210Th_1  koQf11no1100O2O00000000000000000000000O1000000...
+3  20180507140210Th_2  ioWP24ko11O2O000000000000000000000000000000000...
+4  20181030230030Lh_1  [gm]14ko12M3N2N2N3bPNAWo1f0N2N10O02O01O2O01N8I...
+{'file': '/kaggle/working/kaggle_native_hybrid_v1_8d27489d35/submission.csv',
+ 'sha256': '624ae7b947eb6f14531c30ae860068bf5dbf4db129949ab86d214c17bc0c00ac',
+ 'native_shape': [2048, 2048],
+ 'images': 180,
+ 'masks': 6,
+ 'zero_prediction_images': 176,
+ 'per_image': [{'image': '20110120105534Ch.jpeg',
+   'predictions': 0,
+   'geometry_ok': True},
+  {'image': '20110130110334Ch.jpeg', 'predictions': 2, 'geometry_ok': True},
+  {'image': '20110214175414Mh.jpeg', 'predictions': 0, 'geometry_ok': False},
+  {'image': '20110329082654Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20110408083214Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20110424064534Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20110429120534Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20110529063154Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20110531070514Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20110603123034Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20110706164014Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20110811121534Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20110819131834Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20110827141254Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20110912142254Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20111015063134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20111017113714Th.jpeg', 'predictions': 0, 'geometry_ok': False},
+  {'image': '20111114063134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20111122063134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20111124153054Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20111128175514Mh.jpeg', 'predictions': 0, 'geometry_ok': False},
+  {'image': '20111208173814Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20111216103234Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20111216174914Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120107063134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120111191454Bh.jpeg', 'predictions': 0, 'geometry_ok': False},
+  {'image': '20120115063134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120218152654Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120402105814Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120402164214Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120405130014Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120512063234Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120528063154Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120606063154Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120622063154Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120707070914Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120710063134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120730072014Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120813063134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20120930063534Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20121024073354Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20121125063154Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20121203063334Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20121206063154Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20121216154954Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20121220110614Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20121229085414Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130104104234Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130110085614Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130206063154Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130208063134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130213063454Uh.jpeg', 'predictions': 0, 'geometry_ok': False},
+  {'image': '20130310063154Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130315063154Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130328063154Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130521063134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130526063134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130530133654Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130603063154Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130606133454Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130609133454Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130627063134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130702070714Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130811121434Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20130825141154Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20131027185354Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20131027223034Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20131110185354Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20131217192134Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20131230192154Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140118180214Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140309170314Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140322200714Mh.jpeg', 'predictions': 0, 'geometry_ok': False},
+  {'image': '20140403081714Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140410195814Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140420195854Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140514195854Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140516234034Lh.jpeg', 'predictions': 0, 'geometry_ok': False},
+  {'image': '20140519195834Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140520200054Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140526195834Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140629195814Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140707023654Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140710020754Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140828080414Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140907195814Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20140925195834Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20141009195814Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20141104195854Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20141120195834Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20141220201934Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20141222201814Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20150105104334Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20150124081954Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20150430082014Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20150601122834Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20150602122934Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20150619133554Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20150620161314Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20150623152934Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20150913082034Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20151003081954Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20151015170634Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20151026171014Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20151117212434Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20151204133714Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20151207173614Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20151214171854Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20151227133734Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160116133734Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160226151654Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160311020654Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160312020554Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160327133714Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160327133734Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160405014154Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160505025554Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160513133714Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160602010754Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160713133714Th.jpeg', 'predictions': 0, 'geometry_ok': False},
+  {'image': '20160820233134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160828133734Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20160930165914Mh.jpeg', 'predictions': 0, 'geometry_ok': False},
+  {'image': '20161015144954Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20161019133714Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20161020145454Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20161104133714Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20161111133734Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20161116222134Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20161219133734Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20161231223534Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20170129133714Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20170313145450Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20170326133730Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20170328014950Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20170329014850Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20170330133710Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20170414151450Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20170516134450Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20170626133730Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20170708164010Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20170902231930Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20170926225530Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20171018223630Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20171021223430Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20171027150050Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20171029171010Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20171107222630Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20171108222430Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20171122022450Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20180507140210Th.jpeg', 'predictions': 2, 'geometry_ok': False},
+  {'image': '20180726232450Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20181012105930Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20181030230030Lh.jpeg', 'predictions': 1, 'geometry_ok': True},
+  {'image': '20190605025430Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20190607032610Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20200310113230Ch.jpeg', 'predictions': 1, 'geometry_ok': True},
+  {'image': '20200806072410Th.jpeg', 'predictions': 0, 'geometry_ok': False},
+  {'image': '20201228202510Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20210101202450Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20210127110130Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20210219230330Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20210607142350Bh.jpeg', 'predictions': 0, 'geometry_ok': False},
+  {'image': '20210627163630Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20210701163730Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20210708060030Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20210726041650Uh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20210730044930Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20210811072510Th.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20211119005210Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20211214174010Mh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20211224120130Ch.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20211231180850Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20220124155050Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20220328035030Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20220523234912Lh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20220621185332Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20220626185332Bh.jpeg', 'predictions': 0, 'geometry_ok': True},
+  {'image': '20220714185352Th.jpeg', 'predictions': 0, 'geometry_ok': False},
+  {'image': '20220728185352Th.jpeg', 'predictions': 0, 'geometry_ok': False}],
+ 'overlap_check': True,
+ 'rle_roundtrip_check': True,
+ 'recipe': {'set': 'hybrid_adaptive',
+  'quality': True,
+  'cutoff': 0.15,
+  'min_area': 50},
+ 'smoke': False,
+ 'all_data_refit': True,
+ 'external_filament_ground_truth': False,
+ 'training_annotation_sha': '5da9e92b5a1a1947fd5d57adb6688269625c48ec1ef884daf2a01618c9ed54a1'}

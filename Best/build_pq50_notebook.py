@@ -58,8 +58,9 @@ selects checkpoints. The independent report measures the selected pre-refit
 pipeline. With `refit_full=True`, the frozen schedule then retrains on all supplied
 training annotations; the earlier report score is **not** a score for that refit.
 
-Default full mode performs selection training **and full-data refitting**. This is
-a substantial training run, not a five-epoch quick fix. Runtime on two T4s has not
+Default full mode uses the validated selection checkpoints for submission.
+Full-data refitting is optional and disabled by default. This is
+a substantial training run. Runtime on two T4s has not
 been benchmarked. Epoch logs show time, optimizer updates and VRAM. Completed
 stages and prediction files are reused within the same fingerprinted run directory.
 Use `mode="smoke"` first to test your environment; its small CSV is explicitly
@@ -113,10 +114,10 @@ CFG.update(
     mode='full',                 # 'smoke': three sources/partition, one short training epoch
     data_root='',                # auto-discover local/Kaggle competition train/ and test/
     output_root='/kaggle/working' if Path('/kaggle/working').exists() else './pq50_outputs',
-    run_name='native_hybrid_v1',
+    run_name='native_hybrid_v2_fp32',
     gpu_ids=[0, 1],               # GPU T4 x2. Explicitly use [0] for a local single-GPU check.
     cpu_workers=4,               # TOTAL: two training loader workers per GPU rank
-    refit_full=True,              # frozen epoch counts, fresh training on all 707 images
+    refit_full=False,             # use the same models evaluated on report; optional all-data refit
 )
 # Resource controls, if needed: reduce dense_batch_per_gpu (2 -> 1) or
 # inference_batch (2 -> 1). Keep crop/tile/detector sizes fixed for comparable results.
@@ -174,11 +175,17 @@ Each training job launches an importable script with `torchrun`, avoiding notebo
 DDP pickling problems. Jobs train sequentially; each uses both GPUs. Mask losses
 combine boundary-weighted BCE, foreground Dice and an auxiliary contour loss.
 Encoder BN statistics are frozen, decoder normalization uses GroupNorm, and EMA
-weights are evaluated. The cosine schedule completes its planned decay.
+weights are evaluated. Mask forward/backward and inference use float32; the
+pretrained encoder uses one tenth of the decoder learning rate. Finite checks
+stop both ranks before invalid loss/gradients can update checkpoints. YOLO uses
+its own AMP. The cosine schedule completes its planned decay.
 
 Full-mode detector validation uses one image and zero additional loader workers;
 training uses two loader workers per rank. Generic COCO/ImageNet initialization
 is downloaded, with **no weights trained on external solar-filament labels**.
+YOLO artifact generation is enabled. Grouped detector visuals, CSV history and
+U-Net loss/PQ/resource histories are displayed below after training. Optional
+mask PR/F1 images are displayed when present; this pipeline's YOLO is a box detector.
 """)
 
 code("""
@@ -188,28 +195,162 @@ print('Selection model checkpoints:', pipeline.model_paths(CFG, full=False))
 
 code("""
 import pandas as pd
-fig, axes = plt.subplots(1, 2, figsize=(12, 4))
-for member in range(len(CFG['dense_models'])):
-    history = pd.read_json(RUN / 'selection_models' / f'dense_{member}' / 'history.jsonl', lines=True)
-    label = CFG['dense_models'][member]['encoder']
-    axes[0].plot(history.epoch, history.loss, label=label)
-    checked = history.dropna(subset=['fixed_rule_calibration_PQ'])
-    axes[1].plot(checked.epoch, checked.fixed_rule_calibration_PQ, marker='o', label=label)
-axes[0].set(xlabel='Epoch', ylabel='Training loss')
-axes[1].set(xlabel='Epoch', ylabel='Fixed-rule calibration PQ (selection)')
-for axis in axes:
-    axis.legend()
-    axis.grid(alpha=.2)
-fig.tight_layout()
-fig.savefig(RUN / 'training_history.png', dpi=150)
-plt.show()
+import matplotlib.pyplot as plt
+import numpy as np
+import cv2
+from pathlib import Path
+
+yolo_visual_groups = {
+    'Overall Performance & Loss Tracking': ['results.png'],
+    'Bounding Box Localization Metrics': ['BoxF1_curve.png', 'BoxPR_curve.png', 'BoxP_curve.png', 'BoxR_curve.png'],
+    'Instance Segmentation Mask Metrics': ['MaskF1_curve.png', 'MaskPR_curve.png', 'MaskP_curve.png', 'MaskR_curve.png'],
+    'Confusion Matrices': ['confusion_matrix.png', 'confusion_matrix_normalized.png'],
+    'Labels': ['labels.jpg'],
+    'Training Dataset Batches': ['train_batch0.jpg', 'train_batch1.jpg', 'train_batch2.jpg'],
+    'Validation Predictions vs Ground Truth': [
+        'val_batch0_labels.jpg', 'val_batch0_pred.jpg', 'val_batch1_labels.jpg',
+        'val_batch1_pred.jpg', 'val_batch2_labels.jpg', 'val_batch2_pred.jpg'],
+}
+display_settings = {
+    'Overall Performance & Loss Tracking': dict(cols=1, col_width=16, row_height=9),
+    'Bounding Box Localization Metrics': dict(cols=2, col_width=8, row_height=6),
+    'Instance Segmentation Mask Metrics': dict(cols=2, col_width=8, row_height=6),
+    'Confusion Matrices': dict(cols=1, col_width=10, row_height=8),
+    'Labels': dict(cols=1, col_width=12, row_height=8),
+    'Training Dataset Batches': dict(cols=3, col_width=6, row_height=5),
+    'Validation Predictions vs Ground Truth': dict(cols=2, col_width=6, row_height=5),
+}
+
+
+def show_yolo_artifacts(run_dir):
+    run_dir = Path(run_dir)
+    print(f'Loading YOLO artifact visuals from: {run_dir}')
+    shown = 0
+    for group, filenames in yolo_visual_groups.items():
+        images = []
+        for filename in filenames:
+            path = run_dir / filename
+            if not path.is_file():
+                continue
+            image = cv2.imread(str(path))
+            if image is None:
+                print(f'Skipping unreadable image: {path.name}')
+                continue
+            images.append((filename, cv2.cvtColor(image, cv2.COLOR_BGR2RGB)))
+        if not images:
+            continue
+        print()
+        print(group)
+        layout = display_settings[group]
+        cols = min(layout['cols'], len(images))
+        rows = (len(images) + cols - 1) // cols
+        fig, axes = plt.subplots(rows, cols,
+            figsize=(layout['col_width'] * cols, layout['row_height'] * rows), squeeze=False)
+        for axis, (filename, image) in zip(axes.flat, images):
+            axis.imshow(image)
+            axis.set_title(filename, fontsize=11, fontweight='bold', pad=8)
+        for axis in axes.flat:
+            axis.axis('off')
+        fig.tight_layout()
+        plt.show()
+        plt.close(fig)
+        shown += len(images)
+    if not shown:
+        print('No YOLO image artifacts saved for this run. CSV histories are plotted below.')
+    return shown
+
+
+def show_training_history(run_root, stage='selection_models'):
+    run_root = Path(run_root)
+    stage_dir = run_root / stage
+    if not stage_dir.is_dir():
+        print(f'Training stage is not available yet: {stage_dir}')
+        return
+    output_dir = run_root / 'training_visuals'
+    output_dir.mkdir(exist_ok=True)
+    print()
+    print(f'Training history: {stage}')
+    detector_dir = stage_dir / 'detector'
+    if detector_dir.is_dir():
+        show_yolo_artifacts(detector_dir)
+    csv_path = detector_dir / 'results.csv'
+    if csv_path.is_file():
+        history = pd.read_csv(csv_path)
+        history.columns = history.columns.str.strip()
+        epochs = pd.to_numeric(history['epoch'], errors='coerce')
+        groups = {
+            'YOLO training losses': [c for c in history if c.startswith('train/') and c.endswith('_loss')],
+            'YOLO validation losses': [c for c in history if c.startswith('val/') and c.endswith('_loss')],
+            'YOLO validation metrics': [c for c in history if c.startswith('metrics/')],
+            'YOLO learning rates': [c for c in history if c.startswith('lr/')],
+        }
+        fig, axes = plt.subplots(2, 2, figsize=(16, 10), squeeze=False)
+        for axis, (title, columns) in zip(axes.flat, groups.items()):
+            for column in columns:
+                values = pd.to_numeric(history[column], errors='coerce')
+                axis.plot(epochs, values, marker='o', markersize=3, label=column)
+            axis.set(title=title, xlabel='Epoch')
+            axis.grid(alpha=.25)
+            if columns:
+                axis.legend(fontsize=8)
+            else:
+                axis.text(.5, .5, 'Not logged for this model', ha='center', transform=axis.transAxes)
+        fig.tight_layout()
+        fig.savefig(output_dir / f'{stage}_yolo_history.png', dpi=150)
+        plt.show()
+        plt.close(fig)
+
+    paths = sorted(stage_dir.glob('dense_*/history.jsonl'))
+    if not paths:
+        print('No U-Net history logs found yet.')
+        return
+    panels = [
+        ('loss', 'U-Net training loss'),
+        ('fixed_rule_calibration_PQ', 'U-Net calibration PQ (selection)'),
+        ('lr', 'U-Net decoder learning rate'),
+        ('updates', 'Successful optimizer updates'),
+        ('peak_vram_gib', 'Peak allocated GPU memory (GiB)'),
+        ('seconds', 'Epoch duration (seconds)'),
+    ]
+    fig, axes = plt.subplots(2, 3, figsize=(18, 9), squeeze=False)
+    for path in paths:
+        history = pd.read_json(path, lines=True)
+        if history.empty:
+            continue
+        member = int(path.parent.name.split('_')[-1])
+        specs = globals().get('CFG', {}).get('dense_models', [])
+        label = specs[member]['encoder'] if member < len(specs) else path.parent.name
+        history = history.drop_duplicates('epoch', keep='last').sort_values('epoch')
+        for axis, (column, title) in zip(axes.flat, panels):
+            if column not in history:
+                continue
+            valid = history[['epoch', column]].dropna()
+            if not valid.empty:
+                axis.plot(valid.epoch, valid[column], marker='o', markersize=3, label=label)
+    for axis, (_, title) in zip(axes.flat, panels):
+        axis.set(title=title, xlabel='Epoch')
+        axis.grid(alpha=.25)
+        if axis.lines:
+            axis.legend(fontsize=8)
+        else:
+            axis.text(.5, .5, 'Not evaluated in this stage', ha='center', transform=axis.transAxes)
+    fig.tight_layout()
+    fig.savefig(output_dir / f'{stage}_unet_history.png', dpi=150)
+    plt.show()
+    plt.close(fig)
+    print(f'Saved history plots in: {output_dir}')
+
+
+run_dir = RUN / 'selection_models' / 'detector'
+show_training_history(RUN)
 """)
 
 md("""
 ## Calibrate on dates excluded from training
 
-Inference averages four exact flip views from both U-Nets, with Hann-weighted tile
-blending. YOLO boxes are fused across views while retaining separate proposals.
+Inference uses four exact flip views with Hann-weighted tile blending. Calibration
+compares each U-Net with their mean before selecting the mask source for report
+and test; averaging is optional. YOLO boxes retain separate proposals.
 Masks from proposals can retain disconnected pieces as one instance. Every final
 pixel belongs to at most one mask. Plain semantic components are a competing
 pipeline and an optional detector-miss recovery source.
@@ -229,6 +370,7 @@ calibration dates and the frozen recipe.
 
 code("""
 CALIBRATION_MAPS = pipeline.predict_part(CFG, 'calibration', full=False)
+DENSE_SELECTION = pipeline.select_dense_members(CFG, CALIBRATION_MAPS)
 CALIBRATION_CANDIDATES = pipeline.build_candidate_cache(CFG, 'calibration', CALIBRATION_MAPS)
 RECIPE = pipeline.calibrate(CFG, CALIBRATION_CANDIDATES)
 display(pd.DataFrame(pipeline.load_json(RUN / 'calibration_grid.json')).head(12))
@@ -270,6 +412,7 @@ all test-image coverage, mask dimensions, RLE round trips and pixel non-overlap.
 code("""
 if CFG['refit_full']:
     pipeline.train_all(CFG, full=True)
+    show_training_history(RUN, stage='full_models')
 TEST_MAPS = pipeline.predict_part(CFG, 'test', full=CFG['refit_full'])
 TEST_CANDIDATES = pipeline.build_candidate_cache(CFG, 'test', TEST_MAPS)
 SUBMISSION = pipeline.export_submission(CFG, TEST_CANDIDATES, RECIPE)
