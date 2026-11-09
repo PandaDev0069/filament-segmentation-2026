@@ -1,0 +1,17 @@
+{
+  "id": "pandadev0069/filament-sam-v4-crop-refinement",
+  "title": "Filament SAM v4 crop refinement",
+  "code_file": "notebook.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [
+    "filament-segmentation-2026"
+  ],
+  "kernel_sources": [
+    "pandadev0069/filament-v3-warm-start-pilot"
+  ]
+}
