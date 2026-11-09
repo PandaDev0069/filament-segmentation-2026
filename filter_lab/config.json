@@ -1,0 +1,35 @@
+{
+  "input_dir": "../MAGFilo_1.0_Kaggle_2026",
+  "output_dir": "outputs",
+  "count": 10,
+  "selection": "evenly",
+  "seed": 42,
+  "repeats": [1, 2, 3, 5, 10],
+  "filters": ["none", "median", "bilateral", "clahe", "solar"],
+  "thumbnail_size": 220,
+  "opencv_threads": 4,
+  "median": {
+    "kernel_size": 3
+  },
+  "bilateral": {
+    "diameter": 9,
+    "sigma_color": 50.0,
+    "sigma_space": 50.0
+  },
+  "clahe": {
+    "clip_limit": 2.0,
+    "tile_grid": [8, 8],
+    "strength": 1.0
+  },
+  "solar": {
+    "radial_strength": 0.65,
+    "radial_gain_limits": [0.8, 1.25],
+    "disk_margin": 1.02,
+    "disk_stats_radius": 0.95,
+    "normalized_mean": 128.0,
+    "normalized_std": 32.0,
+    "morphology_strength": 0.25,
+    "salience_size": 1024,
+    "blackhat_kernels": [9, 19, 33]
+  }
+}
