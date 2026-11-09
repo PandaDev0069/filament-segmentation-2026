@@ -1,0 +1,9 @@
+__pycache__/
+.pytest_cache/
+validation/
+native_outputs/
+/results
+results.zip
+*.pt
+/kaggle_native_hybrid_v2_fp32_69d0470c9f
+/kaggle_native_hybrid_v2_fp32_f14232e039

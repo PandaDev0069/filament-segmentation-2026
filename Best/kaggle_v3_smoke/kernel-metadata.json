@@ -1,0 +1,15 @@
+{
+  "id": "pandadev0069/filament-v3-gpu-validation",
+  "title": "Filament v3 GPU validation",
+  "code_file": "notebook.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [],
+  "competition_sources": [
+    "filament-segmentation-2026"
+  ],
+  "kernel_sources": []
+}

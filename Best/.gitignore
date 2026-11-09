@@ -5,3 +5,4 @@ native_outputs/
 /results
 results.zip
 *.pt
+/analysis*
